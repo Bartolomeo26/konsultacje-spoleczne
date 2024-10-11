@@ -2,6 +2,7 @@ import AboutProject from "../components/AboutProject";
 import HomeBanner from "../components/HomeBanner";
 import Map from "../components/Map";
 import SuggestedCommunities from "../components/SuggestedCommunities";
+
 function HomePage()
 {
     return <>

@@ -15,7 +15,7 @@ function Footer()
                         <Link to='/products'>Information clause</Link>
                     </li>
                     <li className='px-2'>
-                        <Link to='/products'>Contact</Link>
+                        <Link to='/contact'>Contact</Link>
                     </li>
                 </ul>
 

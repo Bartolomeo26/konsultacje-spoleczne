@@ -7,7 +7,9 @@ function RootLayout()
     return (
         <>
             <MainNavigation />
-            <Outlet />
+            <div className="flex justify-center align-center">
+                <Outlet />
+            </div>
             <Footer />
         </>
     );

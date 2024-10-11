@@ -25,7 +25,7 @@ function Map()
             center: [19.5, 52], // Początkowe położenie
             zoom: 5.5, // Początkowy zoom
         });
-
+        mapRef.current.addControl(new mapboxgl.NavigationControl());
         // Dodanie markerów na mapie
         coordinates.forEach((coord) =>
         {

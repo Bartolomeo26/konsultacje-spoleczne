@@ -6,7 +6,7 @@ function MainNavigation()
     return (
         <>
             <header className="bg-cyan-800">
-                <img className={classes.logo} src={logo} alt="logo" />
+                <Link to='/'><img className={classes.logo} src={logo} alt="logo" /></Link>
                 <nav>
                     <ul className={classes.nav__links}>
                         <li>
@@ -19,7 +19,7 @@ function MainNavigation()
                             <Link to='/products'>Create a Community</Link>
                         </li>
                         <li>
-                            <Link to='/products'>FAQ</Link>
+                            <Link to='/faq'>FAQ</Link>
                         </li>
                     </ul>
                 </nav>
