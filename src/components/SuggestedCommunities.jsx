@@ -5,20 +5,23 @@ import warsaw from '../assets/Warsaw.jpg';
 import gdansk from '../assets/Gdansk.jpg';
 const cities = [
     {
-        name: "Bialystok",
-        description: "Białystok is a vibrant city in northeastern Poland, known for its rich cultural heritage, beautiful parks, and growing role",
-        image: bialystok
+        name: "Piaski",
+        description: "Piaski is a lively district in Bialystok, known for its vibrant community and convenient location close to the city center.",
+        image: bialystok,
+        location: "Białystok"
     },
     {
-        name: "Warsaw",
-        description: "Warsaw is the vibrant capital of Poland, renowned for its rich history, stunning architecture, and dynamic cultural scene.",
-        image: warsaw
+        name: "Subway",
+        description: "Warsaw's subway system is an essential and efficient mode of transportation, connecting various parts of the bustling capital city.",
+        image: warsaw,
+        location: "Warsaw"
     }
     ,
     {
-        name: "Gdansk",
-        description: "Gdańsk is a port city on the Baltic Sea, known for its beautiful waterfront, medieval architecture, and significant role in Poland's maritime trade.",
-        image: gdansk
+        name: "Oliwa",
+        description: "Oliwa is a picturesque district in Gdansk, famous for its historic architecture and the peaceful Oliwa Park.",
+        image: gdansk,
+        location: "Gdańsk"
     }
 ]
 
