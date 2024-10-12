@@ -2,7 +2,7 @@ function Contact()
 {
     return <>
         <div className="flex flex-col content-center items-center mt-10 bg-slate-200 rounded p-10">
-            <h1 className="text-3xl">Contact</h1>
+            <h1 className="text-3xl mb-4">Contact</h1>
             <ul role="list" className="divide-y divide-gray-100">
                 <li className="flex justify-between gap-x-6 py-5">
                     <div className="flex min-w-0 gap-x-4">

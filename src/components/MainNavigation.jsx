@@ -13,10 +13,10 @@ function MainNavigation()
                             <Link to='/'>Home</Link>
                         </li>
                         <li>
-                            <Link to='/products'>Communities</Link>
+                            <Link to='/communities'>Communities</Link>
                         </li>
                         <li>
-                            <Link to='/products'>Create a Community</Link>
+                            <Link to='/communities/new'>Create a Community</Link>
                         </li>
                         <li>
                             <Link to='/faq'>FAQ</Link>

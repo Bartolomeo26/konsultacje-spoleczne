@@ -4,13 +4,13 @@ function CommunityCard({ city })
 {
     return (
         <>
-            <div className="max-w-[14rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div className="max-w-[14rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ height: "280px" }}>
                 <Link to="/communities/1">
                     <img className="rounded-t-lg h-32 w-full object-cover" src={city.image} alt="" />
                 </Link>
                 <div className="p-2">
                     <Link to="/communities/1">
-                        <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{city.name}</h5>
+                        <h5 className=" text-lg font-bold tracking-tight text-gray-900 dark:text-white">{city.name}</h5>
                     </Link>
                     <p className="mb-2 text-xs font-normal text-gray-700 dark:text-gray-400">
                         {city.description}                    </p>
