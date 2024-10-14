@@ -1,6 +1,6 @@
 import CommunityCard from "./CommunityCard";
 import Slider from "react-slick";
-import bialystok from '../assets/Bialystok.jpeg';
+import bialystok from '../assets/Bialystok.jpg';
 import warsaw from '../assets/Warsaw.jpg';
 import gdansk from '../assets/Gdansk.jpg';
 const cities = [

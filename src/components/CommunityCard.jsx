@@ -5,6 +5,7 @@ function CommunityCard({ city })
 {
     return (
         <>
+
             <div className="max-w-[14rem] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" style={{ height: "280px" }}>
                 <Link to="/communities/1">
                     <img className="rounded-t-lg h-32 w-full object-cover" src={city.image} alt="" />
@@ -20,7 +21,7 @@ function CommunityCard({ city })
                             to="/communities/1"
                             className="inline-flex items-center px-2 py-1 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
-                            Join in
+                            See more
                             <svg
                                 className="rtl:rotate-180 w-3 h-3 ms-1.5"
                                 aria-hidden="true"

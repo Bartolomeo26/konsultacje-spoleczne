@@ -1,23 +1,26 @@
 import CommunityCard from "./CommunityCard";
-import bialystok from '../assets/Bialystok.jpeg';
+import bialystok from '../assets/Bialystok.jpg';
 import warsaw from '../assets/Warsaw.jpg';
 import gdansk from '../assets/Gdansk.jpg';
 const cities = [
     {
-        name: "Bialystok - Piaski",
+        name: "Piaski",
         description: "Piaski is a lively district in Bialystok, known for its vibrant community and convenient location close to the city center.",
-        image: bialystok
+        image: bialystok,
+        location: "Białystok"
     },
     {
-        name: "Warsaw - Subway",
+        name: "Subway",
         description: "Warsaw's subway system is an essential and efficient mode of transportation, connecting various parts of the bustling capital city.",
-        image: warsaw
+        image: warsaw,
+        location: "Warsaw"
     }
     ,
     {
-        name: "Gdansk - Oliwa",
+        name: "Oliwa",
         description: "Oliwa is a picturesque district in Gdansk, famous for its historic architecture and the peaceful Oliwa Park.",
-        image: gdansk
+        image: gdansk,
+        location: "Gdańsk"
     }
 ]
 
@@ -27,7 +30,7 @@ function CommunitiesList()
     return (
         <>
             <div className="flex flex-col px-3">
-                <h1>There are <span className="font-bold">1000</span> Communities created so far</h1>
+                <h1>There are <span className="font-bold">1000</span> Communities created so far.</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-2 mb-10">
                     <div>
                         <CommunityCard city={cities[0]} />
