@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import classes from '../styles/Footer.module.css';
 function Footer()
 {
     return (
@@ -9,10 +8,10 @@ function Footer()
                 <span className="text-white">&copy; Social Consultations</span>
                 <ul className='flex justify-around'>
                     <li className='px-2'>
-                        <Link to='/products'>Rules</Link>
+                        <Link to='/rules'>Rules</Link>
                     </li>
                     <li className='px-2'>
-                        <Link to='/products'>Information clause</Link>
+                        <Link to='/information-clause'>Information clause</Link>
                     </li>
                     <li className='px-2'>
                         <Link to='/contact'>Contact</Link>

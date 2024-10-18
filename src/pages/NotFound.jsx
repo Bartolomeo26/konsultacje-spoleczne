@@ -5,7 +5,7 @@ function NotFound()
     return <>
         <div className="flex justify-center align-top items-center flex-col">
             <h1>What are you looking for??</h1>
-            <Link to="..">Back</Link>
+            <Link to=".." relative="path">Back</Link>
         </div>
     </>
 }

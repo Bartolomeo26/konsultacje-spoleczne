@@ -27,12 +27,14 @@ function CommunityDetails()
 
     return (
         <>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
                 <CommunityHeader />
                 <div className="flex flex-col px-28 mb-10 relative">
                     <CommunityNavigation />
                     <CommunityBasicInfo />
-                    {communityContent}
+                    <div>
+                        {communityContent}
+                    </div>
                 </div>
                 <CommunityFooter />
             </div>
