@@ -9,6 +9,7 @@ import Communities from './pages/Communities'
 import CommunityDetails from './pages/CommunityDetails'
 import InformationClause from './pages/InformationClause'
 import Rules from './pages/Rules'
+import DiscussionDetails from './components/CommunityDetails/Discussions/DiscussionDetails'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
         { path: '/communities', element: <Communities /> },
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
-        { path: '/communities/:id/discussions/:id', element: <CommunityDetails /> },
+        { path: '/communities/:id/discussions/:id', element: <DiscussionDetails /> },
         { path: '/contact', element: <Contact /> },
         { path: '/information-clause', element: <InformationClause /> },
         { path: '/rules', element: <Rules /> },
