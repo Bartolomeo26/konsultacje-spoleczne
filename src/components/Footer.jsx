@@ -8,6 +8,9 @@ function Footer()
                 <span className="text-white">&copy; Social Consultations</span>
                 <ul className='flex justify-around'>
                     <li className='px-2'>
+                        <Link to='/test'>Test</Link>
+                    </li>
+                    <li className='px-2'>
                         <Link to='/rules'>Rules</Link>
                     </li>
                     <li className='px-2'>

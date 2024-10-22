@@ -46,6 +46,7 @@ header {
 }
 
 .button {
+    color: #edeff1;
     padding: 9px 25px;
     background-color: rgba(0, 136, 169, 1);
     border: none;

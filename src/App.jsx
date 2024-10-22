@@ -1,5 +1,6 @@
 import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import HomePage from './pages/Home'
 import RootLayout from './pages/Root'
 import Contact from './pages/Contact'
@@ -9,8 +10,11 @@ import Communities from './pages/Communities'
 import CommunityDetails from './pages/CommunityDetails'
 import InformationClause from './pages/InformationClause'
 import Rules from './pages/Rules'
-import DiscussionDetails from './components/CommunityDetails/Discussions/DiscussionDetails'
-
+import DiscussionDetails from './pages/DiscussionDetails'
+import Test from './pages/Test'
+import Test1 from './pages/Test1'
+import Authentication from './pages/Authentication'
+const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,6 +22,8 @@ const router = createBrowserRouter([
     children:
       [
         { path: '/', element: <HomePage /> },
+        { path: '/signup', element: <Authentication /> },
+        { path: '/test', element: <Test1 /> },
         { path: '/communities', element: <Communities /> },
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
@@ -32,7 +38,10 @@ const router = createBrowserRouter([
 ]);
 function App()
 {
-  return <RouterProvider router={router} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>);
 }
 
 export default App

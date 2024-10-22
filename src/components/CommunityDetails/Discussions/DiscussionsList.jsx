@@ -2,17 +2,17 @@ import DiscussionCard from "./DiscussionCard";
 
 const discussions = [
     {
-        topic: "Do you hate Opałek as well?",
-        description: "I was wondering if I'm the only one hating Opałek for occupying the great location in the heart of Piaski despite the fact that it's got terrible prices! Not to mention that the building itself is looking hideous. Let's destroy this.",
+        topic: "Solving Parking Problems in Piaski",
+        description: "This discussion will focus on the persistent parking issues in the Piaski area, particularly the lack of available spaces for residents. Participants will explore possible solutions, such as creating new parking zones or redesigning existing spaces to improve accessibility and reduce congestion.",
         date: "28.10.2023",
     },
     {
         topic: "How can we improve transportation in Piaski?",
-        description: " We want to hear your ideas on upgrading Piaski's transportation network. Do you think we need more bus routes or better bike lanes? Share your thoughts on how we can make commuting easier for everyone.",
+        description: "We want to hear your ideas on upgrading Piaski's transportation network. Do you think we need more bus routes or better bike lanes? Share your thoughts on how we can make commuting easier for everyone.",
         date: "21.08.2024",
     },
     {
-        topic: "How would you like to see Piaski's parks improved?",
+        topic: "How would you like to see Piaski's parks improved? How would you like to see Piaski's parks improved?",
         description: "Piaski is planning to revitalize its parks and recreational areas. Would you like more green spaces, playgrounds, or outdoor fitness zones? Let us know how we can make Piaski a greener, healthier place to live.",
         date: "05.04.2024",
     },
