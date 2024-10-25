@@ -3,10 +3,10 @@ function DiscussionAnswer({ reply })
     return (<>
         <div className="border-2 flex flex-col rounded-lg border-slate-400 hover:bg-neutral-50 bg-transparent p-4 mt-1 w-3/5">
             <div>
-                <p className="text-md">Stefan Stefański</p>
+                <p className="text-sm">Stefan Stefański</p>
                 <p className="text-xl mt-1">I have no idea</p>
             </div>
-            <div className="flex justify-between mt-2">
+            <div className="flex justify-between mt-5">
                 <button onClick={reply} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-1.5 text-sm rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 inline-block mb-0.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3" />

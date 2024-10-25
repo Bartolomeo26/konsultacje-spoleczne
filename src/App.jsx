@@ -11,9 +11,9 @@ import CommunityDetails from './pages/CommunityDetails'
 import InformationClause from './pages/InformationClause'
 import Rules from './pages/Rules'
 import DiscussionDetails from './pages/DiscussionDetails'
-import Test from './pages/Test'
 import Test1 from './pages/Test1'
 import Authentication from './pages/Authentication'
+import UserProfile from './pages/UserProfile'
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -23,6 +23,7 @@ const router = createBrowserRouter([
       [
         { path: '/', element: <HomePage /> },
         { path: '/signup', element: <Authentication /> },
+        { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
         { path: '/communities', element: <Communities /> },
         { path: '/communities/:id', element: <CommunityDetails /> },

@@ -17,11 +17,12 @@ export async function createNewUser(userData)
     })
         .catch(error =>
         {
-            console.log(error.response.data)
-            const err = new Error('An error occurred while creating the user');
-            err.code = error.response.status;
-            err.info = error.response.data;
 
+            const err = new Error('An error occurred while creating the user');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            
             throw err;
         });
 

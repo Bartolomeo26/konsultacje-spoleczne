@@ -25,7 +25,7 @@ function MainNavigation()
                 </nav>
                 <div>
 
-                    <Link to="/signup"><button className={classes.button}>Sign In</button></Link>
+                    <Link to="/signup"><button type="button" className={classes.button}>Sign In</button></Link>
                 </div>
             </header>
 

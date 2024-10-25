@@ -5,6 +5,7 @@ import CommunityFooter from "../components/CommunityDetails/CommunityFooter";
 import CommunityDiscussionsList from "../components/CommunityDetails/Discussions/DiscussionsList";
 import CommunityNavigation from "../components/CommunityDetails/CommunityNavigation";
 import CommunityBasicInfo from "../components/CommunityDetails/CommunityBasicInfo";
+import SurveysList from "../components/CommunityDetails/Surveys/SurveysList";
 
 function CommunityDetails()
 {
@@ -18,6 +19,10 @@ function CommunityDetails()
     else if (topic === 'discussions')
     {
         communityContent = <CommunityDiscussionsList />;
+    }
+    else if (topic === 'surveys')
+    {
+        communityContent = <SurveysList />
     }
     else
     {

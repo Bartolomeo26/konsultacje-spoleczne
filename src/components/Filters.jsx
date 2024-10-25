@@ -1,6 +1,7 @@
 
+import FilterInput from "./Forms/Inputs/FilterInput";
 import SelectInput from "./Forms/Inputs/SelectInput";
-import SimpleInput from "./Forms/Inputs/SimpleInput";
+
 
 function Filters()
 {
@@ -10,10 +11,10 @@ function Filters()
             <div className="flex justify-center flex-col items-end ">
 
                 <div className="flex gap-4">
-                    <SimpleInput label={"Name"} />
-                    <SimpleInput label={"Location"} />
-                    <SimpleInput label={"Start Year"} number />
-                    <SimpleInput label={"End Year"} number />
+                    <FilterInput label={"Name"} />
+                    <FilterInput label={"Location"} />
+                    <FilterInput label={"Start Year"} number />
+                    <FilterInput label={"End Year"} number />
                     <SelectInput />
 
                 </div>

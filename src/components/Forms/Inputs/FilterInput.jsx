@@ -1,4 +1,4 @@
-function SimpleInput({ label, number })
+function FilterInput({ label, number })
 {
     return (
         <>
@@ -35,4 +35,4 @@ function SimpleInput({ label, number })
 
 }
 
-export default SimpleInput;
+export default FilterInput;

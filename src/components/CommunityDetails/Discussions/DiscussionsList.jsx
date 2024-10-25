@@ -5,16 +5,19 @@ const discussions = [
         topic: "Solving Parking Problems in Piaski",
         description: "This discussion will focus on the persistent parking issues in the Piaski area, particularly the lack of available spaces for residents. Participants will explore possible solutions, such as creating new parking zones or redesigning existing spaces to improve accessibility and reduce congestion.",
         date: "28.10.2023",
+        status: "Ending"
     },
     {
         topic: "How can we improve transportation in Piaski?",
         description: "We want to hear your ideas on upgrading Piaski's transportation network. Do you think we need more bus routes or better bike lanes? Share your thoughts on how we can make commuting easier for everyone.",
         date: "21.08.2024",
+        status: "Resolved"
     },
     {
         topic: "How would you like to see Piaski's parks improved? How would you like to see Piaski's parks improved?",
         description: "Piaski is planning to revitalize its parks and recreational areas. Would you like more green spaces, playgrounds, or outdoor fitness zones? Let us know how we can make Piaski a greener, healthier place to live.",
         date: "05.04.2024",
+        status: "Ongoing"
     },
 ]
 
@@ -31,7 +34,7 @@ function CommunityDiscussionsList()
                             </svg> Discussions</h1>
                             <form className="max-w-sm">
                                 <select id="small" className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected>Sort</option>
+                                    <option defaultValue={""}>Sort</option>
                                     <option value="recent">Recent</option>
                                     <option value="oldest">Oldest</option>
                                     <option value="most-answers">Most answers</option>
