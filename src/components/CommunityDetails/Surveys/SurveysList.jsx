@@ -4,7 +4,7 @@ function SurveysList()
 {
     return (
         <>
-            <div className="flex flex-col w-11/12 ">
+            <div className="flex flex-col w-3/4 ">
                 <div className="flex">
                     <div className="w-4/5 flex flex-col justify-center p-6 mt-10">
                         <div className="flex justify-between">
@@ -21,13 +21,12 @@ function SurveysList()
                                 </select>
                             </form>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
                             <SurveyCard />
                             <SurveyCard />
                             <SurveyCard />
-                            <SurveyCard />
-                            <SurveyCard />
-                            <SurveyCard />
+
+
                         </div>
                     </div>
 
