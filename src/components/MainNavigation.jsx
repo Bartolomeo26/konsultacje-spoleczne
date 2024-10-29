@@ -6,11 +6,8 @@ import logo from '../assets/logo.png';
 function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Stan do zarządzania dropdownem
     const token = useRouteLoaderData("root");
-
-
-    console.log(token);
 
 
     return (
@@ -42,16 +39,39 @@ function MainNavigation()
                     </li>
                 </ul>
             </nav>
-            {token ? (<div className="hidden md:block">
-                <Form action="/logout" method='post'>
-                    <button className={classes.button}>Sign Out</button>
-                </Form>
-            </div>) :
+
+            {token ? (
+                <div className="relative">
+                    {/* Przycisk do rozwijania dropdowna */}
+                    <button onClick={() => setIsDropdownOpen(prev => !prev)} className={classes.button}>
+                        Menu
+                    </button>
+
+                    {/* Dropdown menu */}
+                    {isDropdownOpen && (
+                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2" >
+                            <ul className="flex flex-col" >
+                                <li>
+                                    <Link to="/profile" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
+                                </li>
+                                <li>
+                                    <Form action="/logout" method='post'>
+                                        <button type="submit" style={{ color: "rgba(0, 136, 169, 1)" }} className="block w-full text-left px-4 py-2 hover:bg-gray-200">
+                                            Sign Out
+                                        </button>
+                                    </Form>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            ) : (
                 <div className="hidden md:block">
                     <Link to="/signup">
                         <button type="button" className={classes.button}>Sign In</button>
                     </Link>
-                </div>}
+                </div>
+            )}
         </header>
     );
 }

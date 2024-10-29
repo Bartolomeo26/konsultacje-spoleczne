@@ -38,7 +38,7 @@ function Test()
                     {users.length > 0 && users.map((user) =>
                     {
                         return (
-                            <li key={user.id} className="text-black">Email: {user.email} Name: {user.name}</li>
+                            <li key={user.id} className="text-black">Email: {user.email} Name: {user.name} Activated: {user.confirmed.toString()}</li>
                         )
                     })}
                 </ul>

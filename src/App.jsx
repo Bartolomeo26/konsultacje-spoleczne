@@ -16,6 +16,7 @@ import Authentication from './pages/Authentication'
 import UserProfile from './pages/UserProfile'
 import { getToken } from './util/auth'
 import { action as logoutAction } from './pages/Logout'
+import ConfirmedMail from './pages/ConfirmedMail'
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       [
         { path: '/', element: <HomePage /> },
         { path: '/signup', element: <Authentication /> },
+        { path: '/signup/email-confirmed', element: <ConfirmedMail /> },
         { path: '/logout', action: logoutAction },
         { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
