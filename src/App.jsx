@@ -14,15 +14,20 @@ import DiscussionDetails from './pages/DiscussionDetails'
 import Test1 from './pages/Test1'
 import Authentication from './pages/Authentication'
 import UserProfile from './pages/UserProfile'
+import { getToken } from './util/auth'
+import { action as logoutAction } from './pages/Logout'
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    id: 'root',
+    loader: () => getToken(),
     children:
       [
         { path: '/', element: <HomePage /> },
         { path: '/signup', element: <Authentication /> },
+        { path: '/logout', action: logoutAction },
         { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
         { path: '/communities', element: <Communities /> },

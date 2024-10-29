@@ -6,9 +6,7 @@ export async function createNewUser(userData)
     await axios.post(`https://localhost:7150/api/users`, userData.user, {
         headers: {
             'accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            'Content-Type': 'application/json'
         }
     }).then(response =>
     {
@@ -22,9 +20,31 @@ export async function createNewUser(userData)
             err.code = error.response?.status;
             err.info = error.response?.data;
             err.message = error.message;
-            
+
             throw err;
         });
 
 
+}
+
+export async function LogIn(userData)
+{
+    try
+    {
+        const response = await axios.post(`https://localhost:7150/api/authentication`, userData.user, {
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error)
+    {
+        const err = new Error('An error occurred while creating the user');
+        err.code = error.response?.status;
+        err.info = error.response?.data;
+        err.message = error.message;
+        throw err;
+    }
 }

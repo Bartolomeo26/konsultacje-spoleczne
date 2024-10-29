@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Form, Link, useRouteLoaderData } from "react-router-dom";
 import { useState } from "react";
 import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
@@ -6,6 +6,12 @@ import logo from '../assets/logo.png';
 function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const token = useRouteLoaderData("root");
+
+
+    console.log(token);
+
 
     return (
         <header className="bg-cyan-800 p-4 px-10 flex justify-between items-center">
@@ -36,12 +42,16 @@ function MainNavigation()
                     </li>
                 </ul>
             </nav>
-
-            <div className="hidden md:block">
-                <Link to="/signup">
-                    <button type="button" className={classes.button}>Sign In</button>
-                </Link>
-            </div>
+            {token ? (<div className="hidden md:block">
+                <Form action="/logout" method='post'>
+                    <button className={classes.button}>Sign Out</button>
+                </Form>
+            </div>) :
+                <div className="hidden md:block">
+                    <Link to="/signup">
+                        <button type="button" className={classes.button}>Sign In</button>
+                    </Link>
+                </div>}
         </header>
     );
 }

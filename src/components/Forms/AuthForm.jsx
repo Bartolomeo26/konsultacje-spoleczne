@@ -5,11 +5,49 @@ function AuthForm({ inputData, onSubmit, children })
 {
 
     const [visibility, setVisibility] = useState(false);
+    const [enteredData, setEnteredData] = useState({
+        name: '',
+        surname: '',
+        email: '',
+        password: ''
+    })
+    const [didEdit, setDidEdit] = useState({
+        name: false,
+        surname: false,
+        email: false,
+        password: false
+    })
+
+    function handleInputBlur(type)
+    {
+        setDidEdit(prevEdit => ({
+            ...prevEdit,
+            [type]: true
+        }))
+    }
+    function handleInputChange(type, value)
+    {
+        setEnteredData((prevData) => ({
+            ...prevData,
+            [type]: value
+        }))
+        setDidEdit(prevEdit => ({
+            ...prevEdit,
+            [type]: false
+        }))
+    }
 
     function handleSubmit(event)
     {
         event.preventDefault();
 
+        emailIsInvalid = !enteredData.email.includes('@');
+        passwordIsInvalid = enteredData.password.length < 7;
+
+        if (emailIsInvalid || passwordIsInvalid)
+        {
+            return;
+        }
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
 
@@ -22,6 +60,10 @@ function AuthForm({ inputData, onSubmit, children })
         setVisibility(prevVisibility => !prevVisibility);
     }
 
+    let emailIsInvalid = didEdit.email && !enteredData.email.includes('@');
+    let passwordIsInvalid = didEdit.password && enteredData.password.length < 7;
+    
+
     return (
         <form id="event-form" onSubmit={handleSubmit} className="mb-2 flex flex-col items-center w-full">
             <div className="flex gap-3 w-11/12">
@@ -32,6 +74,10 @@ function AuthForm({ inputData, onSubmit, children })
                             type="text"
                             id="name"
                             name="name"
+                            maxLength={20}
+                            onChange={() => handleInputChange('name', event.target.value)}
+                            onBlur={() => handleInputBlur('name')}
+                            value={enteredData.name}
                             defaultValue={inputData?.name ?? ''}
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
@@ -48,6 +94,10 @@ function AuthForm({ inputData, onSubmit, children })
                             type="text"
                             id="surname"
                             name="surname"
+                            maxLength={30}
+                            onChange={() => handleInputChange('surname', event.target.value)}
+                            onBlur={() => handleInputBlur('surname')}
+                            value={enteredData.surname}
                             defaultValue={inputData?.surname ?? ''}
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
@@ -65,12 +115,16 @@ function AuthForm({ inputData, onSubmit, children })
                             type="email"
                             id="email"
                             name="email"
+                            onChange={() => handleInputChange('email', event.target.value)}
                             defaultValue={inputData?.email ?? ''}
+                            value={enteredData.email}
+                            onBlur={() => handleInputBlur('email')}
                         />
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                         </svg>
                     </div>
+                    {emailIsInvalid && <p className="text-sm text-red-600">Please enter correct email</p>}
 
                 </div>
                 <div className="mb-6 w-1/2">
@@ -80,6 +134,10 @@ function AuthForm({ inputData, onSubmit, children })
                             type={visibility ? 'text' : 'password'}
                             id="password"
                             name="password"
+                            maxLength={20}
+                            onChange={() => handleInputChange('password', event.target.value)}
+                            onBlur={() => handleInputBlur('password')}
+                            value={enteredData.password}
                             defaultValue={inputData?.password ?? ''}
                         />
                         {visibility ? <svg onClick={changeVisibility} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 z-10 text-slate-600 cursor-pointer">
@@ -90,6 +148,7 @@ function AuthForm({ inputData, onSubmit, children })
                         </svg>}
 
                     </div>
+                    {passwordIsInvalid && <p className="text-sm text-red-600">Password has to have at least 7 characters</p>}
                 </div>
             </div>
 
