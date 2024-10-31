@@ -1,20 +1,21 @@
 import { Form, Link, useRouteLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
 
 function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Stan do zarządzania dropdownem
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const token = useRouteLoaderData("root");
-
+    
+    console.log(token);
 
     return (
         <header className="bg-cyan-800 p-4 px-10 flex justify-between items-center">
             <Link to='/'><img className={classes.logo} src={logo} alt="logo" /></Link>
 
-            {/* Mobile Menu Button */}
+
             <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden text-white p-2"

@@ -4,13 +4,15 @@ import { createNewUser } from '../../util/fetch.js';
 
 import AuthForm from '../Forms/AuthForm.jsx';
 import classes from '../../styles/Authentication.module.css';
+import { useState } from 'react';
 function Signup({ changeAuthType })
 {
     const navigate = useNavigate();
+    const [confirmationInfo, setConfirmationInfo] = useState(false)
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: createNewUser,
-        onSuccess: () => navigate('/test')
+        onSuccess: () => setConfirmationInfo(true)
     });
 
     function handleSubmit(formData)
@@ -18,7 +20,9 @@ function Signup({ changeAuthType })
         mutate({ user: formData });
     }
     return (<>
-        <div className="flex flex-col items-center mt-5 border-2  bg-slate-200 bg-opacity-70 rounded-lg p-8 px-4 mb-10">
+        {confirmationInfo ? <div className="mt-10">
+            <h1 className="text-xl text-centre">A confirmation link has been sent to your email. Click it in order to confirm your account!</h1>
+        </div> : <div className="flex flex-col items-center mt-5 border-2  bg-slate-200 bg-opacity-70 rounded-lg p-8 px-4 mb-10">
             <h1 className='mb-5 text-3xl'>Register</h1>
             <AuthForm onSubmit={handleSubmit}>
                 {isPending && (
@@ -44,8 +48,9 @@ function Signup({ changeAuthType })
                     ) : error.message}
                 </h1>
             )}
-            <button onClick={() => changeAuthType('login')} className={classes.button}>I already have an account</button>
-        </div>
+            <button onClick={() => changeAuthType('login')} className={classes.secondaryButton}>I already have an account</button>
+        </div>}
+
     </>)
 }
 

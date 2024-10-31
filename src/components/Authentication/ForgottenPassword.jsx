@@ -1,44 +1,42 @@
-import LoginForm from '../Forms/LoginForm';
 import { useMutation } from '@tanstack/react-query';
-import { LogIn } from '../../util/fetch';
+import { resetPassword } from '../../util/fetch';
 import classes from '../../styles/Authentication.module.css';
-import { useNavigate, redirect } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useState } from 'react';
+import ForgottenPasswordForm from '../Forms/ForgottenPasswordForm';
 
 
-function Login({ changeAuthType })
+function ForgottenPassword({ changeAuthType })
 {
+    const [confirmationInfo, setConfirmationInfo] = useState(false);
     const navigate = useNavigate();
 
-    const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: LogIn,
-        onSuccess: async (token) =>
-        {
-            await localStorage.setItem('token', token);
-            
-            navigate("/"); // Przekierowanie na stronę główną po zapisaniu tokena
-        }
+    const { mutateAsync, isPending, isError, error } = useMutation({
+        mutationFn: resetPassword,
+        onSuccess: () => setConfirmationInfo(true)
+
     });
 
-    function handleSubmit(formData)
+    async function handleSubmit(formData)
     {
-        mutate({ user: formData });
+        await mutateAsync(formData);
     }
 
     return (
         <div className="flex flex-col items-center mt-5 border-2 bg-slate-200 bg-opacity-70 rounded-lg p-8 px-4 mb-10">
-            <h1 className='mb-5 text-3xl'>Login</h1>
-            <LoginForm onSubmit={handleSubmit}>
+            <h1 className='mb-5 text-3xl'>You have forgotten your password?</h1>
+            <ForgottenPasswordForm onSubmit={handleSubmit}>
                 {isPending ? (
                     <button type="submit" disabled className={classes.button}>
                         Submitting...
                     </button>
                 ) : (
                     <button type="submit" className={classes.button}>
-                        Log in
+                        Reset Password
                     </button>
                 )}
-            </LoginForm>
+            </ForgottenPasswordForm>
+            {confirmationInfo && <h1 className='text-green-400 font-semibold mb-3'>Check your email for the new password.</h1>}
             {isError && (
                 <h1 className='text-red-500 font-semibold mb-3'>
                     {error.info ? (typeof error.info === 'string'
@@ -51,12 +49,12 @@ function Login({ changeAuthType })
                 <button onClick={() => changeAuthType('signup')} className={classes.secondaryButton}>
                     I don't have an account
                 </button>
-                <button onClick={() => changeAuthType('forgottenPassword')} className={classes.secondaryButton}>
-                    I don't remember my password
+                <button onClick={() => changeAuthType('login')} className={classes.secondaryButton}>
+                    I already have an account
                 </button>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default ForgottenPassword;

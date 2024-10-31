@@ -72,3 +72,34 @@ export async function ConfirmMail(confirmationCode)
         throw err;
     }
 }
+
+export async function resetPassword(userData)
+{
+
+    try
+    {
+        const response = await axios.post(
+            `https://localhost:7150/api/users/getpassword`,
+            null,
+            {
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    email: userData.email,
+                },
+            }
+        );
+
+
+        return response.data;
+    } catch (error)
+    {
+        const err = new Error('An error occurred while resetting the password');
+        err.code = error.response?.status;
+        err.info = error.response?.data;
+        err.message = error.message;
+        throw err;
+    }
+}

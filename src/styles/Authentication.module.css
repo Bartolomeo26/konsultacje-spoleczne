@@ -19,3 +19,17 @@ button {
 .button:hover {
     background-color: rgba(0, 136, 169, 0.8);
 }
+
+.secondaryButton {
+    color: #edeff1;
+    padding: 6px 16px;
+    background-color: rgba(0, 136, 169, 0.7);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.secondaryButton:hover {
+    background-color: rgba(0, 136, 169, 0.5);
+}

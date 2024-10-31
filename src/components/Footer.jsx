@@ -5,7 +5,7 @@ function Footer()
 
         <footer className="mt-auto py-3 px-2 bg-cyan-800">
             <div className="flex justify-between px-3">
-                <span className="text-white">&copy; Social Consultations</span>
+                <span className="text-white">&copy; Dialogue Bridge</span>
                 <ul className='flex justify-around'>
                     <li className='px-2'>
                         <Link to='/test'>Test</Link>
