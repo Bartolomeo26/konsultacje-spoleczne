@@ -17,6 +17,8 @@ import UserProfile from './pages/UserProfile'
 import { getToken } from './util/auth'
 import { action as logoutAction } from './pages/Logout'
 import ConfirmedMail from './pages/ConfirmedMail'
+import { AuthProvider } from './util/AuthContext'
+
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -29,7 +31,6 @@ const router = createBrowserRouter([
         { path: '/', element: <HomePage /> },
         { path: '/signup', element: <Authentication /> },
         { path: '/signup/email-confirmed', element: <ConfirmedMail /> },
-        { path: '/logout', action: logoutAction },
         { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
         { path: '/communities', element: <Communities /> },
@@ -48,7 +49,9 @@ function App()
 {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>);
 }
 

@@ -4,19 +4,19 @@ import { LogIn } from '../../util/fetch';
 import classes from '../../styles/Authentication.module.css';
 import { useNavigate, redirect } from 'react-router-dom';
 import { useState } from 'react';
-
+import { useAuth } from '../../util/AuthContext';
 
 function Login({ changeAuthType })
 {
     const navigate = useNavigate();
+    const { updateToken } = useAuth();
 
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: LogIn,
         onSuccess: async (token) =>
         {
-            await localStorage.setItem('token', token);
-            
-            navigate("/"); // Przekierowanie na stronę główną po zapisaniu tokena
+            updateToken(token);  // Zapis tokena w Context
+            navigate("/"); // Przekierowanie na stronę główną
         }
     });
 
