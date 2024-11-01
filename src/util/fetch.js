@@ -103,3 +103,12 @@ export async function resetPassword(userData)
         throw err;
     }
 }
+
+export async function getUser(id)
+{
+    return await axios.get(`https://localhost:7150/api/users/${id}`, {
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => response.data);
+}

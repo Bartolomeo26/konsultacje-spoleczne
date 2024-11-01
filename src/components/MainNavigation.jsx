@@ -58,7 +58,7 @@ function MainNavigation()
                         <div className="absolute right-0 bg-white shadow-lg rounded mt-2" >
                             <ul className="flex flex-col" >
                                 <li>
-                                    <Link to="/profile" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
+                                    <Link to="/users/1" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
                                 </li>
                                 <li>
 
