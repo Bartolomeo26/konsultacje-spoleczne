@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         { path: '/communities', element: <Communities /> },
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
-        { path: '/communities/:id/discussions/:id', element: <DiscussionDetails /> },
+        { path: '/communities/:id/consultations/:id', element: <DiscussionDetails /> },
         { path: '/contact', element: <Contact /> },
         { path: '/information-clause', element: <InformationClause /> },
         { path: '/rules', element: <Rules /> },

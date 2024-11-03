@@ -54,7 +54,7 @@ header {
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .logo {
         height: 45px;
         width: 50px;
@@ -80,8 +80,8 @@ header {
     }
 }
 
-/* Larger screens (768px and up) */
-@media (min-width: 1000px) {
+
+@media (min-width: 1050px) {
     .nav__links {
         display: flex;
         align-items: center;

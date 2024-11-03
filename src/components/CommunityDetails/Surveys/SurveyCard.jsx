@@ -55,7 +55,7 @@ function SurveyCard()
 
     // Dane statyczne do wykresu kołowego
     const data = {
-        labels: ['Bardzo dobry', 'Dobry', 'Średni', 'Słaby', 'Inna'],
+        labels: ['Clean transport', 'More seats', 'Introduce electric vehicles', 'More routes', 'Different'],
         datasets: [
             {
                 data: [40, 30, 20, 5, 5], // Przykładowe statyczne dane
@@ -81,7 +81,7 @@ function SurveyCard()
                             className="form-radio text-indigo-600"
                             disabled={voted}
                         />
-                        <span className="ml-2">Bardzo dobry</span>
+                        <span className="ml-2">Regular cleaning and maintenance of vehicles.</span>
                     </label>
 
                     <label className={`flex items-center ${selectedOption === 'Dobry' && voted ? 'bg-green-100' : ''} p-2 rounded-lg`}>
@@ -94,7 +94,7 @@ function SurveyCard()
                             className="form-radio text-indigo-600"
                             disabled={voted}
                         />
-                        <span className="ml-2">Dobry</span>
+                        <span className="ml-2">Ability to track routes in real-time through an app.</span>
                     </label>
 
                     <label className={`flex items-center ${selectedOption === 'Średni' && voted ? 'bg-green-100' : ''} p-2 rounded-lg`}>
@@ -107,7 +107,7 @@ function SurveyCard()
                             className="form-radio text-indigo-600"
                             disabled={voted}
                         />
-                        <span className="ml-2">Średni</span>
+                        <span className="ml-2">Increasing seating availability on crowded lines.</span>
                     </label>
 
                     <label className={`flex items-center ${selectedOption === 'Słaby' && voted ? 'bg-green-100' : ''} p-2 rounded-lg`}>
@@ -120,7 +120,7 @@ function SurveyCard()
                             className="form-radio text-indigo-600"
                             disabled={voted}
                         />
-                        <span className="ml-2">Słaby</span>
+                        <span className="ml-2">Introducing electric or hybrid vehicles.</span>
                     </label>
 
                     {/* Pole tekstowe dla własnej odpowiedzi jako część odpowiedzi */}
@@ -162,7 +162,7 @@ function SurveyCard()
             </form>
 
             <div className="flex justify-center text-center mt-5">
-                <p>This survey is a conclusion for a discussion: <Link to="/communities/1/discussions/1"><span className="block font-bold">How can we improve transportation in Piaski?</span></Link></p>
+                <p>This survey is a conclusion for consultation: <Link to="/communities/1/discussions/1"><span className="block font-bold">How can we improve transportation in Piaski?</span></Link></p>
             </div>
 
             {showResults && (

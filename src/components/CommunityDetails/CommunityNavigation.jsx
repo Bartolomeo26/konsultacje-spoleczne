@@ -14,10 +14,10 @@ function CommunityNavigation()
                         <Link to={link} preventScrollReset={true}>About</Link>
                     </div>
                     <div className="border-s-4 px-3" style={{ borderColor: "#155e75" }}>
-                        <Link to={link + '/discussions'} preventScrollReset={true}>Discussions</Link>
+                        <Link to={link + '/consultations'} preventScrollReset={true}>Consultations</Link>
                     </div>
                     <div className="border-s-4 px-3" style={{ borderColor: "#155e75" }}>
-                        <Link to={link + '/discussions'} preventScrollReset={true}>New Discussion</Link>
+                        <Link to={link + '/consultations'} preventScrollReset={true}>New Consultation</Link>
                     </div>
                     <div className="border-s-4 px-3" style={{ borderColor: "#155e75" }}>
                         <Link to={link + '/surveys'} preventScrollReset={true}>Surveys</Link>

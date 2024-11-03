@@ -16,7 +16,7 @@ function DiscussionCard({ discussion })
         statusColor = "text-orange-700";
     }
     return (
-        <Link to="/communities/1/discussions/1">
+        <Link to="/communities/1/consultations/1">
             <div className="border-2 bg-white rounded-lg shadow-md p-4 mt-2 w-full">
                 <div className="flex ">
                     <h1 className="font-bold text-lg mb-2 w-4/6">{discussion.topic}</h1>

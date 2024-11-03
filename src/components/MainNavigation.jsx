@@ -18,7 +18,7 @@ function MainNavigation()
 
     return (
         <header className="bg-cyan-800 p-4 px-10 flex justify-between items-center">
-            <Link to='/'><img className={classes.logo} src={logo} alt="logo" /></Link>
+            <Link to='/'><div className="flex items-center text-white"><img className={classes.logo} src={logo} alt="logo" /><h1>Dialogue Bridge</h1></div></Link>
 
 
             <button
@@ -55,7 +55,7 @@ function MainNavigation()
 
                     {/* Dropdown menu */}
                     {isDropdownOpen && (
-                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2" >
+                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" >
                             <ul className="flex flex-col" >
                                 <li>
                                     <Link to="/users/1" onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>

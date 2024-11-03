@@ -16,7 +16,7 @@ function CommunityDetails()
     {
         communityContent = <CommunityMain />;
     }
-    else if (topic === 'discussions')
+    else if (topic === 'consultations')
     {
         communityContent = <CommunityDiscussionsList />;
     }
