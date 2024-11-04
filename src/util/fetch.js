@@ -108,7 +108,31 @@ export async function getUser(id)
 {
     return await axios.get(`https://localhost:7150/api/users/${id}`, {
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/vnd.socialconsultations.user.full+json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
-    }).then(response => response.data);
+    }).then(response =>
+    {
+        console.log("GET USER: ", response.data)
+        return response.data
+    }
+    );
+}
+
+export async function getSelf(token)
+{
+
+    return await axios.get("https://localhost:7150/api/users/self", {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.user.full+json',
+            "Authorization": `Bearer ${token}`,
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    });
 }

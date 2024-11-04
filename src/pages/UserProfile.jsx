@@ -8,12 +8,12 @@ function UserProfile()
 {
     const { id } = useParams();
 
-    const { isLoading, error, data: user } = useQuery({
+    const { isPending, error, data: user } = useQuery({
         queryKey: ['user', id], // include id in the query key to refetch for different ids
         queryFn: () => getUser(id)
     });
 
-    if (isLoading) return <LoadingIndicator />;
+    if (isPending) return <LoadingIndicator />;
     if (error) return 'An error has occurred: ' + error.message;
 
     return (

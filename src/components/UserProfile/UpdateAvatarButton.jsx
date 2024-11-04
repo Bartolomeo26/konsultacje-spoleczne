@@ -1,21 +1,63 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 
-function updateAvatar(file, userId)
+function UpdateAvatarButton({ file, user, onSuccess })
 {
-    const formData = new FormData();
-    formData.append('avatar', file);
-    console.log(formData);
-    return axios.put(`https://localhost:7150/api/users/${userId}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-    });
-}
+    async function updateAvatar(file, userId)
+    {
+        const token = localStorage.getItem('token');
+        const base64File = await toBase64(file);
 
-function UpdateAvatarButton({ file, userId, onSuccess })
-{
-    const { mutate, isLoading, isError, error } = useMutation({
-        mutationFn: () => updateAvatar(file, userId),
+        const patchData = [
+            {
+                op: "replace",
+                path: "/avatar",
+                value: {
+                    id: 0,
+                    data: base64File,
+                    description: "User avatar",
+                    type: 0
+                }
+            }
+        ];
+
+        try
+        {
+            const response = await axios.patch(`https://localhost:7150/api/users/${userId}`, patchData, {
+                headers: {
+                    'Content-Type': 'application/json-patch+json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log("Avatar updated successfully:", response);
+            return response.data;
+        } catch (error)
+        {
+            console.error("Failed to update avatar:", error);
+            if (error.response)
+            {
+                console.error("Error response:", error.response.data);
+                console.error("Status code:", error.response.status);
+            }
+            throw error;
+        }
+    }
+
+    function toBase64(file)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = (error) => reject(error);
+        });
+    }
+
+    const { mutate, isPending, isError, error } = useMutation({
+        mutationFn: () => user?.id ? updateAvatar(file, user.id) : Promise.reject(new Error("User ID is undefined")),
         onSuccess,
+        onError: (error) => console.error("Mutation failed:", error.message)
     });
 
     return (
@@ -23,10 +65,10 @@ function UpdateAvatarButton({ file, userId, onSuccess })
             {file && (
                 <button
                     onClick={() => mutate()}
-                    disabled={isLoading}
+                    disabled={isPending}
                     className="mt-3 p-2 bg-blue-500 text-white rounded"
                 >
-                    {isLoading ? 'Updating...' : 'Confirm Avatar'}
+                    {isPending ? 'Updating...' : 'Confirm Avatar'}
                 </button>
             )}
             {isError && <p className="text-red-500">Error: {error.message}</p>}
