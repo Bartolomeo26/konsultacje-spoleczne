@@ -136,3 +136,25 @@ export async function getSelf(token)
         return response.data;
     });
 }
+
+export async function updateUserProfile(data)
+{
+    const token = localStorage.getItem('token');
+    const { formData: userData, user } = data;
+    console.log(userData);
+    return await axios.patch(
+        `https://localhost:7150/api/users/${user.id}`,
+        [
+            { op: "replace", path: "/name", value: userData.name },
+            { op: "replace", path: "/surname", value: userData.surname },
+            { op: "replace", path: "/email", value: userData.email },
+            { op: "replace", path: "/birthDate", value: userData.birthDate }
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}

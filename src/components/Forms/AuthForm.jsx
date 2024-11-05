@@ -139,9 +139,9 @@ function AuthForm({ inputData, onSubmit, children })
                             type='date'
                             id="birthDate"
                             name="birthDate"
-                            maxLength={20}
-                            onChange={() => handleInputChange('birthDate', event.target.value)}
 
+                            onChange={() => handleInputChange('birthDate', event.target.value)}
+                            style={{ height: "41.6px" }}
                             value={enteredData.date}
                             defaultValue={inputData?.birthDate ?? ''}
                         />

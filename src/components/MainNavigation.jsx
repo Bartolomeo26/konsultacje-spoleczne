@@ -83,9 +83,10 @@ function MainNavigation()
                     {isDropdownOpen && (
                         <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" >
                             <ul className="flex flex-col" >
-                                <li>
-                                    <Link to={"/users/" + user.id} onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
-                                </li>
+                                {user &&
+                                    <li>
+                                        <Link to={"/users/" + user.id} onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
+                                    </li>}
                                 <li>
 
                                     <button onClick={handleSignOut} style={{ color: "rgba(0, 136, 169, 1)" }} className="block w-full text-left px-4 py-2 hover:bg-gray-200">

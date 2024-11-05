@@ -61,18 +61,18 @@ function UpdateAvatarButton({ file, user, onSuccess })
     });
 
     return (
-        <>
+        <div className='text-center'>
             {file && (
                 <button
                     onClick={() => mutate()}
                     disabled={isPending}
-                    className="mt-3 p-2 bg-blue-500 text-white rounded"
+                    className="mt-2 p-2 bg-green-700 text-md text-white rounded"
                 >
                     {isPending ? 'Updating...' : 'Confirm Avatar'}
                 </button>
             )}
             {isError && <p className="text-red-500">Error: {error.message}</p>}
-        </>
+        </div>
     );
 }
 
