@@ -11,13 +11,13 @@ function MainNavigation()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { token, removeToken } = useAuth();
-    const queryClient = useQueryClient();
+
     const navigate = useNavigate();
 
     const { data: user, refetch } = useQuery({
         queryKey: ['userData', token],
         queryFn: () => getSelf(token),
-        enabled: true,
+        enabled: false,
         cacheTime: 0,
         onSuccess: (data) =>
         {

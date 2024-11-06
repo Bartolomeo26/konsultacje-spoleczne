@@ -15,9 +15,9 @@ import Test1 from './pages/Test1'
 import Authentication from './pages/Authentication'
 import UserProfile from './pages/UserProfile'
 import { getToken } from './util/auth'
-import { action as logoutAction } from './pages/Logout'
 import ConfirmedMail from './pages/ConfirmedMail'
 import { AuthProvider } from './util/AuthContext'
+import NewCommunity from './pages/NewCommunity'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -34,6 +34,7 @@ const router = createBrowserRouter([
         { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
         { path: '/communities', element: <Communities /> },
+        { path: '/communities/new', element: <NewCommunity /> },
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
         { path: '/communities/:id/consultations/:id', element: <DiscussionDetails /> },

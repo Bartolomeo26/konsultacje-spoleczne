@@ -122,13 +122,13 @@ export async function getUser(id)
 
 export async function getSelf(token)
 {
+    if (!token)
+        return
 
     return await axios.get("https://localhost:7150/api/users/self", {
         headers: {
             'Accept': 'application/vnd.socialconsultations.user.full+json',
-            "Authorization": `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            "Authorization": `Bearer ${token}`
         }
     }).then(response =>
     {
