@@ -1,7 +1,7 @@
 import LoginForm from '../Forms/LoginForm';
 import { useMutation } from '@tanstack/react-query';
 import { LogIn } from '../../util/fetch';
-import classes from '../../styles/Authentication.module.css';
+import classes from '../../styles/DefaultForm.module.css';
 import { useNavigate, redirect } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../util/AuthContext';

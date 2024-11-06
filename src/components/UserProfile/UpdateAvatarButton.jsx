@@ -13,7 +13,6 @@ function UpdateAvatarButton({ file, user, onSuccess })
                 op: "replace",
                 path: "/avatar",
                 value: {
-                    id: 0,
                     data: base64File,
                     description: "User avatar",
                     type: 0
@@ -55,7 +54,7 @@ function UpdateAvatarButton({ file, user, onSuccess })
     }
 
     const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: () => user?.id ? updateAvatar(file, user.id) : Promise.reject(new Error("User ID is undefined")),
+        mutationFn: () => updateAvatar(file, user.id),
         onSuccess,
         onError: (error) => console.error("Mutation failed:", error.message)
     });

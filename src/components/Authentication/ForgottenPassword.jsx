@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { resetPassword } from '../../util/fetch';
-import classes from '../../styles/Authentication.module.css';
+import classes from '../../styles/DefaultForm.module.css';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import ForgottenPasswordForm from '../Forms/ForgottenPasswordForm';

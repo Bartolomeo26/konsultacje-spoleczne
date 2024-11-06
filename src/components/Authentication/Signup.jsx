@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createNewUser } from '../../util/fetch.js';
 
 import AuthForm from '../Forms/AuthForm.jsx';
-import classes from '../../styles/Authentication.module.css';
+import classes from '../../styles/DefaultForm.module.css';
 import { useState } from 'react';
 function Signup({ changeAuthType })
 {

@@ -80,15 +80,12 @@ export async function resetPassword(userData)
     {
         const response = await axios.post(
             `https://localhost:7150/api/users/getpassword`,
-            null,
+            userData.email,
             {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'application/json',
-                },
-                params: {
-                    email: userData.email,
-                },
+                }
             }
         );
 
@@ -122,6 +119,7 @@ export async function getUser(id)
 
 export async function getSelf(token)
 {
+
     if (!token)
         return
 
@@ -132,7 +130,7 @@ export async function getSelf(token)
         }
     }).then(response =>
     {
-
+        console.log("GET SELF", response.data)
         return response.data;
     });
 }
@@ -157,4 +155,36 @@ export async function updateUserProfile(data)
             }
         }
     );
+}
+
+export async function createNewCommunity(communityData)
+{
+    const token = localStorage.getItem('token');
+
+    communityData.community.avatar = JSON.parse(communityData.community.avatar);
+    communityData.community.background = JSON.parse(communityData.community.background);
+    if (communityData.community.isPublic === 'on') communityData.community.isPublic = true;
+    else communityData.community.isPublic = false;
+    return await axios.post(`https://localhost:7150/api/communities`, communityData.community, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while creating the community');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
 }
