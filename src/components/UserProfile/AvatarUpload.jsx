@@ -36,7 +36,7 @@ function AvatarUpload({ onFileSelect, avatarData })
             <img
                 src={preview}
                 alt="Profile Avatar"
-                className="w-full h-full rounded-full border-2 object-fill"
+                className="w-full h-full rounded-full border-2 object-cover"
                 style={{ borderColor: "rgba(21,94,117,1)" }}
             />
             <input

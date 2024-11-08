@@ -1,15 +1,21 @@
 import CommunityForm from "../components/Forms/CommunityForm";
-import { useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { createNewCommunity } from "../util/fetch";
 import classes from '../styles/DefaultForm.module.css'
+import { useNavigate } from "react-router-dom";
+
 
 function NewCommunity()
 {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: createNewCommunity,
         onSuccess: (data) =>
         {
             console.log("Community created successfully:", data);
+            navigate(`/communities/${data.id}`)
+            queryClient.invalidateQueries({ queryKey: ['communities'] })
             // Tutaj możesz dodać logikę na wypadek sukcesu, np. nawigację do nowej społeczności
         },
         onError: (error) =>

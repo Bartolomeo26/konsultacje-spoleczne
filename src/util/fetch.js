@@ -169,9 +169,7 @@ export async function createNewCommunity(communityData)
         headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            'Authorization': `Bearer ${token}`
         }
     }).then(response =>
     {
@@ -187,4 +185,64 @@ export async function createNewCommunity(communityData)
             console.log(error);
             throw err;
         });
+}
+
+export async function getCommunities()
+{
+    return await axios.get('https://localhost:7150/api/communities', {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.community.full+json',
+
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMUNITIES: ", response.data)
+        return response.data
+    }
+    );
+}
+
+export async function getCommunitiesList()
+{
+    return await axios.get('https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude', {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.community.full+json',
+
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMUNITIES: ", response.data)
+        return response.data
+    }
+    );
+}
+
+export async function getCommunitiesToMap()
+{
+    return await axios.get('https://localhost:7150/api/communities?Fields=name%2C%20latitude%2C%20longitude', {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.community.full+json',
+
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMUNITIES TO MAP: ", response.data)
+        return response.data
+    }
+    );
+}
+
+export async function getCommunity(id)
+{
+    return await axios.get(`https://localhost:7150/api/communities/${id}`, {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.community.full+json',
+
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMUNITY: ", response.data)
+        return response.data
+    }
+    );
 }

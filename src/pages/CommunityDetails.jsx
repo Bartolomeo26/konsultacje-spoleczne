@@ -6,15 +6,23 @@ import CommunityDiscussionsList from "../components/CommunityDetails/Discussions
 import CommunityNavigation from "../components/CommunityDetails/CommunityNavigation";
 import CommunityBasicInfo from "../components/CommunityDetails/CommunityBasicInfo";
 import SurveysList from "../components/CommunityDetails/Surveys/SurveysList";
+import { useQuery } from "@tanstack/react-query";
+import { getCommunity } from "../util/fetch";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 function CommunityDetails()
 {
-    let { id, topic } = useParams();
-    console.log(topic);
+    const { id, topic } = useParams();
+
+    const { isPending, error, data: community } = useQuery({
+        queryKey: ['community', id],
+        queryFn: () => getCommunity(id)
+    });
+
     let communityContent;
     if (topic === undefined)
     {
-        communityContent = <CommunityMain />;
+        communityContent = <CommunityMain community={community} />;
     }
     else if (topic === 'consultations')
     {
@@ -29,19 +37,20 @@ function CommunityDetails()
         communityContent = <h1>What are you looking for? Such a content does not exist</h1>
     }
 
-
+    if (isPending) return <LoadingIndicator />;
+    if (error) return 'An error has occurred: ' + error.message;
     return (
         <>
             <div className="flex flex-col w-full">
-                <CommunityHeader />
+                <CommunityHeader community={community} />
                 <div className="flex flex-col px-28 mb-10 relative">
                     <CommunityNavigation />
-                    <CommunityBasicInfo />
+                    <CommunityBasicInfo community={community}/>
                     <div>
                         {communityContent}
                     </div>
                 </div>
-                <CommunityFooter />
+                <CommunityFooter community={community} />
             </div>
         </>
     )

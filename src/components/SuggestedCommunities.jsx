@@ -43,12 +43,7 @@ function SuggestedCommunities()
             <div className="mt-5 mb-10" style={{ width: "1300px" }}>
                 <h1 className="text-4xl mb-5 text-center">Suggested Communities</h1>
                 <Slider {...settings}>
-                    <CommunityCard city={cities[0]} />
-                    <CommunityCard city={cities[1]} />
-                    <CommunityCard city={cities[2]} />
-                    <CommunityCard city={cities[0]} />
-                    <CommunityCard city={cities[1]} />
-                    <CommunityCard city={cities[2]} />
+                   
                 </Slider>
             </div>
             <hr style={{ border: "1px solid black", width: "95%" }} />

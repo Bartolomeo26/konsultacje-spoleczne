@@ -60,3 +60,21 @@
 .slick-arrow {
   color: black;
 }
+
+.mapboxgl-popup-close-button {
+  background-color: #FF5755;
+  /* Kolor tła */
+  color: white;
+  /* Kolor krzyżyka */
+  font-size: 16px;
+  /* Rozmiar krzyżyka */
+  border-radius: 0%;
+  /* Okrągły przycisk */
+  padding: 0.5px 1px;
+  /* Dodatkowy padding */
+}
+
+.mapboxgl-popup-close-button:hover {
+  background-color: #FF8D6D;
+  /* Kolor tła po najechaniu */
+}
