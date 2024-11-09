@@ -1,43 +1,54 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { getSelf } from './fetch';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children })
 {
     const [token, setToken] = useState(localStorage.getItem('token'));
+    const [loggedUser, setLoggedUser] = useState(null);
 
-    // Aktualizacja tokena przy zmianach w localStorage
-    useEffect(() =>
-    {
-        const handleStorageChange = () =>
-        {
-            setToken(localStorage.getItem('token'));
-        };
-
-        window.addEventListener('storage', handleStorageChange);
-
-        return () =>
-        {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
 
     const updateToken = (newToken) =>
     {
         setToken(newToken);
         localStorage.setItem('token', newToken);
+        fetchUser(newToken);
     };
 
     const removeToken = () =>
     {
         setToken(null);
+        setLoggedUser(null);
         localStorage.removeItem('token');
-    }
+    };
 
 
+    const fetchUser = async (authToken) =>
+    {
+        console.log("fetchuje usera authcontext")
+        try
+        {
+            const userData = await getSelf(authToken);
+            setLoggedUser(userData);
+        } catch (error)
+        {
+            console.error("Błąd przy pobieraniu danych użytkownika:", error);
+            removeToken();
+        }
+    };
+
+
+    useEffect(() =>
+    {
+        if (token && !loggedUser)
+        {
+            fetchUser(token);
+        }
+    }, [token, loggedUser]);
 
     return (
-        <AuthContext.Provider value={{ token, updateToken, removeToken }}>
+        <AuthContext.Provider value={{ token, loggedUser, updateToken, removeToken }}>
             {children}
         </AuthContext.Provider>
     );

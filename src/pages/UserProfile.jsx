@@ -48,7 +48,7 @@ function UserProfile()
         <div className="w-full">
             <ProfileHeader user={user} />
             <div className="flex flex-col px-28 mb-10 relative">
-                <ProfileNavigation handleContentChange={handleContentChange} />
+                <ProfileNavigation handleContentChange={handleContentChange} user={user}/>
                 <div className="px-44 mt-12">
                     {content}
                 </div>

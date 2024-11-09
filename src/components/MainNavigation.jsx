@@ -1,4 +1,4 @@
-import { Form, Link, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
@@ -10,26 +10,11 @@ function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { token, removeToken } = useAuth();
+    const { token, removeToken, loggedUser } = useAuth();
 
     const navigate = useNavigate();
 
-    const { data: user, refetch } = useQuery({
-        queryKey: ['userData', token],
-        queryFn: () => getSelf(token),
-        enabled: false,
-        cacheTime: 0,
-        onSuccess: (data) =>
-        {
-            console.log("Dane pobrane:", data);
-        },
-    });
 
-    useEffect(() =>
-    {
-        refetch();
-        console.log(user)
-    }, [token, refetch]);
 
     const handleSignOut = () =>
     {
@@ -72,9 +57,9 @@ function MainNavigation()
             {token ? (
                 <div className="relative">
                     {/* Przycisk do rozwijania dropdowna */}
-                    {user ?
+                    {loggedUser ?
                         <button onClick={() => setIsDropdownOpen(prev => !prev)} className={classes.button}>
-                            Hello, {user.name}!
+                            Hello, {loggedUser.name}!
                         </button> : <button onClick={() => setIsDropdownOpen(prev => !prev)} className={classes.button}>
                             Hello!
                         </button>
@@ -83,9 +68,9 @@ function MainNavigation()
                     {isDropdownOpen && (
                         <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" >
                             <ul className="flex flex-col" >
-                                {user &&
+                                {loggedUser &&
                                     <li>
-                                        <Link to={"/users/" + user.id} onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
+                                        <Link to={"/users/" + loggedUser.id} onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
                                     </li>}
                                 <li>
 

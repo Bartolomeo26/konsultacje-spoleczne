@@ -11,6 +11,7 @@ function DeleteAccount({ user })
     const { removeToken } = useAuth();
     const [isModalOpen, setModalOpen] = useState(false);
     const [enteredName, setEnteredName] = useState("");
+    const [message, setMessage] = useState("");
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: deleteAccount,
         onSuccess: () =>
@@ -35,20 +36,21 @@ function DeleteAccount({ user })
             setModalOpen(false); // Close the modal after confirming delete
         } else
         {
-            alert("Entered name does not match.");
+            setMessage("Entered name does not match.");
         }
     }
 
     function closeModal()
     {
         setModalOpen(false);
+        setMessage("");
         setEnteredName(""); // Reset entered name on close
     }
 
     return (
         <div className="mb-2 px-7 py-2">
             <button onClick={handleDelete} className="bg-red-600 text-white rounded p-2">Delete account</button>
-
+            <h1 className="text-red-600">You will not be able to undo this operation!</h1>
             {isModalOpen && (
                 <DeleteAccountModal
                     enteredName={enteredName}
@@ -56,6 +58,7 @@ function DeleteAccount({ user })
                     confirmDelete={confirmDelete}
                     closeModal={closeModal}
                     userName={user.name}
+                    error={message}
                 />
             )}
         </div>

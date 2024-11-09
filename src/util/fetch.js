@@ -119,7 +119,7 @@ export async function getUser(id)
 
 export async function getSelf(token)
 {
-
+    console.log('wywoluje')
     if (!token)
         return
 
