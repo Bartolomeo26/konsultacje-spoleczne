@@ -189,7 +189,8 @@ function Map()
             }
         };
     }, [communityData]);
-    if (isPending) return <LoadingIndicator />
+    if (isPending) return (<div className="w-3/4 flex flex-col justify-center items-center mt-5 mb-10 text-center">
+        <h1 className="text-4xl mb-5">Map of Communities</h1><LoadingIndicator /></div>)
     if (error) return <div>An error occurred: {error.message}</div>;
 
     return (

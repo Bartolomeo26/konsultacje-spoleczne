@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { useAuth } from "../util/AuthContext";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
 import ForgottenPassword from "../components/Authentication/ForgottenPassword";
 
+
 function Authentication()
 {
     const [authType, setAuthType] = useState('signup');
-
+    const { token } = useAuth();
+    if (token)
+    {
+        return <h1 className="text-2xl mt-5">Someone is already logged in!</h1>
+    }
     function changeAuthType(type)
     {
         setAuthType(type);

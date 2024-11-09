@@ -20,11 +20,7 @@ function ProfileHeader({ user })
 
     const queryClient = useQueryClient();
 
-    if (!user || !user.id)
-    {
-        console.warn("User or User ID is undefined");
-        return <div>Loading...</div>;
-    }
+
 
     function handleFileSelect(file)
     {
@@ -78,7 +74,7 @@ function ProfileHeader({ user })
 
     return (
         <div className="flex flex-col w-full bg-slate-200 relative">
-            <div className="absolute top-10 left-5">
+            <div className="absolute top-10 left-6">
                 <AvatarUpload
                     onFileSelect={handleFileSelect}
                     avatarData={user.avatar}
@@ -89,9 +85,9 @@ function ProfileHeader({ user })
                     onSuccess={handleAvatarUpdateSuccess}
                 />
             </div>
-            <div className="p-5 ms-56">
+            <div className="p-4 ms-56" style={{ height: "135px" }}>
                 {isEditing ? (
-                    <div className='w-1/3 flex flex-col gap-y-2'>
+                    <div className='w-1/3 flex flex-col gap-y-2 mt-1'>
                         <div className='flex gap-2'>
                             <div className="relative w-1/2">
                                 <input
@@ -125,20 +121,6 @@ function ProfileHeader({ user })
                         <div className='flex gap-2'>
                             <div className="relative w-1/2">
                                 <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Email"
-                                />
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                                </svg>
-                            </div>
-
-                            <div className="relative w-1/2">
-                                <input
                                     type="date"
                                     name="birthDate"
                                     value={formData.birthDate.slice(0, 10)}
@@ -147,15 +129,16 @@ function ProfileHeader({ user })
                                     style={{ height: "41.6px" }}
                                 />
                             </div>
+                            <div className='flex justify-around gap-2 w-1/2'>
+                                <button onClick={handleCancelClick} className=" bg-red-600 text-white rounded w-1/2">
+                                    Cancel
+                                </button>
+                                <button onClick={handleSaveClick} className=" bg-green-600 text-white rounded w-1/2">
+                                    Save
+                                </button>
+                            </div>
                         </div>
-                        <div className='flex justify-around w-full'>
-                            <button onClick={handleCancelClick} className="p-2 bg-red-600 text-white rounded">
-                                Cancel
-                            </button>
-                            <button onClick={handleSaveClick} className=" p-2 bg-green-600 text-white rounded">
-                                Save
-                            </button>
-                        </div>
+
                     </div>
                 ) : (
                     <div className="relative">

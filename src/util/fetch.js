@@ -157,6 +157,60 @@ export async function updateUserProfile(data)
     );
 }
 
+export async function updateEmail(data)
+{
+    const token = localStorage.getItem('token');
+    console.log(data)
+
+    return await axios.patch(
+        `https://localhost:7150/api/users/${data.userId}`,
+        [
+            { op: "replace", path: "/email", value: data.email },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function updatePassword(data)
+{
+    const token = localStorage.getItem('token');
+    console.log(data)
+
+    return await axios.patch(
+        `https://localhost:7150/api/users/${data.userId}`,
+        [
+            { op: "replace", path: "/password", value: data.password },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function deleteAccount(user)
+{
+    const token = localStorage.getItem('token');
+
+    console.log("USUWANIE!", user.userId)
+    return await axios.delete(
+        `https://localhost:7150/api/users/${user.userId}`,
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
 export async function createNewCommunity(communityData)
 {
     const token = localStorage.getItem('token');
@@ -187,20 +241,19 @@ export async function createNewCommunity(communityData)
         });
 }
 
-export async function getCommunities()
+export async function getCommunities(pageNumber = 1, pageSize = 20)
 {
-    return await axios.get('https://localhost:7150/api/communities', {
+    return await axios.get(`https://localhost:7150/api/communities?PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
         headers: {
-            'Accept': 'application/vnd.socialconsultations.community.full+json',
-
+            'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
         }
     }).then(response =>
     {
-        console.log("GET COMMUNITIES: ", response.data)
-        return response.data
-    }
-    );
+        console.log("GET COMMUNITIES: ", response.data);
+        return response.data;
+    });
 }
+
 
 export async function getCommunitiesList()
 {
