@@ -9,16 +9,22 @@ import SurveysList from "../components/CommunityDetails/Surveys/SurveysList";
 import { useQuery } from "@tanstack/react-query";
 import { getCommunity } from "../util/fetch";
 import LoadingIndicator from "../components/LoadingIndicator";
+import { useAuth } from "../util/AuthContext";
 
 function CommunityDetails()
 {
     const { id, topic } = useParams();
+    const { loggedUser } = useAuth();
 
     const { isPending, error, data: community } = useQuery({
         queryKey: ['community', id],
         queryFn: () => getCommunity(id)
     });
-
+    const permissions = {
+        isAdmin: community?.administrators.some(admin => admin.id === loggedUser.id),
+        isMember: community?.members.some(member => member.id === loggedUser.id)
+    };
+    console.log('permisje', permissions)
     let communityContent;
     if (topic === undefined)
     {
@@ -42,10 +48,10 @@ function CommunityDetails()
     return (
         <>
             <div className="flex flex-col w-full">
-                <CommunityHeader community={community} />
+                <CommunityHeader community={community} permissions={permissions} />
                 <div className="flex flex-col px-28 mb-10 relative">
                     <CommunityNavigation />
-                    <CommunityBasicInfo community={community}/>
+                    <CommunityBasicInfo community={community} />
                     <div>
                         {communityContent}
                     </div>

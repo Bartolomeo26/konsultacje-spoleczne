@@ -80,6 +80,7 @@ function ProfileHeader({ user })
                 <AvatarUpload
                     onFileSelect={handleFileSelect}
                     avatarData={user.avatar}
+                    isLoggedIn={isLoggedIn}
                 />
                 <UpdateAvatarButton
                     file={selectedFile}

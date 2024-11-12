@@ -254,6 +254,19 @@ export async function getCommunities(pageNumber = 1, pageSize = 20)
     });
 }
 
+export async function getCommunitiesNumber()
+{
+    return await axios.get(`https://localhost:7150/api/communities?Fields=id`, {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.community.full+json',
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMUNITIES NUMBER: ", response.data);
+        return response.data;
+    });
+}
+
 
 export async function getCommunitiesList()
 {

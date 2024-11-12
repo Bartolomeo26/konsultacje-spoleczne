@@ -1,9 +1,10 @@
 import CommunityCard from "./CommunityCard";
 import Slider from "react-slick";
-import { getCommunitiesList } from "../util/fetch";
+import { getCommunities, getCommunitiesNumber } from "../util/fetch";
 import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "./LoadingIndicator";
 
+// Ustawienia slidera
 const settings = {
     dots: true,
     infinite: true,
@@ -17,28 +18,56 @@ const settings = {
 
 function SuggestedCommunities()
 {
-
-    const { isPending, error, data: communities } = useQuery({
-        queryKey: ['communities'],
-        queryFn: getCommunitiesList
+    const { data: totalCommunities, isLoading: isTotalLoading, error: totalError } = useQuery({
+        queryKey:
+            ['communitiesNumber'],
+        queryFn: getCommunitiesNumber
     });
 
-    if (isPending) return (<> <div className="mt-5 mb-10 text-center" style={{ width: "1300px" }}>
-        <h1 className="text-4xl mb-5 text-center">Different Communities</h1><LoadingIndicator /></div>
-        <hr style={{ border: "1px solid black", width: "95%" }} /></>);
-    if (error) return 'An error has occurred: ' + error.message;
+    const { data: communities, isLoading, error } = useQuery({
+        queryKey: ['randomCommunities', totalCommunities],
+        queryFn: async () =>
+        {
+            console.log('total', totalCommunities)
+            if (totalCommunities)
+            {
+                const pageSize = 15;
+                const totalPages = Math.ceil(totalCommunities.value.length / pageSize);
 
-    // Shuffle and pick the first 15 random communities
-    const shuffledCommunities = communities.value.sort(() => Math.random() - 0.5);
-    const randomCommunities = shuffledCommunities.slice(0, 15);
-    console.log("random", randomCommunities)
+                const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
+
+                return getCommunities(randomPageNumber, pageSize);
+            }
+        },
+
+        enabled: !!totalCommunities,
+
+    });
+
+    if (isLoading || isTotalLoading)
+    {
+        return (
+            <>
+                <div className="mt-5 mb-10 text-center" style={{ width: "1300px" }}>
+                    <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
+                    <LoadingIndicator />
+                </div>
+                <hr style={{ border: "1px solid black", width: "95%" }} />
+            </>
+        );
+    }
+
+    if (totalError || error)
+    {
+        return <div>An error has occurred: {error?.message || totalError?.message}</div>;
+    }
 
     return (
         <>
             <div className="mt-5 mb-10" style={{ width: "1300px" }}>
                 <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
                 <Slider {...settings}>
-                    {randomCommunities.map((community) => (
+                    {communities.value.map((community) => (
                         <CommunityCard key={community.id} community={community} />
                     ))}
                 </Slider>

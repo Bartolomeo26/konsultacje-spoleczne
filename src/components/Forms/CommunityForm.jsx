@@ -4,6 +4,8 @@ import axios from "axios";
 
 function CommunityForm({ inputData, onSubmit, children })
 {
+    const [error, setError] = useState({ avatar: null, background: null });
+
     const [enteredData, setEnteredData] = useState({
         name: "",
         description: "",
@@ -27,39 +29,59 @@ function CommunityForm({ inputData, onSubmit, children })
     const handleAvatarChange = (e) =>
     {
         const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () =>
+        if (file)
         {
-            setEnteredData((prev) => ({
-                ...prev,
-                avatar: {
-                    ...prev.avatar,
-                    data: reader.result.split(",")[1],
-                    description: file.name,
-                    type: 0,
-                },
-            }));
-        };
-        reader.readAsDataURL(file);
+            if (file.size > 2 * 1024 * 1024)
+            { // 2 MB = 2 * 1024 * 1024 bytes
+                setError((prevError) => ({ ...prevError, avatar: "Avatar file size must not exceed 2MB." }));
+                e.target.value = null; // Clear the file input to prevent uploading
+                return; // Prevent further execution
+            }
+            setError((prevError) => ({ ...prevError, avatar: "" }));
+            const reader = new FileReader();
+            reader.onloadend = () =>
+            {
+                setEnteredData((prev) => ({
+                    ...prev,
+                    avatar: {
+                        ...prev.avatar,
+                        data: reader.result.split(",")[1],
+                        description: file.name,
+                        type: 0,
+                    },
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleBackgroundChange = (e) =>
     {
         const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () =>
+        if (file)
         {
-            setEnteredData((prev) => ({
-                ...prev,
-                background: {
-                    ...prev.background,
-                    data: reader.result.split(",")[1],
-                    description: file.name,
-                    type: 0,
-                },
-            }));
-        };
-        reader.readAsDataURL(file);
+            if (file.size > 2 * 1024 * 1024)
+            { // 2 MB = 2 * 1024 * 1024 bytes
+                setError((prevError) => ({ ...prevError, background: "Background file size must not exceed 2MB." }));
+                e.target.value = null; // Clear the file input to prevent uploading
+                return; // Prevent further execution
+            }
+            setError((prevError) => ({ ...prevError, background: "" }));
+            const reader = new FileReader();
+            reader.onloadend = () =>
+            {
+                setEnteredData((prev) => ({
+                    ...prev,
+                    background: {
+                        ...prev.background,
+                        data: reader.result.split(",")[1],
+                        description: file.name,
+                        type: 0,
+                    },
+                }));
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
 
@@ -157,11 +179,13 @@ function CommunityForm({ inputData, onSubmit, children })
                     <label htmlFor="avatar" className="block mb-2 text-sm font-medium text-gray-900">
                         Avatar:</label>
                     <input type="file" id="avatar" accept="image/*" onChange={handleAvatarChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none " />
+                    {error.avatar && <p className="text-sm text-red-500">{error.avatar}</p>}
                 </div>
                 <div className="w-full mb-6">
                     <label htmlFor="background" className="block mb-2 text-sm font-medium text-gray-900">
                         Background:</label>
                     <input type="file" id="background" accept="image/*" onChange={handleBackgroundChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
+                    {error.background && <p className="text-sm text-red-500">{error.background}</p>}
                 </div>
                 <div className="w-full mb-6 flex gap-1 items-center">
 

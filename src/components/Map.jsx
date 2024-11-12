@@ -10,7 +10,7 @@ function Map()
     const mapContainerRef = useRef();
 
     const { isPending, error, data: communities } = useQuery({
-        queryKey: ['communities'],
+        queryKey: ['communities', 'map'],
         queryFn: getCommunitiesToMap
     });
 

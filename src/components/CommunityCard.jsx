@@ -18,14 +18,11 @@ function CommunityCard({ community })
                 const response = await axios.get(
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`
                 );
-                console.log(response.data.features[0])
+
                 // Sprawdzamy, czy odpowiedź zawiera dane
                 const city = response.data.features[0]?.context?.find(ctx => ctx.id.includes('place'))?.text;
                 const country = response.data.features[0]?.context?.find(ctx => ctx.id.includes('country'))?.short_code;
 
-
-                console.log("City:", city);
-                console.log("Country:", country);
 
                 if (city && country)
                 {
