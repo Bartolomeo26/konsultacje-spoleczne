@@ -21,7 +21,7 @@ function SuggestedCommunities()
     const { data: totalCommunities, isLoading: isTotalLoading, error: totalError } = useQuery({
         queryKey:
             ['communitiesNumber'],
-        queryFn: getCommunitiesNumber
+        queryFn: () => getCommunitiesNumber()
     });
 
     const { data: communities, isLoading, error } = useQuery({

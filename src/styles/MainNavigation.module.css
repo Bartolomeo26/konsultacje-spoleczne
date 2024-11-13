@@ -3,11 +3,12 @@
 li,
 a,
 button {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif !important;
     font-weight: 500;
     font-size: 16px;
     color: #edeff1;
     text-decoration: none;
+
 }
 
 header {

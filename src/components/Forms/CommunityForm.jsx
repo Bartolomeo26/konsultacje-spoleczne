@@ -1,20 +1,76 @@
 import { useState, useEffect } from "react";
 
 import axios from "axios";
+import { form } from "framer-motion/client";
 
-function CommunityForm({ inputData, onSubmit, children })
+function CommunityForm({ community, onSubmit, children })
 {
     const [error, setError] = useState({ avatar: null, background: null });
 
     const [enteredData, setEnteredData] = useState({
-        name: "",
-        description: "",
+        name: community?.name,
+        description: community?.description,
         avatar: { data: "", description: "", type: 0 },
         background: { data: "", description: "", type: 0 },
         city: "",
         country: "",
-        isPublic: true,
+        isPublic: community?.isPublic,
     });
+
+    useEffect(() =>
+    {
+        setEnteredData((prevData) => ({
+            ...prevData, name: community?.name, description: community?.description,
+            isPublic: community?.isPublic,
+        }))
+    }, [community])
+
+    useEffect(() =>
+    {
+
+        // Funkcja asynchroniczna do pobierania miasta i kraju z Mapbox
+        const fetchCityFromCoordinates = async (latitude, longitude) =>
+        {
+            const accessToken = 'pk.eyJ1IjoiYmFydG9sb21lbzI2IiwiYSI6ImNscGlodWV3NjBpMjIycW1hOG12bHQzc2kifQ.aI5LhzT-TGLNgcUkuqW-Bg'; // Zastąp tym swoim tokenem dostępu
+
+            try
+            {
+                const response = await axios.get(
+                    `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`
+                );
+
+                // Sprawdzamy, czy odpowiedź zawiera dane
+                const city = response.data.features[0]?.context?.find(ctx => ctx.id.includes('place'))?.text;
+                const country = response.data.features[0]?.context?.find(ctx => ctx.id.includes('country'))?.text;
+
+                console.log("City:", city);
+                console.log("Country:", country);
+
+                if (city && country)
+                {
+                    return { city, country };
+                } else
+                {
+                    console.log("Nie znaleziono miasta.");
+                    return null;
+                }
+            } catch (error)
+            {
+                console.error("Błąd podczas uzyskiwania danych o mieście:", error);
+                return null;
+            }
+        };
+
+        // Poczekaj na dane z Mapbox i zaktualizuj stan
+        const getLocation = async () =>
+        {
+            const { city, country } = await fetchCityFromCoordinates(community.latitude, community.longitude);
+            setEnteredData((prevData) => ({ ...prevData, city, country }))
+        };
+
+        getLocation();
+
+    }, [community?.latitude, community?.longitude]); // Zależność od zmiany latitude i longitude w community
 
 
     const handleChange = (e) =>
@@ -119,10 +175,10 @@ function CommunityForm({ inputData, onSubmit, children })
         const dataToCoordinates = Object.fromEntries(formData);
 
         const coordinates = await fetchCoordinates(dataToCoordinates);
-        console.log('jestem', coordinates)
+
         formData.append('longitude', coordinates[0])
         formData.append('latitude', coordinates[1])
-
+        formData.append('id', community?.id)
         formData.append('avatar', JSON.stringify(enteredData.avatar))
         formData.append('background', JSON.stringify(enteredData.background))
         formData.delete('city')

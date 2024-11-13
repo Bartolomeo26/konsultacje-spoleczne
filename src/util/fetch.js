@@ -241,11 +241,43 @@ export async function createNewCommunity(communityData)
         });
 }
 
-export async function getCommunities(pageNumber = 1, pageSize = 20)
+export async function editCommunity(communityData)
 {
-    return await axios.get(`https://localhost:7150/api/communities?PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
+
+    const token = localStorage.getItem('token');
+    const { community } = communityData;
+    community.avatar = JSON.parse(community.avatar);
+    community.background = JSON.parse(community.background);
+    if (community.isPublic === 'on') community.isPublic = true;
+    else community.isPublic = false;
+
+    return await axios.patch(
+        `https://localhost:7150/api/communities/${community.id}`,
+        [
+            { op: "replace", path: "/name", value: community.name },
+            { op: "replace", path: "/description", value: community.description },
+            { op: "replace", path: "/latitude", value: community.latitude },
+            { op: "replace", path: "/longitude", value: community.longitude },
+            { op: "replace", path: "/avatar", value: community.avatar },
+            { op: "replace", path: "/background", value: community.background },
+            { op: "replace", path: "/isPublic", value: community.isPublic }
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery = '')
+{
+    return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
     }).then(response =>
     {
@@ -254,9 +286,9 @@ export async function getCommunities(pageNumber = 1, pageSize = 20)
     });
 }
 
-export async function getCommunitiesNumber()
+export async function getCommunitiesNumber(searchQuery = '')
 {
-    return await axios.get(`https://localhost:7150/api/communities?Fields=id`, {
+    return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&Fields=id`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
         }
@@ -303,7 +335,8 @@ export async function getCommunity(id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
-
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
     }).then(response =>
     {

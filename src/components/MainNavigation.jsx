@@ -10,7 +10,7 @@ function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { token, removeToken, loggedUser } = useAuth();
+    const { token = null, removeToken, loggedUser } = useAuth();
 
     const navigate = useNavigate();
 

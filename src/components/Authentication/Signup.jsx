@@ -48,7 +48,9 @@ function Signup({ changeAuthType })
                     ) : error.message}
                 </h1>
             )}
-            <button onClick={() => changeAuthType('login')} className={classes.secondaryButton}>I already have an account</button>
+            <div>
+                <button onClick={() => changeAuthType('login')} className={classes.secondaryButton}>I already have an account</button>
+            </div>
         </div>}
 
     </>)

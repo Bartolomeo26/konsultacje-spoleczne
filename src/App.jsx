@@ -18,6 +18,7 @@ import { getToken } from './util/auth'
 import ConfirmedMail from './pages/ConfirmedMail'
 import { AuthProvider } from './util/AuthContext'
 import NewCommunity from './pages/NewCommunity'
+import EditCommunity from './pages/EditCommunity'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
         { path: '/communities', element: <Communities /> },
         { path: '/communities/new', element: <NewCommunity /> },
         { path: '/communities/:id', element: <CommunityDetails /> },
+        { path: '/communities/:id/edit', element: <EditCommunity /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
         { path: '/communities/:id/consultations/:id', element: <DiscussionDetails /> },
         { path: '/contact', element: <Contact /> },

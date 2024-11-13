@@ -6,32 +6,36 @@ import CommunityCard from "./CommunityCard";
 
 const pageSize = 20;
 
-function CommunitiesList()
+function CommunitiesList({ searchTerm })
 {
     const [pageNumber, setPageNumber] = useState(() =>
     {
         const params = new URLSearchParams(window.location.search);
         return Number(params.get("page")) || 1; // Pobierz stronę z query string lub domyślnie 1
     });
-
+    console.log(searchTerm);
     // Fetch communities for the current page
     const {
-        isLoading: isLoadingCommunities,
+        isPending: isLoadingCommunities,
         error: communitiesError,
         data: communities,
     } = useQuery({
-        queryKey: ["communities", pageNumber],
-        queryFn: () => getCommunities(pageNumber, pageSize),
+        queryKey: ["communities", pageNumber, searchTerm],
+        queryFn: () => getCommunities(pageNumber, pageSize, searchTerm),
+        staleTime: 5 * 60 * 1000, // Dane będą uznawane za świeże przez 5 minut
+        cacheTime: 10 * 60 * 1000,
+        retry: 0
     });
 
     // Fetch the total number of communities
     const {
-        isLoading: isLoadingCount,
+        isPending: isLoadingCount,
         error: countError,
         data: totalCountData,
     } = useQuery({
-        queryKey: ["communitiesCount"],
-        queryFn: getCommunitiesNumber,
+        queryKey: ["communitiesCount", searchTerm],
+        queryFn: () => getCommunitiesNumber(searchTerm),
+        retry: 0
     });
 
     useEffect(() =>
@@ -79,11 +83,31 @@ function CommunitiesList()
     const totalPages = Math.ceil(totalCount / pageSize);
     const paginationButtons = generatePagination(totalPages, pageNumber);
 
+    if (communitiesError) return (<div className="flex flex-col px-3 mb-10">
+        <div className="text-center">
+
+            <div >
+                No community found.
+            </div>
+
+        </div></div>)
+
     return (
         <div className="flex flex-col px-3 mb-10">
-            {totalCount &&
+            {communitiesError && <><h1>
+                There are <span className="font-bold">0</span> Communities created so far.
+            </h1><div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-2 mb-10 place-items-center">
+
+                    <div >
+                        No community found.
+                    </div>
+
+                </div></>}
+            {totalCount ?
                 <h1>
                     There are <span className="font-bold">{totalCount}</span> Communities created so far.
+                </h1> : <h1>
+                    There are <span className="font-bold">...</span> Communities created so far.
                 </h1>}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-2 mb-10 place-items-center">
                 {communities?.value?.map((community, index) => (

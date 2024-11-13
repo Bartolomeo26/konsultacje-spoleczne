@@ -16,31 +16,34 @@ function CommunityDetails()
     const { id, topic } = useParams();
     const { loggedUser } = useAuth();
 
+
     const { isPending, error, data: community } = useQuery({
         queryKey: ['community', id],
         queryFn: () => getCommunity(id)
     });
-    const permissions = {
-        isAdmin: community?.administrators.some(admin => admin.id === loggedUser.id),
-        isMember: community?.members.some(member => member.id === loggedUser.id)
-    };
+    const permissions = community && loggedUser ? {
+        isAdmin: community.administrators.some(admin => admin.id === loggedUser.id),
+        isMember: community.members.some(member => member.id === loggedUser.id)
+    } : { isAdmin: false, isMember: false };
     console.log('permisje', permissions)
+    const topics = ['consultations', 'surveys']
     let communityContent;
     if (topic === undefined)
     {
         communityContent = <CommunityMain community={community} />;
     }
-    else if (topic === 'consultations')
+    else if (topic === topics[0])
     {
         communityContent = <CommunityDiscussionsList />;
     }
-    else if (topic === 'surveys')
+    else if (topic === topics[1])
     {
         communityContent = <SurveysList />
     }
     else
     {
-        communityContent = <h1>What are you looking for? Such a content does not exist</h1>
+        communityContent = <div className="flex flex-col w-full">
+            <div className="w-4/5 flex flex-col justify-center p-6 mt-10"><h1 className="text-2xl font-semibold">What are you looking for? Such a content does not exist</h1></div></div>
     }
 
     if (isPending) return <LoadingIndicator />;
@@ -50,7 +53,7 @@ function CommunityDetails()
             <div className="flex flex-col w-full">
                 <CommunityHeader community={community} permissions={permissions} />
                 <div className="flex flex-col px-28 mb-10 relative">
-                    <CommunityNavigation />
+                    <CommunityNavigation permissions={permissions} />
                     <CommunityBasicInfo community={community} />
                     <div>
                         {communityContent}

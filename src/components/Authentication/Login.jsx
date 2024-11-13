@@ -47,13 +47,17 @@ function Login({ changeAuthType })
                     ) : error.message}
                 </h1>
             )}
-            <div className='flex gap-2 mt-3'>
-                <button onClick={() => changeAuthType('signup')} className={classes.secondaryButton}>
-                    I don't have an account
-                </button>
-                <button onClick={() => changeAuthType('forgottenPassword')} className={classes.secondaryButton}>
-                    I don't remember my password
-                </button>
+            <div className='flex justify-center gap-2 mt-3 w-full'>
+                <div className='w-5/12'>
+                    <button onClick={() => changeAuthType('signup')} className={classes.secondaryButton}>
+                        I don't have an account
+                    </button>
+                </div>
+                <div className='w-5/12'>
+                    <button onClick={() => changeAuthType('forgottenPassword')} className={classes.secondaryButton}>
+                        I forgot my password
+                    </button>
+                </div>
             </div>
         </div>
     );
