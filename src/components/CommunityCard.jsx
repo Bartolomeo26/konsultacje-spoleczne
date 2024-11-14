@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import defaultCity from '../assets/defaultCity.png'
 import { useState, useEffect } from "react";
 import axios from "axios";
-function CommunityCard({ community })
+function CommunityCard({ community, permission })
 {
     const [location, setLocation] = useState({ city: null, country: null });
 
@@ -52,7 +52,11 @@ function CommunityCard({ community })
     return (
         <>
 
-            <div className="w-[14rem] bg-white border border-gray-200 rounded-lg shadow " style={{ height: "280px" }}>
+            <div className="w-[14rem] relative bg-white border border-gray-200 rounded-lg shadow " style={{ height: "280px" }}>
+                {permission &&
+                    <div className="absolute top-0 left-0 bg-blue-700 border-blue-700 p-1 border-b-2 border-e-2 rounded-br-lg rounded-tl-lg">
+                        <h1 className="text-xs text-white permission">{permission}</h1>
+                    </div>}
                 <Link to={`/communities/${community.id}`}>
                     <img className="rounded-t-lg h-32 w-full object-fill" src={community.avatar ? `data:image/jpeg;base64,${community.avatar.data}` : defaultCity} alt="" />
                 </Link>

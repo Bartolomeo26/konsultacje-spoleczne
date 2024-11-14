@@ -7,18 +7,19 @@ import ProfileNavigation from "../components/UserProfile/ProfileNavigation";
 import { useState } from "react";
 import ProfileSettings from "../components/UserProfile/ProfileSettings";
 import ProfileCommunities from "../components/UserProfile/ProfileCommunities";
-
+import { useAuth } from "../util/AuthContext";
 
 function UserProfile()
 {
     const [contentType, setContentType] = useState('about');
     const { id } = useParams();
+    const { loggedUser = null } = useAuth();
 
     const { isPending, error, data: user } = useQuery({
         queryKey: ['user', id], // include id in the query key to refetch for different ids
         queryFn: () => getUser(id)
     });
-
+    const isLoggedIn = loggedUser?.id === user?.id;
     function handleContentChange(type)
     {
         setContentType(type);
@@ -31,7 +32,7 @@ function UserProfile()
     }
     else if (contentType === 'communities')
     {
-        content = <ProfileCommunities user={user} />
+        content = <ProfileCommunities user={user} isLoggedIn={isLoggedIn} />
     }
     else if (contentType === 'consultations')
     {
@@ -47,10 +48,10 @@ function UserProfile()
 
     return (
         <div className="w-full">
-            <ProfileHeader user={user} />
+            <ProfileHeader user={user} isLoggedIn={isLoggedIn} />
             <div className="flex flex-col px-28 mb-10 relative">
-                <ProfileNavigation handleContentChange={handleContentChange} user={user} />
-                <div className="px-44 mt-12">
+                <ProfileNavigation handleContentChange={handleContentChange} isLoggedIn={isLoggedIn} />
+                <div className="ps-44 pe-28 mt-12">
                     {content}
                 </div>
             </div>

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../util/AuthContext";
 
 
-function ProfileNavigation({ handleContentChange, user })
+
+function ProfileNavigation({ handleContentChange, isLoggedIn })
 {
-    const { loggedUser } = useAuth();
+   
 
     return (
         <>
@@ -19,7 +19,7 @@ function ProfileNavigation({ handleContentChange, user })
                     <div className="border-s-4 px-3 py-1" style={{ borderColor: "#155e75" }}>
                         <button onClick={() => handleContentChange('consultations')}>Consultations</button>
                     </div>
-                    {loggedUser.id === user.id &&
+                    {isLoggedIn &&
                         <div className="border-s-4 px-3 py-1" style={{ borderColor: "#155e75" }}>
                             <button onClick={() => handleContentChange('settings')}>Settings</button>
                         </div>}

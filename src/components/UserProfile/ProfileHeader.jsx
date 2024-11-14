@@ -2,14 +2,11 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import AvatarUpload from './AvatarUpload';
 import UpdateAvatarButton from './UpdateAvatarButton';
-import axios from 'axios';
 import { formatToEuropeanDate } from '../../util/formatDate';
 import { updateUserProfile } from '../../util/fetch';
-import { useAuth } from '../../util/AuthContext';
-function ProfileHeader({ user })
+function ProfileHeader({ user, isLoggedIn })
 {
-    const { loggedUser } = useAuth();
-    const isLoggedIn = loggedUser.id === user?.id;
+
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [originalData, setOriginalData] = useState(null); // Store initial data

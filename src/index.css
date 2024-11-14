@@ -78,3 +78,7 @@
   background-color: #FF8D6D;
   /* Kolor tła po najechaniu */
 }
+
+.permission {
+  font-family: "Montserrat", sans-serif !important;
+}
