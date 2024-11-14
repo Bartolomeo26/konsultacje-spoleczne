@@ -2,15 +2,18 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { acceptJoinToCommunity, rejectJoinToCommunity } from "../../../util/fetch";
 import JoinRequestCard from "./JoinRequestCard";
+import { useQueryClient } from "@tanstack/react-query";
 
 function JoinRequestsList({ joinRequests, communityId })
 {
+    const queryClient = useQueryClient();
     const [filter, setFilter] = useState("all"); // Domyślny filtr to "all"
 
     const { mutate: mutateAccept } = useMutation({
         mutationFn: acceptJoinToCommunity,
         onSuccess: () =>
         {
+            queryClient.invalidateQueries({ queryKey: ['community'] })
             alert("Accepting success!");
         },
         onError: (err) =>
@@ -23,6 +26,7 @@ function JoinRequestsList({ joinRequests, communityId })
         mutationFn: rejectJoinToCommunity,
         onSuccess: () =>
         {
+            queryClient.invalidateQueries({ queryKey: ['community'] })
             alert("Rejecting success!");
         },
         onError: (err) =>
@@ -48,7 +52,7 @@ function JoinRequestsList({ joinRequests, communityId })
     {
         if (filter === "pending") return request.status === 0;
         if (filter === "handled") return request.status === 1 || request.status === 2;
-        return true; // "all"
+        return true;
     });
 
     return (
@@ -105,6 +109,7 @@ function JoinRequestsList({ joinRequests, communityId })
                                     request={joinRequest}
                                     onAccept={handleAcceptJoinRequest}
                                     onReject={handleRejectJoinRequest}
+
                                 />
                             ))
                         ) : (

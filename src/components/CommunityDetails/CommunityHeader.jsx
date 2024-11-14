@@ -5,14 +5,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { joinToCommunity } from "../../util/fetch";
 import { useAuth } from "../../util/AuthContext";
 import { useState } from "react";
-
+import defaultCity from '../../assets/defaultCity.png'
 
 function CommunityHeader({ community, permissions })
 {
 
     const queryClient = useQueryClient();
     const { loggedUser } = useAuth();
-    const [hasRequested, setHasRequested] = useState(community.joinRequests.some(request => request.userId === loggedUser.id));
+    const [hasRequested, setHasRequested] = useState(community.joinRequests.some(request => request.userId === loggedUser.id && request.status !== 2));
 
     const { mutate, isLoading, isError, error } = useMutation({
         mutationFn: joinToCommunity,
@@ -103,7 +103,7 @@ function CommunityHeader({ community, permissions })
                             </div>}
                     </div>
                     <div className="w-2/4">
-                        <img src={`data:image/jpeg;base64,${community.background.data}`} alt="" className='object-fill w-full h-full' />
+                        <img src={community.background ? `data:image/jpeg;base64,${community.background.data}` : defaultCity} alt="" className='object-fill w-full h-full' />
                     </div>
                 </div>
 

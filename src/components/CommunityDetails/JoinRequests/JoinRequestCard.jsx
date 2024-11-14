@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 const JoinRequestCard = ({ request, onAccept, onReject }) =>
 {
     const { user, status } = request;
@@ -23,7 +23,8 @@ const JoinRequestCard = ({ request, onAccept, onReject }) =>
     return (
         <div className="p-4 bg-white shadow-md rounded-md flex items-center justify-between">
             <div>
-                <h2 className="text-lg font-semibold">{`${user.name} ${user.surname}`}</h2>
+                <Link to={`/users/${user.id}`}>
+                    <h2 className="text-lg font-semibold">{`${user.name} ${user.surname}`}</h2></Link>
                 <p className="text-sm text-gray-600">{user.email}</p>
                 <p className="text-sm text-gray-600">
                     Birth Date: {new Date(user.birthDate).toLocaleDateString()}
