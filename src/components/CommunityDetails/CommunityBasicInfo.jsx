@@ -65,7 +65,7 @@ function CommunityBasicInfo({ community })
                     <p className="text-lg border-b-4 py-1" style={{ borderColor: "#155e75" }}>Location: {location.city}, {location.country}</p>
                 }
                 <p className="text-lg border-b-4 py-1" style={{ borderColor: "#155e75" }}>Members: {community.members.length}</p>
-                <p className="text-lg py-1" style={{ borderColor: "#155e75" }}>Email: </p>
+                <p className="text-lg py-1" style={{ borderColor: "#155e75" }}>Email: {community.administrators[0]?.email}</p>
             </div>
         </div>
     )

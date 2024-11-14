@@ -151,10 +151,10 @@ function SurveyCard()
                     </button>
                 ) : (
                     <div className="space-x-4 flex justify-center">
-                        <button onClick={handleUndoVote} type="button" className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors duration-200">
+                        <button onClick={handleUndoVote} type="button" className="bg-red-500 text-white w-1/2 py-2 px-4 rounded-lg hover:bg-red-600 transition-colors duration-200">
                             Undo Vote
                         </button>
-                        <button onClick={handleShowResults} type="button" className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-200">
+                        <button onClick={handleShowResults} type="button" className="bg-green-500 text-white w-1/2 py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-200">
                             View Results
                         </button>
                     </div>

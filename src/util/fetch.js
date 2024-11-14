@@ -250,7 +250,7 @@ export async function editCommunity(communityData)
     community.background = JSON.parse(community.background);
     if (community.isPublic === 'on') community.isPublic = true;
     else community.isPublic = false;
-
+    console.log(community);
     return await axios.patch(
         `https://localhost:7150/api/communities/${community.id}`,
         [
@@ -275,9 +275,7 @@ export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery 
 {
     return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
         headers: {
-            'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json'
         }
     }).then(response =>
     {
@@ -302,7 +300,7 @@ export async function getCommunitiesNumber(searchQuery = '')
 
 export async function getCommunitiesList()
 {
-    return await axios.get('https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude', {
+    return await axios.get('https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20avatar%2C%20latitude%2C%20description%2C%20longitude%2C%20members%2C%20administrators', {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
 
@@ -332,6 +330,7 @@ export async function getCommunitiesToMap()
 
 export async function getCommunity(id)
 {
+    console.log('probuje', id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
@@ -344,4 +343,85 @@ export async function getCommunity(id)
         return response.data
     }
     );
+}
+
+export async function joinToCommunity(community)
+{
+    const token = localStorage.getItem('token');
+    console.log("KAWJWAFJAWFAm", community)
+
+    return await axios.post(`https://localhost:7150/api/communities/${community.id}/joinrequests`, null, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while sending join request');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
+}
+
+export async function acceptJoinToCommunity(data)
+{
+    const token = localStorage.getItem('token');
+    console.log("AKCEPTUJE")
+    console.log('no', data);
+    return await axios.post(`https://localhost:7150/api/communities/${data.communityId}/joinrequests/${data.joinRequestId}/accept`, null, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while accepting join request');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
+}
+
+export async function rejectJoinToCommunity(data)
+{
+    const token = localStorage.getItem('token');
+    console.log("REJECTUJE")
+    console.log('no', data);
+    return await axios.post(`https://localhost:7150/api/communities/${data.communityId}/joinrequests/${data.joinRequestId}/reject`, null, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while rejecting join request');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
 }

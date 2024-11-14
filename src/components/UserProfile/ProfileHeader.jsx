@@ -9,7 +9,7 @@ import { useAuth } from '../../util/AuthContext';
 function ProfileHeader({ user })
 {
     const { loggedUser } = useAuth();
-    const isLoggedIn = loggedUser.id === user.id;
+    const isLoggedIn = loggedUser.id === user?.id;
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [originalData, setOriginalData] = useState(null); // Store initial data

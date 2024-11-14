@@ -6,6 +6,7 @@ import ProfileHeader from "../components/UserProfile/ProfileHeader";
 import ProfileNavigation from "../components/UserProfile/ProfileNavigation";
 import { useState } from "react";
 import ProfileSettings from "../components/UserProfile/ProfileSettings";
+import ProfileCommunities from "../components/UserProfile/ProfileCommunities";
 
 
 function UserProfile()
@@ -30,7 +31,7 @@ function UserProfile()
     }
     else if (contentType === 'communities')
     {
-        content = <h1>Your Communities</h1>
+        content = <ProfileCommunities user={user} />
     }
     else if (contentType === 'consultations')
     {
@@ -48,7 +49,7 @@ function UserProfile()
         <div className="w-full">
             <ProfileHeader user={user} />
             <div className="flex flex-col px-28 mb-10 relative">
-                <ProfileNavigation handleContentChange={handleContentChange} user={user}/>
+                <ProfileNavigation handleContentChange={handleContentChange} user={user} />
                 <div className="px-44 mt-12">
                     {content}
                 </div>

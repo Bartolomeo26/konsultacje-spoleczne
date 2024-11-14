@@ -6,6 +6,7 @@ import CommunityDiscussionsList from "../components/CommunityDetails/Discussions
 import CommunityNavigation from "../components/CommunityDetails/CommunityNavigation";
 import CommunityBasicInfo from "../components/CommunityDetails/CommunityBasicInfo";
 import SurveysList from "../components/CommunityDetails/Surveys/SurveysList";
+import JoinRequests from "../components/CommunityDetails/JoinRequests/JoinRequestsList";
 import { useQuery } from "@tanstack/react-query";
 import { getCommunity } from "../util/fetch";
 import LoadingIndicator from "../components/LoadingIndicator";
@@ -26,7 +27,7 @@ function CommunityDetails()
         isMember: community.members.some(member => member.id === loggedUser.id)
     } : { isAdmin: false, isMember: false };
     console.log('permisje', permissions)
-    const topics = ['consultations', 'surveys']
+    const topics = ['consultations', 'surveys', 'join-requests']
     let communityContent;
     if (topic === undefined)
     {
@@ -39,6 +40,10 @@ function CommunityDetails()
     else if (topic === topics[1])
     {
         communityContent = <SurveysList />
+    }
+    else if (topic === topics[2])
+    {
+        communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />
     }
     else
     {

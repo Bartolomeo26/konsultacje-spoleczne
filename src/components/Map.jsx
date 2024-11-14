@@ -52,7 +52,7 @@ function Map()
                 },
                 cluster: true,
                 clusterMaxZoom: 14, // Zmiana na markery przy tym zoomie
-                clusterRadius: 50,
+                clusterRadius: 20,
             });
 
             // Warstwa z klastrami

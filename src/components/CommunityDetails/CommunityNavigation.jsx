@@ -9,7 +9,7 @@ function CommunityNavigation({ permissions })
     return (
         <>
             <div className="flex">
-                <div className="flex text-2xl absolute top-0 left-40 border-s-4 border-b-4 border-e-4 rounded-b-lg z-10 bg-slate-200" style={{ borderColor: "#155e75" }}>
+                <div className="flex text-2xl absolute top-0 left-16 border-s-4 border-b-4 border-e-4 rounded-b-lg z-10 bg-slate-200" style={{ borderColor: "#155e75" }}>
                     <div className="px-3 flex items-center">
                         <Link to={link} preventScrollReset={true}>About</Link>
                     </div>
@@ -19,6 +19,9 @@ function CommunityNavigation({ permissions })
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                             <Link to={link + '/consultations'} preventScrollReset={true}>New Consultation</Link>
+                        </div>
+                        <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
+                            <Link to={link + '/join-requests'} preventScrollReset={true}>Join Requests</Link>
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                             <Link to={link + '/surveys'} preventScrollReset={true}>Surveys</Link>
