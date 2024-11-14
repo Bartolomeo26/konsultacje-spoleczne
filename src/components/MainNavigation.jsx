@@ -1,28 +1,42 @@
-import { Form, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
 import { useAuth } from "../util/AuthContext";
-import { getSelf } from '../util/fetch'
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 
 function MainNavigation()
 {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { token = null, removeToken, loggedUser } = useAuth();
-
+    const dropdownRef = useRef(null); // Ref do dropdowna
     const navigate = useNavigate();
-
-
 
     const handleSignOut = () =>
     {
         removeToken();
         setIsDropdownOpen(false);
-        navigate('/')
+        navigate('/');
+    };
 
-    }
+    const handleClickOutside = (event) =>
+    {
+        // Sprawdzamy, czy kliknięcie nie było w dropdownie
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+        {
+            setIsDropdownOpen(false);
+        }
+    };
+
+    useEffect(() =>
+    {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () =>
+        {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <header className="bg-cyan-800 p-4 px-10 flex justify-between items-center">
@@ -66,7 +80,7 @@ function MainNavigation()
                     }
                     {/* Dropdown menu */}
                     {isDropdownOpen && (
-                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" >
+                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" ref={dropdownRef} >
                             <ul className="flex flex-col" >
                                 {loggedUser &&
                                     <li>

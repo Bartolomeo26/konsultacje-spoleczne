@@ -67,7 +67,7 @@ function CommunityFooter({ community })
             </div>
 
             <div className="flex items-end gap-3 px-6">
-                {!nearbyCommunities.length ? <p>No communities found.</p> : <>
+                {!nearbyCommunities.length ? <p className="text-gray-600">No communities found.</p> : <>
                     {nearbyCommunitiesSliced?.map(foundCommunity => (
                         <CommunityCard key={foundCommunity.id} community={foundCommunity} />
                     ))}
