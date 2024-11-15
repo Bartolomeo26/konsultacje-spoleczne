@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 function JoinRequestsList({ joinRequests, communityId })
 {
     const queryClient = useQueryClient();
-    const [filter, setFilter] = useState("all"); // Domyślny filtr to "all"
+    const [filter, setFilter] = useState("pending");
 
     const { mutate: mutateAccept } = useMutation({
         mutationFn: acceptJoinToCommunity,
@@ -79,13 +79,6 @@ function JoinRequestsList({ joinRequests, communityId })
                         </h1>
                         <div className="flex space-x-2">
                             <button
-                                onClick={() => setFilter("all")}
-                                className={`px-4 py-2 rounded-md font-semibold ${filter === "all" ? "bg-blue-500 text-white" : "bg-gray-200"
-                                    }`}
-                            >
-                                All
-                            </button>
-                            <button
                                 onClick={() => setFilter("pending")}
                                 className={`px-4 py-2 rounded-md font-semibold ${filter === "pending" ? "bg-blue-500 text-white" : "bg-gray-200"
                                     }`}
@@ -98,6 +91,13 @@ function JoinRequestsList({ joinRequests, communityId })
                                     }`}
                             >
                                 Handled
+                            </button>
+                            <button
+                                onClick={() => setFilter("all")}
+                                className={`px-4 py-2 rounded-md font-semibold ${filter === "all" ? "bg-blue-500 text-white" : "bg-gray-200"
+                                    }`}
+                            >
+                                All
                             </button>
                         </div>
                     </div>

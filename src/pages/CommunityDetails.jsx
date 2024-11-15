@@ -11,6 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getCommunity } from "../util/fetch";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { useAuth } from "../util/AuthContext";
+import CommunityAdminInfo from "../components/CommunityDetails/CommunityAdminInfo";
+import Alert from "../components/Alert";
 
 function CommunityDetails()
 {
@@ -33,22 +35,30 @@ function CommunityDetails()
     {
         communityContent = <CommunityMain community={community} />;
     }
-    else if (topic === topics[0])
+    else if (community?.isPublic || (permissions.isAdmin || permissions.isMember))
     {
-        communityContent = <CommunityDiscussionsList />;
-    }
-    else if (topic === topics[1])
-    {
-        communityContent = <SurveysList />
-    }
-    else if (topic === topics[2])
-    {
-        communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />
+        if (topic === topics[0])
+        {
+            communityContent = <CommunityDiscussionsList />;
+        }
+        else if (topic === topics[1])
+        {
+            communityContent = <SurveysList />
+        }
+        else if (topic === topics[2])
+        {
+            communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />
+        }
+        else
+        {
+            communityContent = <div className="flex flex-col w-full">
+                <div className="w-4/5 flex flex-col justify-center p-6 mt-10"><h1 className="text-2xl font-semibold">What are you looking for? Such a content does not exist</h1></div></div>
+        }
     }
     else
     {
         communityContent = <div className="flex flex-col w-full">
-            <div className="w-4/5 flex flex-col justify-center p-6 mt-10"><h1 className="text-2xl font-semibold">What are you looking for? Such a content does not exist</h1></div></div>
+            <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800"><Alert message={{ title: "No permission", text: "You have no permission to see this content as you are neither an admin nor a member of this private community." }} /></div></div>
     }
 
     if (isPending) return <LoadingIndicator />;
@@ -58,7 +68,8 @@ function CommunityDetails()
             <div className="flex flex-col w-full">
                 <CommunityHeader community={community} permissions={permissions} />
                 <div className="flex flex-col px-28 mb-10 relative">
-                    <CommunityNavigation permissions={permissions} />
+                    <CommunityNavigation permissions={permissions} joinRequests={community.joinRequests} />
+
                     <CommunityBasicInfo community={community} />
                     <div>
                         {communityContent}

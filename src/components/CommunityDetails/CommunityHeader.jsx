@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { Link } from "react-router-dom";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { joinToCommunity } from "../../util/fetch";
 import { useAuth } from "../../util/AuthContext";
 import { useState } from "react";
@@ -10,9 +10,15 @@ import defaultCity from '../../assets/defaultCity.png'
 function CommunityHeader({ community, permissions })
 {
 
-    const queryClient = useQueryClient();
+
     const { loggedUser } = useAuth();
-    const [hasRequested, setHasRequested] = useState(community.joinRequests.some(request => request.userId === loggedUser.id && request.status !== 2));
+    const [hasRequested, setHasRequested] = useState(() =>
+        community.joinRequests.find(request => request.userId === loggedUser.id && request.status === 0)
+    );
+
+    const [hasRejected, setHasRejected] = useState(() =>
+        community.joinRequests.find(request => request.userId === loggedUser.id && request.status === 2)
+    );
 
     const { mutate, isLoading, isError, error } = useMutation({
         mutationFn: joinToCommunity,
@@ -42,12 +48,12 @@ function CommunityHeader({ community, permissions })
                         <h1 className='text-8xl text-center mb-6'>{community.name}</h1>
                         {(!permissions.isAdmin && !permissions.isMember) &&
                             <div className='absolute bottom-20'>
-                                {!hasRequested ? (
+                                {!hasRequested && !hasRejected ? (
                                     <button
                                         type="button"
                                         onClick={() => mutate({ id: community.id })}
                                         disabled={isLoading}
-                                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4  font-medium rounded-lg text-base px-5 py-2.5"
+                                        className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 font-medium rounded-lg text-base px-5 py-2.5"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +71,7 @@ function CommunityHeader({ community, permissions })
                                         </svg>{" "}
                                         {isLoading ? "Loading..." : "Request to join the group"}
                                     </button>
-                                ) : (
+                                ) : hasRequested ? (
                                     <button
                                         disabled
                                         className="focus:outline-none text-white bg-gray-400 hover:bg-gray-500 font-medium rounded-lg text-base px-5 py-2.5"
@@ -74,10 +80,23 @@ function CommunityHeader({ community, permissions })
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 inline-block">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
-
-                                            <span>Request already sent</span></div>
+                                            <span>Request already sent</span>
+                                        </div>
                                     </button>
-                                )}
+                                ) : hasRejected ? (
+                                    <button
+                                        disabled
+                                        className="focus:outline-none text-white bg-red-400 hover:bg-red-500 font-medium rounded-lg text-base px-5 py-2.5"
+                                    >
+                                        <div className="flex gap-1 items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 inline-block">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+
+                                            <span>Your request was rejected</span>
+                                        </div>
+                                    </button>
+                                ) : null}
                             </div>
                         }
                         {permissions.isAdmin &&

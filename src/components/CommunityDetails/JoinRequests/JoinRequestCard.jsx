@@ -49,7 +49,7 @@ const JoinRequestCard = ({ request, onAccept, onReject }) =>
                     </>
                 ) : (
                     <span
-                        className={`w-40 text-center  py-2 rounded-md text-white font-semibold ${status === 1 ? "bg-green-400" : "bg-red-400"
+                        className={`w-40 text-center  py-2 rounded-md text-white font-semibold ${requestStatus === 1 ? "bg-green-400" : "bg-red-400"
                             }`}
                     >
                         {getStatusMessage()}

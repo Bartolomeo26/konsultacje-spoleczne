@@ -275,7 +275,9 @@ export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery 
 {
     return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
         headers: {
-            'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json'
+            'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
     }).then(response =>
     {

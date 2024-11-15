@@ -1,10 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 
 
-function CommunityNavigation({ permissions })
+function CommunityNavigation({ permissions, joinRequests })
 {
     const { id } = useParams();
     let link = '/communities/' + id;
+    const pendingCount = joinRequests.filter(request => request.status === 0).length;
 
     return (
         <>
@@ -21,7 +22,12 @@ function CommunityNavigation({ permissions })
                             <Link to={link + '/consultations'} preventScrollReset={true}>New Consultation</Link>
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
-                            <Link to={link + '/join-requests'} preventScrollReset={true}>Join Requests</Link>
+                            <Link to={link + '/join-requests'} preventScrollReset={true}>
+                                <span>Join Requests</span>
+                                <div className="inline-flex items-center justify-center rounded-full bg-[#155e75] text-white text-xs w-6 h-6 ml-1 mb-1">
+                                    <span>{pendingCount}</span>
+                                </div>
+                            </Link>
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                             <Link to={link + '/surveys'} preventScrollReset={true}>Surveys</Link>

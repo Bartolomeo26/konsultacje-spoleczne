@@ -11,7 +11,7 @@ function CommunityFooter({ community })
         queryFn: getCommunitiesList
     });
 
-    function isWithinRange(lat1, lon1, lat2, lon2, range = 10)
+    function isWithinRange(lat1, lon1, lat2, lon2, range = 20)
     {
         const toRadians = (deg) => deg * (Math.PI / 180);
         const R = 6371; // Earth radius in kilometers

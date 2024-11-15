@@ -16,12 +16,12 @@ function NewCommunity()
             console.log("Community created successfully:", data);
             navigate(`/communities/${data.id}`)
             queryClient.invalidateQueries({ queryKey: ['communities'] })
-            // Tutaj możesz dodać logikę na wypadek sukcesu, np. nawigację do nowej społeczności
+            
         },
         onError: (error) =>
         {
             console.error("Failed to create community:", error);
-            // Możesz dodać tutaj obsługę błędów
+           
         },
     });
 
