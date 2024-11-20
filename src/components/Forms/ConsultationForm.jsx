@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { form } from "framer-motion/client";
 
-function CommunityForm({ community, onSubmit, children })
+function ConsultationForm({ community, onSubmit, children })
 {
     const [error, setError] = useState({ avatar: null, background: null });
 
@@ -267,4 +267,4 @@ function CommunityForm({ community, onSubmit, children })
     );
 }
 
-export default CommunityForm;
+export default ConsultationForm;

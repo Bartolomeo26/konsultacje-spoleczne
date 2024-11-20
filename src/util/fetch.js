@@ -204,7 +204,7 @@ export async function deleteAccount(user)
         `https://localhost:7150/api/users/${user.userId}`,
         {
             headers: {
-                'Content-Type': 'application/json-patch+json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         }
@@ -233,6 +233,32 @@ export async function createNewCommunity(communityData)
         .catch(error =>
         {
             const err = new Error('An error occurred while creating the community');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
+}
+
+export async function createNewConsultation(consultationData)
+{
+    const token = localStorage.getItem('token');
+
+    return await axios.post(`https://localhost:7150/api/communities`, consultationData.consultation, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while creating the consultation');
             err.code = error.response?.status;
             err.info = error.response?.data;
             err.message = error.message;
@@ -271,6 +297,22 @@ export async function editCommunity(communityData)
     );
 }
 
+export async function deleteCommunity({ communityId })
+{
+    const token = localStorage.getItem('token');
+
+    console.log("USUWANIE!", communityId)
+    return await axios.delete(
+        `https://localhost:7150/api/communities/${communityId}`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
 export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery = '')
 {
     return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
@@ -282,7 +324,7 @@ export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery 
     }).then(response =>
     {
         console.log("GET COMMUNITIES: ", response.data);
-        return response.data;
+        return response;
     });
 }
 
@@ -300,9 +342,9 @@ export async function getCommunitiesNumber(searchQuery = '')
 }
 
 
-export async function getCommunitiesList()
+export async function getCommunitiesList(queryString = '')
 {
-    return await axios.get('https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20avatar%2C%20latitude%2C%20description%2C%20longitude%2C%20members%2C%20administrators', {
+    return await axios.get(`https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20avatar%2C%20latitude%2C%20description%2C%20longitude%2C%20members${queryString}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
 

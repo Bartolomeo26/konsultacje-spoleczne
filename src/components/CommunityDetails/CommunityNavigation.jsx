@@ -19,7 +19,7 @@ function CommunityNavigation({ permissions, joinRequests })
                             <Link to={link + '/consultations'} preventScrollReset={true}>Consultations</Link>
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
-                            <Link to={link + '/consultations'} preventScrollReset={true}>New Consultation</Link>
+                            <Link to={link + '/consultations/new'} preventScrollReset={true}>New Consultation</Link>
                         </div>
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                             <Link to={link + '/join-requests'} preventScrollReset={true}>

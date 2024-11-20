@@ -1,4 +1,4 @@
-function DiscussionInput({ handleInput, value, inputRef })
+function ConsultationInput({ handleInput, value, inputRef })
 {
     return (<>
         <div className="mt-3 w-3/5">
@@ -9,4 +9,4 @@ function DiscussionInput({ handleInput, value, inputRef })
     </>)
 }
 
-export default DiscussionInput;
+export default ConsultationInput;

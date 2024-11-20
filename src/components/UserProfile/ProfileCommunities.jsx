@@ -9,10 +9,8 @@ function ProfileCommunities({ user, isLoggedIn })
     const [filter, setFilter] = useState({ admin: true, member: true }); // Domyślnie oba zaznaczone
 
     const { isPending, error, data: communities } = useQuery({
-        queryKey: ["communities"],
-        queryFn: () => getCommunitiesList(),
-        staleTime: 5 * 60 * 1000, // Dane będą uznawane za świeże przez 5 minut
-        cacheTime: 10 * 60 * 1000,
+        queryKey: ["communities", "profileCommunities"],
+        queryFn: () => getCommunitiesList('%2C%20administrators'),
         retry: 0,
     });
 
@@ -23,8 +21,8 @@ function ProfileCommunities({ user, isLoggedIn })
 
     const filteredCommunities = communities?.value.filter((community) =>
     {
-        const isAdmin = community.administrators.some((admin) => admin.id === user.id);
-        const isMember = community.members.some((member) => member.id === user.id);
+        const isAdmin = community.administrators?.some((admin) => admin.id === user.id);
+        const isMember = community.members?.some((member) => member.id === user.id);
 
         // Filtrowanie na podstawie checkboxów
         return (filter.admin && isAdmin) || (filter.member && isMember);

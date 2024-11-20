@@ -10,7 +10,7 @@ import Communities from './pages/Communities'
 import CommunityDetails from './pages/CommunityDetails'
 import InformationClause from './pages/InformationClause'
 import Rules from './pages/Rules'
-import DiscussionDetails from './pages/DiscussionDetails'
+import ConsultationDetails from './pages/ConsultationDetails'
 import Test1 from './pages/Test1'
 import Authentication from './pages/Authentication'
 import UserProfile from './pages/UserProfile'
@@ -39,7 +39,8 @@ const router = createBrowserRouter([
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/edit', element: <EditCommunity /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
-        { path: '/communities/:id/consultations/:id', element: <DiscussionDetails /> },
+        { path: '/communities/:id/consultations/new', element: <CommunityDetails /> },
+        { path: '/communities/:id/consultations/:consultationId', element: <ConsultationDetails /> },
         { path: '/contact', element: <Contact /> },
         { path: '/information-clause', element: <InformationClause /> },
         { path: '/rules', element: <Rules /> },

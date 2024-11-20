@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 
-function DiscussionCard({ discussion })
+function ConsultationCard({ consultation })
 {
     let statusColor = "text-black";
-    if (discussion.status === 'Resolved')
+    if (consultation.status === 'Resolved')
     {
         statusColor = "text-green-700";
     }
-    else if (discussion.status === 'Ongoing')
+    else if (consultation.status === 'Ongoing')
     {
         statusColor = "text-blue-700";
     }
-    else if (discussion.status === 'Ending')
+    else if (consultation.status === 'Ending')
     {
         statusColor = "text-orange-700";
     }
@@ -19,17 +19,17 @@ function DiscussionCard({ discussion })
         <Link to="/communities/1/consultations/1">
             <div className="border-2 bg-white rounded-lg shadow-md p-4 mt-2 w-full">
                 <div className="flex ">
-                    <h1 className="font-bold text-lg mb-2 w-4/6">{discussion.topic}</h1>
+                    <h1 className="font-bold text-lg mb-2 w-4/6">{consultation.topic}</h1>
                     <span className="text-md w-2/6 ms-auto text-end">Author: Andrzej Nowicki</span>
                 </div>
                 <p className="mb-4">
-                    {discussion.description}
+                    {consultation.description}
                 </p>
                 <div className="flex justify-between text-md">
-                    <span>Date: {discussion.date}</span>
+                    <span>Date: {consultation.date}</span>
                     <div className="flex space-x-2">
                         <span>Answers: 201</span>
-                        <span className={statusColor}>Status: {discussion.status}</span>
+                        <span className={statusColor}>Status: {consultation.status}</span>
                     </div>
                 </div>
             </div>
@@ -38,4 +38,4 @@ function DiscussionCard({ discussion })
 
 }
 
-export default DiscussionCard;
+export default ConsultationCard;

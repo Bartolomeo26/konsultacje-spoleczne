@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import DiscussionAnswer from "../components/CommunityDetails/Discussions/DiscussionAnswer";
-import DiscussionInput from "../components/CommunityDetails/Discussions/DiscussionInput";
-import DiscussionTopic from "../components/CommunityDetails/Discussions/DiscussionTopic";
+import ConsultationAnswer from "../components/CommunityDetails/Consultations/ConsultationAnswer";
+import ConsultationInput from "../components/CommunityDetails/Consultations/ConsultationInput";
+import ConsultationTopic from "../components/CommunityDetails/Consultations/ConsultationTopic";
 import { useState, useRef } from "react";
 
 
@@ -35,15 +35,15 @@ function DiscussionDetails()
                         </svg>
                     </div>
                 </Link>
-                <DiscussionTopic />
-                <DiscussionInput handleInput={handleInput} value={answer} inputRef={inputRef} />
+                <ConsultationTopic />
+                <ConsultationInput handleInput={handleInput} value={answer} inputRef={inputRef} />
                 <div>
                     <h1 className="text-2xl mt-2">201 Answers</h1>
                 </div>
                 <div className="flex flex-col gap-5 mt-2 mb-10">
-                    <DiscussionAnswer reply={reply} />
-                    <DiscussionAnswer />
-                    <DiscussionAnswer />
+                    <ConsultationAnswer reply={reply} />
+                    <ConsultationAnswer />
+                    <ConsultationAnswer />
                 </div>
             </div>
         </div>

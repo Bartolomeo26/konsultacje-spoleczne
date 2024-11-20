@@ -1,9 +1,9 @@
-import DiscussionCard from "./DiscussionCard";
+import ConsultationCard from "./ConsultationCard";
 
-const consultations = [
+const staticConsultations = [
     {
         topic: "Solving Parking Problems in Piaski",
-        description: "This discussion will focus on the persistent parking issues in the Piaski area, particularly the lack of available spaces for residents. Participants will explore possible solutions, such as creating new parking zones or redesigning existing spaces to improve accessibility and reduce congestion.",
+        description: "This consultation will focus on the persistent parking issues in the Piaski area, particularly the lack of available spaces for residents. Participants will explore possible solutions, such as creating new parking zones or redesigning existing spaces to improve accessibility and reduce congestion.",
         date: "28.10.2023",
         status: "Ending"
     },
@@ -21,7 +21,7 @@ const consultations = [
     },
 ]
 
-function CommunityconsultationsList()
+function ConsultationsList({ consultations })
 {
     return (
         <>
@@ -33,7 +33,7 @@ function CommunityconsultationsList()
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
                             </svg> Consultations</h1>
                             <form className="max-w-sm">
-                                <select id="small" className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="small" className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500">
                                     <option defaultValue={""}>Sort</option>
                                     <option value="recent">Recent</option>
                                     <option value="oldest">Oldest</option>
@@ -43,11 +43,11 @@ function CommunityconsultationsList()
                             </form>
                         </div>
                         <div>
-                            <DiscussionCard discussion={consultations[0]} />
-                            <DiscussionCard discussion={consultations[1]} />
-                            <DiscussionCard discussion={consultations[2]} />
-                            <DiscussionCard discussion={consultations[1]} />
-                            <DiscussionCard discussion={consultations[2]} />
+                            <ConsultationCard consultation={staticConsultations[0]} />
+                            <ConsultationCard consultation={staticConsultations[1]} />
+                            <ConsultationCard consultation={staticConsultations[2]} />
+                            <ConsultationCard consultation={staticConsultations[1]} />
+                            <ConsultationCard consultation={staticConsultations[2]} />
                         </div>
                     </div>
 
@@ -58,4 +58,4 @@ function CommunityconsultationsList()
     )
 }
 
-export default CommunityconsultationsList;
+export default ConsultationsList;

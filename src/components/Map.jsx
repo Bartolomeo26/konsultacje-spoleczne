@@ -96,13 +96,15 @@ function Map()
                 layout: {
                     'icon-image': 'marker-15', // Możesz wybrać odpowiedni ikonę
                     'text-field': '{title}', // Pokazuje nazwę wspólnoty w danym punkcie
-                    'text-size': 12,
+                    'text-size': 13,
                     'text-anchor': 'top',
                     'text-offset': [0, 0.6], // Odstęp od markera
                 },
                 paint: {
                     'text-color': '#3388ff',
                     'circle-radius': 5,
+                    'text-halo-color': '#333333',
+                    'text-halo-width': 0.5,
                 },
             });
 
@@ -124,8 +126,12 @@ function Map()
                         const [lng, lat] = data.geometry.coordinates;
                         const [clickedLng, clickedLat] = clickedCoordinates;
 
-                        // Sprawdzamy, czy współrzędne są wystarczająco blisko siebie
-                        return Math.abs(lng - clickedLng) < 0.0001 && Math.abs(lat - clickedLat) < 0.0001;
+                        // Sprawdzamy, czy współrzędne są w bliskiej odległości
+                        const lngDifference = Math.abs(lng - clickedLng);
+                        const latDifference = Math.abs(lat - clickedLat);
+
+                        // Ustalmy margines błędu na przykład na 0.001
+                        return lngDifference < 0.001 && latDifference < 0.001;
                     });
 
                     // Stwórz listę nazw społeczności
@@ -176,7 +182,7 @@ function Map()
                 } else
                 {
                     mapRef.current.setLayoutProperty('clusters', 'visibility', 'visible');
-                    mapRef.current.setLayoutProperty('markers', 'visibility', 'none');
+                    mapRef.current.setLayoutProperty('markers', 'visibility', 'visible');
                 }
             });
         });

@@ -1,4 +1,4 @@
-function DiscussionTopic()
+function ConsultationTopic()
 {
     return (<>
         <div className="border-2 rounded-lg border-slate-400 hover:bg-neutral-50 bg-transparent p-4">
@@ -8,4 +8,4 @@ function DiscussionTopic()
         </div>
     </>)
 }
-export default DiscussionTopic;
+export default ConsultationTopic;

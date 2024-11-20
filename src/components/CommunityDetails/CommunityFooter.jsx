@@ -8,7 +8,7 @@ function CommunityFooter({ community })
 {
     const { isPending, error, data: communities } = useQuery({
         queryKey: ['communities'],
-        queryFn: getCommunitiesList
+        queryFn: () => getCommunitiesList()
     });
 
     function isWithinRange(lat1, lon1, lat2, lon2, range = 20)

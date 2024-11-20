@@ -1,6 +1,6 @@
 import CommunityCard from "./CommunityCard";
 import Slider from "react-slick";
-import { getCommunities, getCommunitiesNumber } from "../util/fetch";
+import { getCommunities } from "../util/fetch";
 import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "./LoadingIndicator";
 
@@ -18,33 +18,30 @@ const settings = {
 
 function SuggestedCommunities()
 {
-    const { data: totalCommunities, isLoading: isTotalLoading, error: totalError } = useQuery({
-        queryKey:
-            ['communitiesNumber'],
-        queryFn: () => getCommunitiesNumber()
-    });
-
-    const { data: communities, isLoading, error } = useQuery({
-        queryKey: ['randomCommunities', totalCommunities],
+    // Najpierw pobieramy pierwszą stronę, żeby uzyskać dane o paginacji
+    const { data: totalPages, isLoading: isInitialLoading, error: initialError } = useQuery({
+        queryKey: ['initialCommunities'],
         queryFn: async () =>
         {
-            console.log('total', totalCommunities)
-            if (totalCommunities)
-            {
-                const pageSize = 15;
-                const totalPages = Math.ceil(totalCommunities.value.length / pageSize);
-
-                const randomPageNumber = Math.floor(Math.random() * totalPages) + 1;
-
-                return getCommunities(randomPageNumber, pageSize);
-            }
-        },
-
-        enabled: !!totalCommunities,
-
+            const response = await getCommunities(1, 1); // Pobieramy pierwszą stronę
+            const pagination = JSON.parse(response.headers["x-pagination"]); // Parsujemy dane z nagłówka
+            return pagination.totalPages; // Zwracamy tylko totalPages
+        }
     });
 
-    if (isLoading || isTotalLoading)
+    // Następnie losujemy stronę na podstawie totalPages z pierwszego zapytania
+    const { data: randomCommunities, isLoading: isRandomLoading, error: randomError } = useQuery({
+        queryKey: ['randomCommunities', totalPages],
+        queryFn: async () =>
+        {
+
+            const randomPage = Math.floor(Math.random() * Math.floor(totalPages / 15)) + 1;
+            return getCommunities(randomPage, 15); // Pobierz 15 rekordów z losowej strony
+        },
+        enabled: !!totalPages, // Wykonaj tylko, jeśli mamy dane o liczbie stron
+    });
+
+    if (isInitialLoading || isRandomLoading)
     {
         return (
             <>
@@ -57,9 +54,9 @@ function SuggestedCommunities()
         );
     }
 
-    if (totalError || error)
+    if (initialError || randomError)
     {
-        return <div>An error has occurred: {error?.message || totalError?.message}</div>;
+        return <div>An error has occurred: {randomError?.message || initialError?.message}</div>;
     }
 
     return (
@@ -67,7 +64,7 @@ function SuggestedCommunities()
             <div className="mt-5 mb-10" style={{ width: "1300px" }}>
                 <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
                 <Slider {...settings}>
-                    {communities.value.map((community) => (
+                    {randomCommunities.data.value.map((community) => (
                         <CommunityCard key={community.id} community={community} />
                     ))}
                 </Slider>

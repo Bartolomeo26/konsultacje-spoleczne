@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import CommunityHeader from "../components/CommunityDetails/CommunityHeader";
 import CommunityMain from "../components/CommunityDetails/CommunityMain";
 import CommunityFooter from "../components/CommunityDetails/CommunityFooter";
-import CommunityDiscussionsList from "../components/CommunityDetails/Discussions/DiscussionsList";
+import ConsultationsList from "../components/CommunityDetails/Consultations/ConsultationsList";
 import CommunityNavigation from "../components/CommunityDetails/CommunityNavigation";
 import CommunityBasicInfo from "../components/CommunityDetails/CommunityBasicInfo";
 import SurveysList from "../components/CommunityDetails/Surveys/SurveysList";
@@ -39,7 +39,7 @@ function CommunityDetails()
     {
         if (topic === topics[0])
         {
-            communityContent = <CommunityDiscussionsList />;
+            communityContent = <ConsultationsList consultations={community?.issues} />;
         }
         else if (topic === topics[1])
         {
@@ -68,7 +68,7 @@ function CommunityDetails()
             <div className="flex flex-col w-full">
                 <CommunityHeader community={community} permissions={permissions} />
                 <div className="flex flex-col px-28 mb-10 relative">
-                    <CommunityNavigation permissions={permissions} joinRequests={community.joinRequests} />
+                    <CommunityNavigation permissions={permissions} joinRequests={community?.joinRequests} />
 
                     <CommunityBasicInfo community={community} />
                     <div>

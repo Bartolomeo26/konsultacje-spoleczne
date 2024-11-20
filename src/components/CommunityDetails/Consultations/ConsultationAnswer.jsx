@@ -1,4 +1,4 @@
-function DiscussionAnswer({ reply })
+function ConsultationAnswer({ reply })
 {
     return (<>
         <div className="border-2 flex flex-col rounded-lg border-slate-400 hover:bg-neutral-50 bg-transparent p-4 mt-1 w-3/5">
@@ -32,4 +32,4 @@ function DiscussionAnswer({ reply })
     </>)
 }
 
-export default DiscussionAnswer;
+export default ConsultationAnswer;
