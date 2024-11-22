@@ -39,7 +39,7 @@ function CommunityDetails()
     {
         if (topic === topics[0])
         {
-            communityContent = <ConsultationsList consultations={community?.issues} />;
+            communityContent = <ConsultationsList consultations={community?.issues} permissions={permissions} />;
         }
         else if (topic === topics[1])
         {
@@ -69,7 +69,6 @@ function CommunityDetails()
                 <CommunityHeader community={community} permissions={permissions} />
                 <div className="flex flex-col px-28 mb-10 relative">
                     <CommunityNavigation permissions={permissions} joinRequests={community?.joinRequests} />
-
                     <CommunityBasicInfo community={community} />
                     <div>
                         {communityContent}

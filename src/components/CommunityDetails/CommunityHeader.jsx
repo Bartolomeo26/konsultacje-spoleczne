@@ -46,7 +46,7 @@ function CommunityHeader({ community, permissions })
                             </svg> {community.isPublic ? "Public Community" : "Private Community"}</h1>
                         </div>
                         <h1 className='text-8xl text-center mb-6'>{community.name}</h1>
-                        {(!permissions.isAdmin && !permissions.isMember) &&
+                        {(!permissions.isAdmin && !permissions.isMember && loggedUser) &&
                             <div className='absolute bottom-20'>
                                 {!hasRequested && !hasRejected ? (
                                     <button

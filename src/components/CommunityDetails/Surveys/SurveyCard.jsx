@@ -44,21 +44,21 @@ function SurveyCard()
 
     // Dane statyczne do wykresu kołowego
     const data = {
-        labels: ['Clean transport', 'More seats', 'Introduce electric vehicles', 'More routes', 'Different'],
+        labels: ['Clean transport', 'More seats', 'Introduce electric vehicles', 'More routes'],
         datasets: [
             {
-                data: [40, 30, 20, 5, 5], // Przykładowe statyczne dane
-                backgroundColor: ['#4caf50', '#ffeb3b', '#ff9800', '#f44336', '#9c27b0'],
-                hoverBackgroundColor: ['#66bb6a', '#fff176', '#ffb74d', '#e57373', '#ba68c8'],
+                data: [40, 30, 20, 5], // Przykładowe statyczne dane
+                backgroundColor: ['#4caf50', '#ffeb3b', '#ff9800', '#f44336'],
+                hoverBackgroundColor: ['#66bb6a', '#fff176', '#ffb74d', '#e57373'],
             },
         ],
     };
 
     return (
-        <div className="w-11/12 border-2 mx-auto p-6 px-10 bg-white rounded-lg shadow-md">
+        <div className="w-full border-2 mx-auto p-6 px-10 bg-white rounded-lg shadow-md">
             <h1 className="text-2xl font-semibold text-center mb-4">How can we improve transportation?</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 items-center gap-4">
                     {/* Odpowiedzi w układzie dwóch wierszy, z równą szerokością dla każdego */}
                     <label className="flex items-center">
                         <input

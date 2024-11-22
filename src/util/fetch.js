@@ -314,13 +314,29 @@ export async function deleteCommunity({ communityId })
     );
 }
 
-export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery = '')
+export async function getCommunities(
+    pageNumber = 1,
+    pageSize = 20,
+    searchQuery = '',
+    sortField = 'Id',
+    sortOrder = 'desc'
+)
 {
-    console.log('fetching communities according to pagesize and number')
-    return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
+    console.log('Fetching communities with advanced sorting');
+
+    // Construct the OrderBy parameter
+    const orderByParam = `${sortField} ${sortOrder}`;
+
+    return await axios.get(`https://localhost:7150/api/communities`, {
+        params: {
+            SearchQuery: searchQuery,
+            PageNumber: pageNumber,
+            PageSize: pageSize,
+            Fields: 'id,name,description,avatar,latitude,longitude',
+            OrderBy: orderByParam
+        },
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
-
         }
     }).then(response =>
     {
@@ -345,7 +361,7 @@ export async function getCommunitiesNumber(searchQuery = '')
 
 export async function getCommunitiesList(queryString = '')
 {
-    return await axios.get(`https://localhost:7150/api/communities?Fields=id%2C%20name%2C%20avatar%2C%20latitude%2C%20description%2C%20longitude%2C%20members${queryString}`, {
+    return await axios.get(`https://localhost:7150/api/communities?Fields=id,name,avatar,latitude,description,longitude,members${queryString}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
 
@@ -360,7 +376,7 @@ export async function getCommunitiesList(queryString = '')
 
 export async function getCommunitiesToMap()
 {
-    return await axios.get('https://localhost:7150/api/communities?Fields=name%2C%20latitude%2C%20longitude', {
+    return await axios.get('https://localhost:7150/api/communities?Fields=name,latitude,longitude', {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
 
@@ -379,7 +395,7 @@ export async function getCommunity(id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
-            'Cache-Control': "no-cache"
+
         }
     }).then(response =>
     {

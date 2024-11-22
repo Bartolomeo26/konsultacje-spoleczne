@@ -6,8 +6,9 @@ import CommunityCard from "./CommunityCard";
 
 const pageSize = 20;
 
-function CommunitiesList({ searchTerm })
+function CommunitiesList({ searchTerm, sortField, sortOrder })
 {
+
     const [pageNumber, setPageNumber] = useState(() =>
     {
         const params = new URLSearchParams(window.location.search);
@@ -20,9 +21,9 @@ function CommunitiesList({ searchTerm })
         error: communitiesError,
         data: response,
     } = useQuery({
-        queryKey: ["communities", pageNumber, searchTerm],
-        queryFn: () => getCommunities(pageNumber, pageSize, searchTerm),
-        staleTime: 5 * 60 * 1000, // Dane będą uznawane za świeże przez 5 minut
+        queryKey: ["communities", pageNumber, searchTerm, sortField, sortOrder],
+        queryFn: () => getCommunities(pageNumber, pageSize, searchTerm, sortField, sortOrder),
+        staleTime: 5 * 60 * 1000,
         cacheTime: 10 * 60 * 1000,
         retry: 0,
     });

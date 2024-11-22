@@ -10,14 +10,14 @@ function ConsultationNew()
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { id } = useParams();
-
+    console.log(id)
     const { mutate, isPending, isError, error } = useMutation({
         mutationFn: createNewConsultation,
         onSuccess: (data) =>
         {
             console.log("Consultation created successfully:", data);
-            navigate(`/communities/${data.id}/consultations`)
-            queryClient.invalidateQueries({ queryKey: ['community', data.id] })
+            navigate(`/communities/${id}/consultations`)
+            queryClient.invalidateQueries({ queryKey: ['community', id] })
 
         },
         onError: (error) =>
@@ -33,28 +33,29 @@ function ConsultationNew()
         mutate({ consultation: formData });
     }
 
-    return (<div className="flex flex-col  items-center mt-10 bg-slate-200 w-1/3 p-6 rounded-lg mb-10">
-        <h1 className="text-4xl">Create a new Consultation!</h1>
-        <ConsultationForm onSubmit={handleSubmit} communityId={id}>
+    return (<div className="flex justify-center items-center w-full px-4 py-6 md:p-6">
+        <div className="w-full max-w-xl">
+            <ConsultationForm onSubmit={handleSubmit} communityId={id}>
 
 
-            {isPending && (
-                <>
-                    <button type="submit" className={classes.button} disabled >
-                        Submitting...
-                    </button>
-                </>
-            )}
-            {!isPending && (
-                <>
-                    <button type="submit" className={classes.button}>
-                        Create Consultation
-                    </button>
-                </>
-            )}
+                {isPending && (
+                    <>
+                        <button type="submit" className={classes.button} disabled >
+                            Submitting...
+                        </button>
+                    </>
+                )}
+                {!isPending && (
+                    <>
+                        <button type="submit" className={classes.button}>
+                            Create Consultation
+                        </button>
+                    </>
+                )}
 
 
-        </ConsultationForm >
+            </ConsultationForm >
+        </div>
     </div>)
 
 }

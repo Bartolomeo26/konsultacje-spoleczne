@@ -33,7 +33,7 @@ function NewCommunity()
 
     return (
         <div className="flex justify-center items-center w-full px-4 py-6 md:p-6">
-            <div className="w-full max-w-xl"> {/* Ensures consistent width on larger screens */}
+            <div className="w-full max-w-xl">
                 <CommunityForm onSubmit={handleSubmit} title={'Create'}>
                     {isPending ? (
                         <button

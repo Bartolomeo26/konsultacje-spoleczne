@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UsersRound, FileUp, Calendar } from "lucide-react";
 
 function ConsultationForm({ communityId, onSubmit, children })
 {
@@ -54,75 +55,93 @@ function ConsultationForm({ communityId, onSubmit, children })
         event.preventDefault();
         const formData = { ...enteredData };
 
-
-
         onSubmit(formData); // Send the form data to the parent function
     };
 
-
     return (
-        <form onSubmit={handleSubmit} className="mt-5 flex flex-col items-center w-full">
-            <div className="w-full flex flex-col items-center p-4">
-                <div className="w-full mb-6">
-                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
-                        Title:
+        <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-xl mx-auto space-y-6">
+            <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold text-gray-800">Create Consultation</h2>
+                <p className="text-gray-500 mt-2">Make your voice louder</p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative">
+                    <label htmlFor="title" className="block mb-2 text-sm font-semibold text-gray-700">
+                        Consultation Title:
                     </label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value={enteredData.title}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required
-                    />
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={enteredData.title}
+                            onChange={handleChange}
+                            placeholder="Enter consultation name"
+                            className="w-full p-3 rounded-lg outline-none"
+                            required
+                        />
+                        <UsersRound className="mr-3 text-gray-400" />
+                    </div>
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
-                        Description:
+
+                <div>
+                    <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700">
+                        Description
                     </label>
                     <textarea
                         name="description"
                         id="description"
                         value={enteredData.description}
                         onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="Tell us what issue would you like to discuss..."
+                        className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 transition-all min-h-[100px]"
                         required
                     />
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="files" className="block mb-2 text-sm font-medium text-gray-900">
+
+                <div className="relative">
+                    <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
                         Upload Files (PDF, Image, etc.):
                     </label>
-                    <input
-                        type="file"
-                        id="files"
-                        accept="image/*,application/pdf"
-                        onChange={handleFileChange}
-                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                        multiple
-                    />
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                        <input
+                            type="file"
+                            id="files"
+                            accept="image/*,application/pdf"
+                            onChange={handleFileChange}
+                            className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+                            multiple
+                        />
+                        <FileUp className="mr-3 text-gray-400" />
+                    </div>
                     {error.length > 0 && (
-                        <p className="text-sm text-red-500">{error.join(", ")}</p>
+                        <p className="text-sm text-red-500 mt-2">{error.join(", ")}</p>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="currentStateEndDate" className="block mb-2 text-sm font-medium text-gray-900">
+
+                <div className="relative">
+                    <label htmlFor="currentStateEndDate" className="block mb-2 text-sm font-semibold text-gray-700">
                         Current State End Date:
                     </label>
-                    <input
-                        type="datetime-local"
-                        id="currentStateEndDate"
-                        name="currentStateEndDate"
-                        value={enteredData.currentStateEndDate}
-                        onChange={handleChange}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        required
-                    />
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                        <input
+                            type="datetime-local"
+                            id="currentStateEndDate"
+                            name="currentStateEndDate"
+                            value={enteredData.currentStateEndDate}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-lg outline-none bg-white"
+                            required
+                        />
+
+                    </div>
                 </div>
-            </div>
-            <p className="form-actions">{children}</p>
-        </form>
+
+                <div className="flex justify-center">
+                    <p className="form-actions">{children}</p>
+                </div>
+            </form>
+        </div>
     );
 }
 
