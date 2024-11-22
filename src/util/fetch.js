@@ -106,8 +106,7 @@ export async function getUser(id)
     return await axios.get(`https://localhost:7150/api/users/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.user.full+json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+
         }
     }).then(response =>
     {
@@ -126,7 +125,8 @@ export async function getSelf(token)
     return await axios.get("https://localhost:7150/api/users/self", {
         headers: {
             'Accept': 'application/vnd.socialconsultations.user.full+json',
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`,
+            'Cache-Control': "no-cache"
         }
     }).then(response =>
     {
@@ -244,8 +244,9 @@ export async function createNewCommunity(communityData)
 export async function createNewConsultation(consultationData)
 {
     const token = localStorage.getItem('token');
-
-    return await axios.post(`https://localhost:7150/api/communities`, consultationData.consultation, {
+    const { consultation } = consultationData;
+    console.log('creating consultion', consultation)
+    return await axios.post(`https://localhost:7150/api/issues`, consultation, {
         headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
@@ -315,11 +316,11 @@ export async function deleteCommunity({ communityId })
 
 export async function getCommunities(pageNumber = 1, pageSize = 20, searchQuery = '')
 {
+    console.log('fetching communities according to pagesize and number')
     return await axios.get(`https://localhost:7150/api/communities?SearchQuery=${searchQuery}&PageNumber=${pageNumber}&PageSize=${pageSize}&Fields=id%2C%20name%2C%20description%2C%20avatar%2C%20latitude%2C%20longitude`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full.hateoas+json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+
         }
     }).then(response =>
     {
@@ -378,8 +379,7 @@ export async function getCommunity(id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
+            'Cache-Control': "no-cache"
         }
     }).then(response =>
     {

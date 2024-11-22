@@ -4,6 +4,7 @@ import AvatarUpload from './AvatarUpload';
 import UpdateAvatarButton from './UpdateAvatarButton';
 import { formatToEuropeanDate } from '../../util/formatDate';
 import { updateUserProfile } from '../../util/fetch';
+import { useAuth } from '../../util/AuthContext';
 function ProfileHeader({ user, isLoggedIn })
 {
 
@@ -16,7 +17,7 @@ function ProfileHeader({ user, isLoggedIn })
         email: user.email,
         birthDate: user.birthDate,
     });
-
+    const { refetchUser } = useAuth();
     const queryClient = useQueryClient();
 
 
@@ -45,6 +46,7 @@ function ProfileHeader({ user, isLoggedIn })
         {
             queryClient.invalidateQueries(['user', user.id]);
             setIsEditing(false);
+            refetchUser();
             console.log("Profile updated successfully!");
         },
         onError: (err) =>

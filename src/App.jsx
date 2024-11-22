@@ -19,6 +19,7 @@ import ConfirmedMail from './pages/ConfirmedMail'
 import { AuthProvider } from './util/AuthContext'
 import NewCommunity from './pages/NewCommunity'
 import EditCommunity from './pages/EditCommunity'
+import ConsultationNew from './pages/ConsultationNew'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
         { path: '/communities/:id', element: <CommunityDetails /> },
         { path: '/communities/:id/edit', element: <EditCommunity /> },
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
-        { path: '/communities/:id/consultations/new', element: <CommunityDetails /> },
+        { path: '/communities/:id/consultations/new', element: <ConsultationNew /> },
         { path: '/communities/:id/consultations/:consultationId', element: <ConsultationDetails /> },
         { path: '/contact', element: <Contact /> },
         { path: '/information-clause', element: <InformationClause /> },

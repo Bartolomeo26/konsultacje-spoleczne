@@ -16,12 +16,12 @@ function NewCommunity()
             console.log("Community created successfully:", data);
             navigate(`/communities/${data.id}`)
             queryClient.invalidateQueries({ queryKey: ['communities'] })
-            
+
         },
         onError: (error) =>
         {
             console.error("Failed to create community:", error);
-           
+
         },
     });
 
@@ -31,29 +31,30 @@ function NewCommunity()
         mutate({ community: formData });
     }
 
-    return (<div className="flex flex-col  items-center mt-10 bg-slate-200 w-1/3 p-6 rounded-lg mb-10">
-        <h1 className="text-4xl">Create a new Community!</h1>
-        <CommunityForm onSubmit={handleSubmit}>
-
-
-            {isPending && (
-                <>
-                    <button type="submit" className={classes.button} disabled >
-                        Submitting...
-                    </button>
-                </>
-            )}
-            {!isPending && (
-                <>
-                    <button type="submit" className={classes.button}>
-                        Create Community
-                    </button>
-                </>
-            )}
-
-
-        </CommunityForm >
-    </div>)
+    return (
+        <div className="flex justify-center items-center w-full px-4 py-6 md:p-6">
+            <div className="w-full max-w-xl"> {/* Ensures consistent width on larger screens */}
+                <CommunityForm onSubmit={handleSubmit} title={'Create'}>
+                    {isPending ? (
+                        <button
+                            type="submit"
+                            className={classes.button}
+                            disabled
+                        >
+                            Submitting...
+                        </button>
+                    ) : (
+                        <button
+                            type="submit"
+                            className={classes.button}
+                        >
+                            Create Community
+                        </button>
+                    )}
+                </CommunityForm>
+            </div>
+        </div>
+    );
 
 }
 

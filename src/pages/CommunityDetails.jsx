@@ -17,7 +17,7 @@ import Alert from "../components/Alert";
 function CommunityDetails()
 {
     const { id, topic } = useParams();
-    const { loggedUser } = useAuth();
+    const { loggedUser = null } = useAuth();
 
 
     const { isPending, error, data: community } = useQuery({

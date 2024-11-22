@@ -30,6 +30,7 @@ export function AuthProvider({ children })
         try
         {
             const userData = await getSelf(authToken);
+            console.log('nowy', userData)
             setLoggedUser(userData);
         } catch (error)
         {
@@ -37,7 +38,13 @@ export function AuthProvider({ children })
             removeToken();
         }
     };
-
+    const refetchUser = () =>
+    {
+        if (token)
+        {
+            fetchUser(token);
+        }
+    };
 
     useEffect(() =>
     {
@@ -48,7 +55,7 @@ export function AuthProvider({ children })
     }, [token, loggedUser]);
 
     return (
-        <AuthContext.Provider value={{ token, loggedUser, updateToken, removeToken }}>
+        <AuthContext.Provider value={{ token, loggedUser, updateToken, removeToken, refetchUser }}>
             {children}
         </AuthContext.Provider>
     );

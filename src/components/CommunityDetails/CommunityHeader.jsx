@@ -11,13 +11,13 @@ function CommunityHeader({ community, permissions })
 {
 
 
-    const { loggedUser } = useAuth();
+    const { loggedUser = null } = useAuth();
     const [hasRequested, setHasRequested] = useState(() =>
-        community.joinRequests.find(request => request.userId === loggedUser.id && request.status === 0)
+        community.joinRequests.find(request => request.userId === loggedUser?.id && request.status === 0)
     );
 
     const [hasRejected, setHasRejected] = useState(() =>
-        community.joinRequests.find(request => request.userId === loggedUser.id && request.status === 2)
+        community.joinRequests.find(request => request.userId === loggedUser?.id && request.status === 2)
     );
 
     const { mutate, isLoading, isError, error } = useMutation({

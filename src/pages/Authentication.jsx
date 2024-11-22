@@ -5,15 +5,16 @@ import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
 import ForgottenPassword from "../components/Authentication/ForgottenPassword";
 
-
 function Authentication()
 {
     const [authType, setAuthType] = useState('signup');
     const { token } = useAuth();
+
     if (token)
     {
-        return <h1 className="text-2xl mt-5">Someone is already logged in!</h1>
+        return <h1 className="text-2xl mt-5 text-center">Someone is already logged in!</h1>
     }
+
     function changeAuthType(type)
     {
         setAuthType(type);
@@ -25,52 +26,48 @@ function Authentication()
         exit: { opacity: 0, x: 50 },
     };
 
-    let content = (<motion.div
-        key="signup"
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={variants}
-        transition={{ duration: 0.5 }}
-        className="w-1/3"
-    >
-        <Signup changeAuthType={changeAuthType} />
-    </motion.div>);
-    if (authType === 'login')
+    const renderContent = () =>
     {
-        content = (<motion.div
-            key="login"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="w-1/3"
-        >
-            <Login changeAuthType={changeAuthType} />
-        </motion.div>)
-    }
-    else if (authType === 'forgottenPassword')
-    {
-        content = (<motion.div
-            key="forgottenPassword"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            className="w-1/3"
-        >
-            <ForgottenPassword changeAuthType={changeAuthType} />
-        </motion.div>)
-    }
+        const commonProps = {
+            initial: "hidden",
+            animate: "visible",
+            exit: "exit",
+            variants,
+            transition: { duration: 0.5 },
+            className: "w-full md:w-[400px] lg:w-1/3 px-4"
+        };
+
+        switch (authType)
+        {
+            case 'login':
+                return (
+                    <motion.div key="login" {...commonProps}>
+                        <Login changeAuthType={changeAuthType} />
+                    </motion.div>
+                );
+            case 'forgottenPassword':
+                return (
+                    <motion.div key="forgottenPassword" {...commonProps}>
+                        <ForgottenPassword changeAuthType={changeAuthType} />
+                    </motion.div>
+                );
+            default:
+                return (
+                    <motion.div key="signup" {...commonProps}>
+                        <Signup changeAuthType={changeAuthType} />
+                    </motion.div>
+                );
+        }
+    };
 
     return (
-        <>
-            <AnimatePresence mode="wait">
-                {content}
-            </AnimatePresence>
-        </>
+        <div className=" flex w-full justify-center items-center justify-center bg-gray-100 p-4">
+            <div className="w-full flex justify-center">
+                <AnimatePresence mode="wait">
+                    {renderContent()}
+                </AnimatePresence>
+            </div>
+        </div>
     );
 }
 

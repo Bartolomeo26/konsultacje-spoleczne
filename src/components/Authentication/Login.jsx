@@ -48,12 +48,12 @@ function Login({ changeAuthType })
                 </h1>
             )}
             <div className='flex justify-center gap-2 mt-3 w-full'>
-                <div className='w-5/12'>
+                <div className='w-6/12'>
                     <button onClick={() => changeAuthType('signup')} className={classes.secondaryButton}>
                         I don't have an account
                     </button>
                 </div>
-                <div className='w-5/12'>
+                <div className='w-6/12'>
                     <button onClick={() => changeAuthType('forgottenPassword')} className={classes.secondaryButton}>
                         I forgot my password
                     </button>

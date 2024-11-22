@@ -24,7 +24,7 @@ function ForgottenPassword({ changeAuthType })
 
     return (
         <div className="flex flex-col items-center mt-5 border-2 bg-slate-200 bg-opacity-70 rounded-lg p-8 px-4 mb-10">
-            <h1 className='mb-5 text-3xl'>You have forgotten your password?</h1>
+            <h1 className='mb-5 text-2xl text-center'>You have forgotten your password?</h1>
             <ForgottenPasswordForm onSubmit={handleSubmit}>
                 {isPending ? (
                     <button type="submit" disabled className={classes.button}>

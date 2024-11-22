@@ -1,10 +1,20 @@
 function ConsultationInput({ handleInput, value, inputRef })
 {
     return (<>
-        <div className="mt-3 w-3/5">
-            <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Contribute to the discussion!</label>
-            <textarea ref={inputRef} id="message" rows="4" onChange={handleInput} className="block p-2.5 w-full text-sm text-gray-900
-             bg-gray-50 rounded-lg border  border-slate-400 focus:ring-blue-500 focus:border-blue-500" value={value} placeholder="Write your thoughts here..." />
+        <div className="space-y-2 w-full md:w-1/2 mt-3">
+            <label className="text-sm font-medium text-gray-700">
+                Contribute to the discussion!
+            </label>
+            <textarea
+                ref={inputRef}
+                rows={4}
+                value={value}
+                onChange={handleInput}
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 
+                     placeholder:text-gray-400 focus:border-cyan-500 focus:ring-2 
+                     focus:ring-cyan-500 focus:ring-opacity-20"
+                placeholder="Write your thoughts here..."
+            />
         </div>
     </>)
 }

@@ -11,7 +11,10 @@ function Map()
 
     const { isPending, error, data: communities } = useQuery({
         queryKey: ['communities', 'map'],
-        queryFn: getCommunitiesToMap
+        queryFn: getCommunitiesToMap,
+        retry: 1,
+        staleTime: 5 * 60 * 1000, // Cache results for 5 minutes
+        cacheTime: 10 * 60 * 1000
     });
 
     // Przekształcanie danych do formatu GeoJSON
@@ -196,8 +199,9 @@ function Map()
         };
     }, [communityData]);
     if (isPending) return (<div className="w-3/4 flex flex-col justify-center items-center mt-5 mb-10 text-center">
-        <h1 className="text-4xl mb-5">Map of Communities</h1><LoadingIndicator /></div>)
-    if (error) return <div>An error occurred: {error.message}</div>;
+        <h1 className="text-4xl mb-5">Map of Communities</h1><div><LoadingIndicator /></div></div>)
+    if (error) return (<div className="w-3/4 flex flex-col justify-center items-center mt-5 mb-10 text-center">
+        <h1 className="text-4xl mb-5">Map of Communities</h1><div>An error occurred: {error.message}</div></div>)
 
     return (
         <div className="w-3/4 flex flex-col justify-center items-center mt-5 mb-10">

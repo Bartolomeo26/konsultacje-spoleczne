@@ -19,29 +19,27 @@ const settings = {
 function SuggestedCommunities()
 {
     // Najpierw pobieramy pierwszą stronę, żeby uzyskać dane o paginacji
-    const { data: totalPages, isLoading: isInitialLoading, error: initialError } = useQuery({
-        queryKey: ['initialCommunities'],
+    const {
+        data: randomCommunities,
+        isLoading,
+        error
+    } = useQuery({
+        queryKey: ['randomCommunities'],
         queryFn: async () =>
         {
-            const response = await getCommunities(1, 1); // Pobieramy pierwszą stronę
-            const pagination = JSON.parse(response.headers["x-pagination"]); // Parsujemy dane z nagłówka
-            return pagination.totalPages; // Zwracamy tylko totalPages
-        }
-    });
+            // Fetch total pages and communities in a single request
+            const response = await getCommunities(1, 1);
+            const pagination = JSON.parse(response.headers["x-pagination"]);
+            const randomPage = Math.floor(Math.random() * Math.floor(pagination.totalPages / 15)) + 1;
 
-    // Następnie losujemy stronę na podstawie totalPages z pierwszego zapytania
-    const { data: randomCommunities, isLoading: isRandomLoading, error: randomError } = useQuery({
-        queryKey: ['randomCommunities', totalPages],
-        queryFn: async () =>
-        {
-
-            const randomPage = Math.floor(Math.random() * Math.floor(totalPages / 15)) + 1;
-            return getCommunities(randomPage, 15); // Pobierz 15 rekordów z losowej strony
+            return await getCommunities(randomPage, 15);
         },
-        enabled: !!totalPages, // Wykonaj tylko, jeśli mamy dane o liczbie stron
+        retry: 1,
+        staleTime: 5 * 60 * 1000, // Cache results for 5 minutes
+        cacheTime: 10 * 60 * 1000  // Keep data in cache for 10 minutes
     });
 
-    if (isInitialLoading || isRandomLoading)
+    if (isLoading)
     {
         return (
             <>
@@ -54,9 +52,17 @@ function SuggestedCommunities()
         );
     }
 
-    if (initialError || randomError)
+    if (error)
     {
-        return <div>An error has occurred: {randomError?.message || initialError?.message}</div>;
+        return (
+            <>
+                <div className="mt-5 mb-10 text-center" style={{ width: "1300px" }}>
+                    <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
+                    <div>An error has occurred: {error?.message || error?.message}</div>
+                </div>
+                <hr style={{ border: "1px solid black", width: "95%" }} />
+            </>
+        );
     }
 
     return (
@@ -64,7 +70,7 @@ function SuggestedCommunities()
             <div className="mt-5 mb-10" style={{ width: "1300px" }}>
                 <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
                 <Slider {...settings}>
-                    {randomCommunities.data.value.map((community) => (
+                    {randomCommunities?.data.value.map((community) => (
                         <CommunityCard key={community.id} community={community} />
                     ))}
                 </Slider>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Users, MapPin, Globe, ImagePlus, CheckCircle2 } from 'lucide-react';
 
 import axios from "axios";
-import { form } from "framer-motion/client";
 
-function CommunityForm({ community, onSubmit, children })
+
+function CommunityForm({ community, onSubmit, children, title })
 {
     const [error, setError] = useState({ avatar: null, background: null });
 
@@ -195,75 +196,190 @@ function CommunityForm({ community, onSubmit, children })
     };
     return (
 
-        <form onSubmit={handleSubmit} className=" mt-5 flex flex-col items-center w-full">
-            <div className="w-full flex flex-col items-center p-4">
-                <div className="w-full mb-6">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">
-                        Name:</label>
-                    <div className="relative">
-                        <input type="text" id="name" name="name" value={enteredData.name} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                        </svg>
+        <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-xl mx-auto space-y-6">
+            <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold text-gray-800">{title} Community</h2>
+                <p className="text-gray-500 mt-2">Bring people together</p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Community Name Input */}
+                <div className="relative">
+                    <label htmlFor="name" className="block mb-2 text-sm font-semibold text-gray-700">
+                        Community Name
+                    </label>
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={enteredData.name}
+                            onChange={handleChange}
+                            placeholder="Enter community name"
+                            className="w-full p-3 rounded-lg outline-none"
+                            required
+                        />
+                        <Users className="mr-3 text-gray-400" />
                     </div>
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
-                        Description:</label>
 
-                    <textarea name="description" id="description" value={enteredData.description} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
+                {/* Description Textarea */}
+                <div>
+                    <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700">
+                        Description
+                    </label>
+                    <textarea
+                        name="description"
+                        id="description"
+                        value={enteredData.description}
+                        onChange={handleChange}
+                        placeholder="Tell us about your community"
+                        className="w-full p-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 transition-all min-h-[100px]"
+                        required
+                    />
                 </div>
-                <div className="w-full mb-6">
 
-                    <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">
-                        City:</label>
-                    <div className="relative">
-                        <input type="text" id="city" name="city" value={enteredData.city} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
-                        </svg>
-
+                {/* Location Inputs */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label htmlFor="city" className="block mb-2 text-sm font-semibold text-gray-700">
+                            City
+                        </label>
+                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                value={enteredData.city}
+                                onChange={handleChange}
+                                placeholder="Your city"
+                                className="w-full p-3 rounded-lg outline-none"
+                                required
+                            />
+                            <MapPin className="mr-3 text-gray-400" />
+                        </div>
+                    </div>
+                    <div>
+                        <label htmlFor="country" className="block mb-2 text-sm font-semibold text-gray-700">
+                            Country
+                        </label>
+                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                            <input
+                                type="text"
+                                id="country"
+                                name="country"
+                                value={enteredData.country}
+                                onChange={handleChange}
+                                placeholder="Your country"
+                                className="w-full p-3 rounded-lg outline-none"
+                                required
+                            />
+                            <Globe className="mr-3 text-gray-400" />
+                        </div>
                     </div>
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="country" className="block mb-2 text-sm font-medium text-gray-900">
-                        Country:</label>
-                    <div className="relative">
-                        <input type="text" id="country" name="country" value={enteredData.country} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="absolute w-5 h-5 top-2.5 right-2.5 text-slate-600">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m20.893 13.393-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525" />
-                        </svg>
 
+                {/* File Uploads */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label htmlFor="avatar" className="block mb-2 text-sm font-semibold text-gray-700">
+                            Community Logo
+                        </label>
+                        <div
+                            className={`
+        relative border-2 border-dashed rounded-lg p-4 text-center transition-all
+        ${enteredData.avatar.description
+                                    ? 'border-green-500 bg-green-50'
+                                    : 'border-gray-300 hover:border-blue-500'}
+      `}
+                        >
+                            <input
+                                type="file"
+                                id="avatar"
+                                accept="image/*"
+                                onChange={handleAvatarChange}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                            />
+                            <div className="flex flex-col items-center">
+                                <ImagePlus className={`
+          mb-2 
+          ${enteredData.avatar.description ? 'text-green-500' : 'text-gray-400'}
+        `} size={32} />
+                                <p className="text-sm text-gray-500">
+                                    {enteredData.avatar.description
+                                        ? `Selected: ${enteredData.avatar.description}`
+                                        : 'Upload Logo'}
+                                </p>
+                            </div>
+                        </div>
+                        {error.avatar && <p className="text-sm text-red-500 mt-1">{error.avatar}</p>}
+                    </div>
+
+                    <div>
+                        <label htmlFor="background" className="block mb-2 text-sm font-semibold text-gray-700">
+                            Cover Image
+                        </label>
+                        <div
+                            className={`
+        relative border-2 border-dashed rounded-lg p-4 text-center transition-all
+        ${enteredData.background.description
+                                    ? 'border-green-500 bg-green-50'
+                                    : 'border-gray-300 hover:border-blue-500'}
+      `}
+                        >
+                            <input
+                                type="file"
+                                id="background"
+                                accept="image/*"
+                                onChange={handleBackgroundChange}
+                                className="absolute inset-0 opacity-0 cursor-pointer"
+                            />
+                            <div className="flex flex-col items-center">
+                                <ImagePlus className={`
+          mb-2 
+          ${enteredData.background.description ? 'text-green-500' : 'text-gray-400'}
+        `} size={32} />
+                                <p className="text-sm text-gray-500">
+                                    {enteredData.background.description
+                                        ? `Selected: ${enteredData.background.description}`
+                                        : 'Upload Cover'}
+                                </p>
+                            </div>
+                        </div>
+                        {error.background && <p className="text-sm text-red-500 mt-1">{error.background}</p>}
                     </div>
                 </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="avatar" className="block mb-2 text-sm font-medium text-gray-900">
-                        Avatar:</label>
-                    <input type="file" id="avatar" accept="image/*" onChange={handleAvatarChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  focus:outline-none " />
-                    {error.avatar && <p className="text-sm text-red-500">{error.avatar}</p>}
-                </div>
-                <div className="w-full mb-6">
-                    <label htmlFor="background" className="block mb-2 text-sm font-medium text-gray-900">
-                        Background:</label>
-                    <input type="file" id="background" accept="image/*" onChange={handleBackgroundChange} className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" />
-                    {error.background && <p className="text-sm text-red-500">{error.background}</p>}
-                </div>
-                <div className="w-full mb-6 flex gap-1 items-center">
 
+                {/* Public Toggle */}
+                <div className="flex items-center justify-center">
                     <input
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                         type="checkbox"
                         id="is-public"
                         name="isPublic"
                         checked={enteredData.isPublic}
-                        onChange={(e) => setEnteredData((prev) => ({ ...prev, isPublic: e.target.checked }))}
+                        onChange={(e) => setEnteredData(prev => ({
+                            ...prev,
+                            isPublic: e.target.checked
+                        }))}  // This is the key change
+                        className="hidden peer"
                     />
-                    <label htmlFor="is-public" className="  border-gray-300  focus:ring-blue-500 focus:ring-2 "> Public</label>
+                    <label
+                        htmlFor="is-public"
+                        className={`
+      flex items-center px-4 py-2 rounded-full cursor-pointer transition-all
+      ${enteredData.isPublic
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-gray-200 text-gray-600'}
+    `}
+                    >
+                        <CheckCircle2 className="mr-2" size={20} />
+                        Public Community
+                    </label>
                 </div>
-            </div>
-            <p className="form-actions">{children}</p>
-        </form>
-
+                <div className="flex justify-center">
+                    {children}
+                </div>
+            </form>
+        </div>
     );
 }
 

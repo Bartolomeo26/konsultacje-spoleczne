@@ -23,7 +23,7 @@ function EditCommunity()
             console.log("Community edited successfully:", data);
             navigate(`/communities/${community.id}`)
             queryClient.invalidateQueries({ queryKey: ['communities'] })
-            // Tutaj możesz dodać logikę na wypadek sukcesu, np. nawigację do nowej społeczności
+
         },
         onError: (error) =>
         {
@@ -40,9 +40,9 @@ function EditCommunity()
     }
 
 
-    return (<div className="flex flex-col  items-center mt-10 bg-slate-200 w-1/3 p-6 rounded-lg mb-10">
-        <h1 className="text-4xl">Edit Community!</h1>
-        <CommunityForm onSubmit={handleSubmit} community={community}>
+    return (<div className="flex flex-col  items-center mt-10 w-1/3 p-6 rounded-lg mb-10">
+
+        <CommunityForm onSubmit={handleSubmit} community={community} title={'Edit'}>
 
 
             {mutatePending && (
