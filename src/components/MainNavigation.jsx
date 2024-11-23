@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
 import { useAuth } from "../util/AuthContext";
-
+import { Menu, X, User, LogOut } from 'lucide-react';
 
 function MainNavigation()
 {
@@ -48,7 +48,7 @@ function MainNavigation()
                 className="md:hidden text-white p-2"
                 aria-label="Toggle Menu"
             >
-                ☰
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
             <nav className={`${isMenuOpen ? "block" : "hidden"} md:flex`}>
@@ -80,18 +80,37 @@ function MainNavigation()
                     }
                     {/* Dropdown menu */}
                     {isDropdownOpen && (
-                        <div className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10" ref={dropdownRef} >
-                            <ul className="flex flex-col" >
-                                {loggedUser &&
+                        <div
+                            className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10"
+                            ref={dropdownRef}
+                        >
+                            <ul className="flex flex-col">
+                                {loggedUser && (
                                     <li>
-                                        <Link to={"/users/" + loggedUser.id} onClick={() => setIsDropdownOpen(false)} className="block px-4 py-2 hover:bg-gray-200" style={{ color: "rgba(0, 136, 169, 1)" }}>Profile</Link>
-                                    </li>}
+                                        <Link
+                                            to={"/users/" + loggedUser.id}
+                                            onClick={() => setIsDropdownOpen(false)}
+                                            className="flex items-center px-4 py-2 hover:bg-gray-200"
+                                            style={{ color: "rgba(0, 136, 169, 1)" }}
+                                        >
+                                            <User size={18} className="mr-2" />
+                                            Profile
+                                        </Link>
+                                    </li>
+                                )}
                                 <li>
-
-                                    <button onClick={handleSignOut} style={{ color: "rgba(0, 136, 169, 1)" }} className="block w-full text-left px-4 py-2 hover:bg-gray-200">
+                                    <button
+                                        onClick={() =>
+                                        {
+                                            setIsDropdownOpen(false);
+                                            handleSignOut();
+                                        }}
+                                        className="flex items-center w-full text-left px-4 py-2 hover:bg-gray-200"
+                                        style={{ color: "rgba(0, 136, 169, 1)" }}
+                                    >
+                                        <LogOut size={18} className="mr-2" />
                                         Sign Out
                                     </button>
-
                                 </li>
                             </ul>
                         </div>

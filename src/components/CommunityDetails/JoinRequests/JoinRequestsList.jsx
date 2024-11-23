@@ -56,10 +56,10 @@ function JoinRequestsList({ joinRequests, communityId })
     });
 
     return (
-        <div className="flex flex-col w-3/4">
+        <div className="flex flex-col lg:w-3/4">
             <div className="flex">
-                <div className="w-4/5 flex flex-col justify-center p-6 mt-10">
-                    <div className="flex justify-between items-center mb-4">
+                <div className="lg:w-4/5 flex flex-col justify-center p-2 lg:p-6 mt-16 lg:mt-10">
+                    <div className="flex justify-between items-center gap-2 mb-4">
                         <h1 className="text-2xl font-bold">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

@@ -29,9 +29,9 @@ function MembersList({ members })
         mutation.mutate(userId);
     }
     return (<div className="flex flex-col w-full">
-        <div className="w-4/5 flex flex-col justify-center p-6 mt-10">
+        <div className="lg:w-4/5 flex flex-col justify-center p-6 mt-10">
             <h1 className='text-2xl mb-3 font-bold flex items-center gap-1'><Users size={26} /><span>Members</span></h1>
-            <div className="w-7/12 space-y-3">
+            <div className="lg:w-7/12 space-y-3">
                 {members.map((member) => <MemberCard key={member.id} member={member} handleRemoveMember={handleRemoveMember} isRemoving={mutation.isLoading} />)}
             </div>
         </div>

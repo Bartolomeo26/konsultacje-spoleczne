@@ -35,7 +35,7 @@ function CommunityFooter({ community })
         return distance <= range;
     }
 
-    if (isPending) return (<div className="flex flex-col w-full px-28 mb-20">
+    if (isPending) return (<div className="flex flex-col w-full lg:px-28 mb-20">
         <div className="px-6 mb-3">
             <h1 className="text-2xl font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 inline-block mb-1">
@@ -57,7 +57,7 @@ function CommunityFooter({ community })
     const nearbyCommunitiesSliced = nearbyCommunities.slice(0, 5);
 
     return (
-        <div className="flex flex-col w-full px-28 mb-20">
+        <div className="flex flex-col w-full lg:px-28 mb-20">
             <div className="px-6 mb-3">
                 <h1 className="text-2xl font-bold">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 inline-block mb-1">
@@ -66,7 +66,7 @@ function CommunityFooter({ community })
                 </h1>
             </div>
 
-            <div className="flex items-end gap-3 px-6">
+            <div className="flex flex-wrap lg:flex-nowrap justify-start items-end gap-2 lg:gap-3 px-3 lg:px-6">
                 {!nearbyCommunities.length ? <p className="text-gray-600">No communities found.</p> : <>
                     {nearbyCommunitiesSliced?.map(foundCommunity => (
                         <CommunityCard key={foundCommunity.id} community={foundCommunity} />

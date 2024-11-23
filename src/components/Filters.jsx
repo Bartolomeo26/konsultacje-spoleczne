@@ -30,7 +30,7 @@ function Filters({ searchPlaceholder, onSearch, onSort, SORTING_OPTIONS })
     }
 
     return (
-        <div className="flex flex-col md:flex-row justify-center items-center w-96 max-w-xl space-y-4 md:space-y-0 md:space-x-4 mb-4">
+        <div className="flex flex-col md:flex-row justify-center items-center w-96 max-w-xl space-y-4 md:space-y-0 md:space-x-4">
             <div className="w-full">
                 <FilterInput label="Search" onChange={handleSearchChange} placeholder={searchPlaceholder} />
             </div>

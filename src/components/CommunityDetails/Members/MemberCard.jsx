@@ -14,16 +14,16 @@ function MemberCard({ member, handleRemoveMember, isRemoving })
                 </p>
             </div>
             <div className="w-1/2 self-end">
-                <div className="flex text-sm gap-2 justify-end">
+                <div className="flex flex-col md:flex-row text-sm gap-2 justify-end">
                     <button
                         onClick={() => handleRemoveMember(member.id)}
-                        className="p-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 flex items-center gap-1"
+                        className="p-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 flex justify-center items-center gap-1"
                     >
                         <UserMinus size={18} /> <span>{isRemoving ? "Removing..." : "Kick out"}</span>
                     </button>
                     <button
 
-                        className="p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 flex items-center gap-1"
+                        className="p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 flex justify-center items-center gap-1"
                     >
                         <UserCheck size={18} /> <span>  Grant Admin</span>
                     </button>

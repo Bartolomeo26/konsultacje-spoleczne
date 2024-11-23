@@ -105,7 +105,7 @@ function CommunityDetails()
         // Fallback: Topic not found
         communityContent = (
             <div className="flex flex-col w-full">
-                <div className="w-4/5 flex flex-col justify-center p-6 mt-10">
+                <div className="w-full lg:w-4/5 flex flex-col justify-center p-6 mt-10">
                     <Alert message={{ title: "Not found", text: "What are you looking for? Such a content does not exist." }} />
                 </div>
             </div>
@@ -118,7 +118,7 @@ function CommunityDetails()
         <>
             <div className="flex flex-col w-full">
                 <CommunityHeader community={community} permissions={permissions} />
-                <div className="flex flex-col px-28 mb-10 relative">
+                <div className="flex flex-col lg:px-28 mb-10 relative">
                     <CommunityNavigation permissions={permissions} joinRequests={community?.joinRequests} />
                     <CommunityBasicInfo community={community} />
                     <div>

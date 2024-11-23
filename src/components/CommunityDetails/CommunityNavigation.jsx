@@ -10,7 +10,7 @@ function CommunityNavigation({ permissions, joinRequests })
     return (
         <>
             <div className="flex">
-                <div className="flex text-2xl absolute top-0 left-16 border-s-4 border-b-4 border-e-4 rounded-b-lg z-10 bg-slate-200" style={{ borderColor: "#155e75" }}>
+                <div className="flex text-2xl absolute top-0 left-5 lg:left-16 border-s-4 border-b-4 border-e-4 rounded-b-lg z-10 bg-slate-200" style={{ borderColor: "#155e75" }}>
                     <div className="px-3 flex items-center">
                         <Link to={link} preventScrollReset={true}>About</Link>
                     </div>
@@ -27,8 +27,8 @@ function CommunityNavigation({ permissions, joinRequests })
                             </div>
                             <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                                 <Link to={link + '/join-requests'} preventScrollReset={true}>
-                                    <span>Join Requests</span>
-                                    <div className="inline-flex items-center justify-center rounded-full bg-[#155e75] text-white text-xs w-6 h-6 ml-1 mb-1">
+                                    <span><span className="hidden lg:inline-block">Join</span> Requests</span>
+                                    <div className="hidden lg:inline-flex items-center justify-center rounded-full bg-[#155e75] text-white text-xs w-6 h-6 ml-1 mb-1">
                                         <span>{pendingCount}</span>
                                     </div>
                                 </Link>

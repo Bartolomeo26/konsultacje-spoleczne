@@ -20,12 +20,14 @@ function Communities()
     return (
         <div className="flex flex-col justify-center items-center mt-10">
             <h1 className="text-3xl mb-10">List of All Communities</h1>
-            <Filters
-                searchPlaceholder={'Downtown'}
-                onSearch={setSearchTerm}
-                onSort={setSortConfig}
-                SORTING_OPTIONS={SORTING_OPTIONS}
-            />
+            <div className="mb-3">
+                <Filters
+                    searchPlaceholder={'Downtown'}
+                    onSearch={setSearchTerm}
+                    onSort={setSortConfig}
+                    SORTING_OPTIONS={SORTING_OPTIONS}
+                />
+            </div>
             <CommunitiesList
                 searchTerm={searchTerm}
                 sortField={sortConfig.field}

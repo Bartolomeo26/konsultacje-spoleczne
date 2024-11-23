@@ -2,7 +2,7 @@ function FilterInput({ label, onChange, placeholder })
 {
     return (
         <div className="w-full min-w-[200px]">
-            <label className="block mb-2 text-sm text-slate-600">{label}</label>
+
             <div className="relative">
                 <input
                     type="text"
