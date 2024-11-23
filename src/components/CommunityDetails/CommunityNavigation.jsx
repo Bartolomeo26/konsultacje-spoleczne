@@ -21,22 +21,24 @@ function CommunityNavigation({ permissions, joinRequests })
                         <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
                             <Link to={link + '/surveys'} preventScrollReset={true}>Surveys</Link>
                         </div>
-                        <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
-                            <Link to={link + '/join-requests'} preventScrollReset={true}>
-                                <span>Join Requests</span>
-                                <div className="inline-flex items-center justify-center rounded-full bg-[#155e75] text-white text-xs w-6 h-6 ml-1 mb-1">
-                                    <span>{pendingCount}</span>
-                                </div>
-                            </Link>
-                        </div>
+                        {permissions.isAdmin && <>
+                            <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
+                                <Link to={link + '/members'} preventScrollReset={true}>Members</Link>
+                            </div>
+                            <div className="border-s-4 px-3 flex items-center" style={{ borderColor: "#155e75" }}>
+                                <Link to={link + '/join-requests'} preventScrollReset={true}>
+                                    <span>Join Requests</span>
+                                    <div className="inline-flex items-center justify-center rounded-full bg-[#155e75] text-white text-xs w-6 h-6 ml-1 mb-1">
+                                        <span>{pendingCount}</span>
+                                    </div>
+                                </Link>
+                            </div></>}
                     </> :
                         <>
                             <div className="border-s-4 px-3 text-base flex items-center" style={{ borderColor: "#155e75" }}>
                                 <button className="disabled cursor-not-allowed text-gray-600">Consultations</button>
                             </div>
-                            <div className="border-s-4 px-3 text-base flex items-center cursor-not-allowed" style={{ borderColor: "#155e75" }}>
-                                <button className="disabled cursor-not-allowed text-gray-600">New Consultations</button>
-                            </div>
+
                             <div className="border-s-4 px-3 text-base flex items-center cursor-not-allowed" style={{ borderColor: "#155e75" }}>
                                 <button className="disabled cursor-not-allowed text-gray-600">Surveys</button>
                             </div>

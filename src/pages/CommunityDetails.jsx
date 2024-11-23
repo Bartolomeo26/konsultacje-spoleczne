@@ -13,6 +13,7 @@ import LoadingIndicator from "../components/LoadingIndicator";
 import { useAuth } from "../util/AuthContext";
 import CommunityAdminInfo from "../components/CommunityDetails/CommunityAdminInfo";
 import Alert from "../components/Alert";
+import MembersList from "../components/CommunityDetails/Members/MembersList";
 
 function CommunityDetails()
 {
@@ -29,36 +30,86 @@ function CommunityDetails()
         isMember: community.members.some(member => member.id === loggedUser.id)
     } : { isAdmin: false, isMember: false };
     console.log('permisje', permissions)
-    const topics = ['consultations', 'surveys', 'join-requests']
+    const topics = ['consultations', 'surveys', 'members', 'join-requests']
     let communityContent;
     if (topic === undefined)
     {
+        // "About" is visible to everyone
         communityContent = <CommunityMain community={community} />;
-    }
-    else if (community?.isPublic || (permissions.isAdmin || permissions.isMember))
+    } else if (topic === topics[0])
     {
-        if (topic === topics[0])
+        // ConsultationsList: visible if the group is public or user is an admin/member
+        if (community?.isPublic || permissions.isAdmin || permissions.isMember)
         {
             communityContent = <ConsultationsList consultations={community?.issues} permissions={permissions} />;
-        }
-        else if (topic === topics[1])
+        } else
         {
-            communityContent = <SurveysList />
+            communityContent = (
+                <div className="flex flex-col w-full">
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
+                        <Alert message={{ title: "No permission", text: "You have no permission to view consultations in this community." }} />
+                    </div>
+                </div>
+            );
         }
-        else if (topic === topics[2])
-        {
-            communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />
-        }
-        else
-        {
-            communityContent = <div className="flex flex-col w-full">
-                <div className="w-4/5 flex flex-col justify-center p-6 mt-10"><h1 className="text-2xl font-semibold">What are you looking for? Such a content does not exist</h1></div></div>
-        }
-    }
-    else
+    } else if (topic === topics[1])
     {
-        communityContent = <div className="flex flex-col w-full">
-            <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800"><Alert message={{ title: "No permission", text: "You have no permission to see this content as you are neither an admin nor a member of this private community." }} /></div></div>
+        // SurveysList: visible if the group is public or user is an admin/member
+        if (community?.isPublic || permissions.isAdmin || permissions.isMember)
+        {
+            communityContent = <SurveysList />;
+        } else
+        {
+            communityContent = (
+                <div className="flex flex-col w-full">
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
+                        <Alert message={{ title: "No permission", text: "You have no permission to view surveys in this community." }} />
+                    </div>
+                </div>
+            );
+        }
+    } else if (topic === topics[2])
+    {
+        // MembersList: visible only to admins
+        if (permissions.isAdmin)
+        {
+            communityContent = <MembersList members={community?.members} />;
+        } else
+        {
+            communityContent = (
+                <div className="flex flex-col w-full">
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
+                        <Alert message={{ title: "No permission", text: "Only admins can view the members of this community." }} />
+                    </div>
+                </div>
+            );
+        }
+    } else if (topic === topics[3])
+    {
+        // JoinRequests: visible only to admins
+        if (permissions.isAdmin)
+        {
+            communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />;
+        } else
+        {
+            communityContent = (
+                <div className="flex flex-col w-full">
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
+                        <Alert message={{ title: "No permission", text: "Only admins can view join requests for this community." }} />
+                    </div>
+                </div>
+            );
+        }
+    } else
+    {
+        // Fallback: Topic not found
+        communityContent = (
+            <div className="flex flex-col w-full">
+                <div className="w-4/5 flex flex-col justify-center p-6 mt-10">
+                    <Alert message={{ title: "Not found", text: "What are you looking for? Such a content does not exist." }} />
+                </div>
+            </div>
+        );
     }
 
     if (isPending) return <LoadingIndicator />;

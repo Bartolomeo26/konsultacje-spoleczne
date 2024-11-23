@@ -395,6 +395,7 @@ export async function getCommunity(id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
+            'Cache-Control': 'no-cache'
 
         }
     }).then(response =>
