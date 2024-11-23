@@ -518,3 +518,19 @@ export async function getIssues(
         return response;
     });
 }
+
+export async function getIssue(id)
+{
+
+    return await axios.get(`https://localhost:7150/api/issues/${id}`, {
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.issue.full+json',
+
+        }
+    }).then(response =>
+    {
+        console.log("GET ISSUE: ", response.data)
+        return response.data
+    }
+    );
+}

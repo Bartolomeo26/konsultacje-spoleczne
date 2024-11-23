@@ -1,18 +1,5 @@
 import { Link } from "react-router-dom";
-
-const formatDateTime = (timestamp) =>
-{
-    const date = new Date(timestamp); // Convert string to Date object
-
-    // Format the date as YYYY-MM-DD
-    const formattedDate = date.toISOString().split("T")[0];
-
-    // Format the time as HH:mm
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-
-    return `${formattedDate} ${hours}:${minutes}`;
-};
+import { formatDateTime } from "../../../util/formatDate";
 
 function ConsultationCard({ consultation })
 {
@@ -44,7 +31,7 @@ function ConsultationCard({ consultation })
         statusColor = "text-green-700";
     }
     return (
-        <Link to="/communities/1/consultations/1">
+        <Link to={`/communities/1/consultations/${consultation.id}`}>
             <div className="border-2 bg-white rounded-lg text- shadow-md p-4 mt-2 w-full">
                 <div className="flex ">
                     <h1 className="font-bold text-lg mb-2 w-4/6">{consultation.title}</h1>
@@ -56,9 +43,9 @@ function ConsultationCard({ consultation })
                 <div className="flex justify-between text-md">
 
                     <div className="flex space-x-2">
-                        <span>Answers: {consultation.comments.length}</span>
-                        <span>{formatDateTime(consultation.createdAt)}</span>
 
+                        <span>{formatDateTime(consultation.createdAt)}</span>
+                        <span>Answers: {consultation.comments.length}</span>
                     </div>
                     <span className={statusColor}>Status: {statusName}</span>
                 </div>

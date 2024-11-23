@@ -5,7 +5,7 @@ import { getIssues } from "../../../util/fetch";
 import { useState } from "react";
 import Filters from "../../Filters";
 import LoadingIndicator from "../../LoadingIndicator";
-
+import { useParams } from "react-router-dom";
 const pageSize = 10;
 const SORTING_OPTIONS = [
     { value: "id_desc", label: "Most Recent", field: "Id", order: "desc" },
@@ -17,6 +17,7 @@ const SORTING_OPTIONS = [
 
 function ConsultationsList({ permissions })
 {
+    const { id } = useParams();
     const [searchTerm, setSearchTerm] = useState("");
     const [sortConfig, setSortConfig] = useState({
         field: "Id",
@@ -34,7 +35,7 @@ function ConsultationsList({ permissions })
         data: response,
     } = useQuery({
         queryKey: ["issues", pageNumber, searchTerm, sortConfig.field, sortConfig.order],
-        queryFn: () => getIssues(pageNumber, pageSize, searchTerm, sortConfig.field, sortConfig.order, 113),
+        queryFn: () => getIssues(pageNumber, pageSize, searchTerm, sortConfig.field, sortConfig.order, id),
         staleTime: 5 * 60 * 1000,
         cacheTime: 10 * 60 * 1000,
         retry: 0,
