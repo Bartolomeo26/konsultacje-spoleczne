@@ -485,3 +485,36 @@ export async function rejectJoinToCommunity(data)
             throw err;
         });
 }
+
+export async function getIssues(
+    pageNumber = 1,
+    pageSize = 10,
+    searchQuery = '',
+    sortField = 'Id',
+    sortOrder = 'desc',
+    communityId
+)
+{
+    console.log('Fetching communities with advanced sorting');
+
+    // Construct the OrderBy parameter
+    const orderByParam = `${sortField} ${sortOrder}`;
+
+    return await axios.get(`https://localhost:7150/api/issues`, {
+        params: {
+            communityId,
+            SearchQuery: searchQuery,
+            PageNumber: pageNumber,
+            PageSize: pageSize,
+            Fields: 'id,title,description,comments,issueStatus,createdAt',
+            OrderBy: orderByParam
+        },
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.issue.full.hateoas+json',
+        }
+    }).then(response =>
+    {
+        console.log("GET ISSUES: ", response.data);
+        return response;
+    });
+}
