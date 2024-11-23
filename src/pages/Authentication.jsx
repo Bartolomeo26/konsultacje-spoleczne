@@ -34,7 +34,7 @@ function Authentication()
             exit: "exit",
             variants,
             transition: { duration: 0.5 },
-            className: "w-full md:w-[400px] lg:w-1/3 px-4"
+            className: "w-full md:w-[400px] lg:w-1/3 px-2 lg:px-4"
         };
 
         switch (authType)

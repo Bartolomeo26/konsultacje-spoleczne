@@ -90,7 +90,7 @@ function MainNavigation()
                                         <Link
                                             to={"/users/" + loggedUser.id}
                                             onClick={() => setIsDropdownOpen(false)}
-                                            className="flex items-center px-4 py-2 hover:bg-gray-200"
+                                            className="flex items-center px-4 py-2 hover:bg-gray-200 hover:rounded-t"
                                             style={{ color: "rgba(0, 136, 169, 1)" }}
                                         >
                                             <User size={18} className="mr-2" />
@@ -105,7 +105,7 @@ function MainNavigation()
                                             setIsDropdownOpen(false);
                                             handleSignOut();
                                         }}
-                                        className="flex items-center w-full text-left px-4 py-2 hover:bg-gray-200"
+                                        className="flex items-center w-full text-left px-4 py-2 hover:bg-gray-200 hover:rounded-b"
                                         style={{ color: "rgba(0, 136, 169, 1)" }}
                                     >
                                         <LogOut size={18} className="mr-2" />

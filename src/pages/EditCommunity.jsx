@@ -40,7 +40,7 @@ function EditCommunity()
     }
 
 
-    return (<div className="flex flex-col  items-center mt-10 w-1/3 p-6 rounded-lg mb-10">
+    return (<div className="flex flex-col  items-center lg:w-1/3 p-6 rounded-lg mb-10">
 
         <CommunityForm onSubmit={handleSubmit} community={community} title={'Edit'}>
 
