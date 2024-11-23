@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { UserCheck, UserMinus } from "lucide-react";
 
-function MemberCard({ member })
+function MemberCard({ member, handleRemoveMember, isRemoving })
 {
     return (
         <div className="p-4 bg-white shadow-md rounded-md flex items-center justify-between">
@@ -16,10 +16,10 @@ function MemberCard({ member })
             <div className="w-1/2 self-end">
                 <div className="flex text-sm gap-2 justify-end">
                     <button
-
+                        onClick={() => handleRemoveMember(member.id)}
                         className="p-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 flex items-center gap-1"
                     >
-                        <UserMinus size={18} /> <span>  Kick out</span>
+                        <UserMinus size={18} /> <span>{isRemoving ? "Removing..." : "Kick out"}</span>
                     </button>
                     <button
 

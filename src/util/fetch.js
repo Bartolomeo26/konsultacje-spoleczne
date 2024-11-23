@@ -535,3 +535,58 @@ export async function getIssue(id)
     }
     );
 }
+
+export async function removeMember(communityId, memberIdToRemove)
+{
+    const token = localStorage.getItem("token");
+    console.log(memberIdToRemove)
+    try
+    {
+        const response = await axios.patch(
+            `https://localhost:7150/api/communities/${communityId}`,
+            [
+                {
+                    op: "remove",
+                    path: `/members/${memberIdToRemove}`
+                }
+            ],
+            {
+                headers: {
+                    "Content-Type": "application/json-patch+json",
+                    'Authorization': `Bearer ${token}`
+                },
+            }
+        );
+        return response.data; // Return the updated member info, or just the ID for simplicity
+    } catch (error)
+    {
+        console.error("Error while removing member:", error);
+        throw error;
+    }
+}
+
+export async function grantAdmin(communityId, members, administrators)
+{
+    const token = localStorage.getItem("token");
+    console.log(members);
+    try
+    {
+        const response = await axios.patch(
+            `https://localhost:7150/api/communities/${communityId}`,
+            [
+                { op: "replace", path: "/members", value: members },
+            ],
+            {
+                headers: {
+                    "Content-Type": "application/json-patch+json",
+                    'Authorization': `Bearer ${token}`
+                },
+            }
+        );
+        return response.data; // Return the updated member info, or just the ID for simplicity
+    } catch (error)
+    {
+        console.error("Error while removing member:", error);
+        throw error;
+    }
+}
