@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import ConsultationAnswer from "../components/CommunityDetails/Consultations/ConsultationAnswer";
-import ConsultationInput from "../components/CommunityDetails/Consultations/ConsultationInput";
+import CommentCard from "../components/CommunityDetails/Consultations/Comments/CommentCard";
+import CommentInput from "../components/CommunityDetails/Consultations/Comments/CommentInput";
 import ConsultationTopic from "../components/CommunityDetails/Consultations/ConsultationTopic";
 import { useState, useRef } from "react";
 import { useParams } from "react-router-dom";
@@ -17,7 +17,7 @@ function ConsultationDetails()
 {
     const [answer, setAnswer] = useState('');
     const { id, consultationId } = useParams();
-    console.log(consultationId)
+
     const inputRef = useRef(null);
     const { isPending, error, data: consultation } = useQuery({
         queryKey: ['issue', consultationId],
@@ -82,17 +82,17 @@ function ConsultationDetails()
                         </svg>
                     </button>
                 </Link>
-                <ConsultationTopic consultation={{ title: consultation.title, description: consultation.description, date: consultation.createdAt }} />
+                <ConsultationTopic consultation={{ title: consultation?.title, description: consultation?.description, date: consultation?.createdAt }} />
                 <ConsultationFiles files={consultation.files} />
                 <ConsultationSolutions solutions={consultation.solutions} />
-                <ConsultationInput handleInput={handleInput} value={answer} inputRef={inputRef} />
+                <CommentInput handleInput={handleInput} value={answer} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
                 <div className="space-y-2">
                     <h2 className="text-2xl font-semibold text-gray-900">201 Answers</h2>
                     <div className="space-y-4">
                         <div className="flex flex-col gap-5 mt-2 mb-10">
-                            <ConsultationAnswer reply={reply} />
-                            <ConsultationAnswer />
-                            <ConsultationAnswer />
+                            <CommentCard reply={reply} />
+                            <CommentCard />
+                            <CommentCard />
                         </div>
                     </div>
                 </div>

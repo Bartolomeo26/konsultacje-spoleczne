@@ -1,4 +1,4 @@
-function ConsultationAnswer({ reply, answer })
+function CommentCard({ reply, answer })
 {
     return (<>
         {[1, 2, 3].map((index) => (
@@ -47,4 +47,4 @@ function ConsultationAnswer({ reply, answer })
     )
 }
 
-export default ConsultationAnswer;
+export default CommentCard;

@@ -71,7 +71,7 @@ function ConsultationFiles({ files })
         <div
             onClick={() => !isExpanded && setIsExpanded(true)}
             className={`
-                bg-white rounded-xl shadow-lg border border-gray-100 p-6 mt-3 relative 
+                bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 relative 
                 transition-all duration-300 ease-in-out
                 ${!isExpanded ? 'cursor-pointer' : ''}
                 ${isExpanded ? 'max-h-[1000px] overflow-visible' : 'max-h-16 overflow-hidden'}
@@ -94,7 +94,7 @@ function ConsultationFiles({ files })
             {/* Subtle Side Label - Only when collapsed */}
             {!isExpanded && (
                 <div className="absolute top-2 left-3 text-gray-500 flex items-center">
-                    <Files className="mr-1 text-gray-600" size={16} />
+                    <Files className="mr-1 text-gray-600" size={18} />
                     <h3 className="text-lg text-gray-600 font-semibold">Files</h3>
                 </div>
             )}

@@ -307,7 +307,7 @@ export async function editConsultation(consultationData)
     return await axios.patch(
         `https://localhost:7150/api/issues/${consultation.id}`,
         [
-            { op: "replace", path: "/title", value: consultation.name },
+            { op: "replace", path: "/title", value: consultation.title },
             { op: "replace", path: "/description", value: consultation.description },
             { op: "replace", path: "/files", value: consultation.files },
             { op: "replace", path: "/currentStateEndDate", value: consultation.currentStateEndDate },
@@ -551,6 +551,7 @@ export async function getIssues(
         },
         headers: {
             'Accept': 'application/vnd.socialconsultations.issue.full.hateoas+json',
+            'Cache-Control': 'no-cache'
         }
     }).then(response =>
     {
@@ -626,4 +627,31 @@ export async function grantAdmin(communityId, members, administrators)
         console.error("Error while removing member:", error);
         throw error;
     }
+}
+
+export async function createNewComment(commentData)
+{
+    const token = localStorage.getItem('token');
+    console.log(commentData);
+    console.log('creating comment', commentData)
+    return await axios.post(`https://localhost:7150/api/comments`, commentData, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while creating the comment');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
 }

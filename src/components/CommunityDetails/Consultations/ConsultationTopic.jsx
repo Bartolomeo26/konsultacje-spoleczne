@@ -4,7 +4,7 @@ function ConsultationTopic({ consultation })
 {
     const { title, description, date } = consultation;
     return (<>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 pb-3 hover:border-gray-300 transition-colors">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 pb-3 hover:border-gray-300 transition-colors">
             <div className="flex flex-col space-y-4">
                 <p className="text-gray-600">Andrzej Nowicki</p>
                 <h1 className="text-3xl font-bold text-gray-900">

@@ -21,7 +21,7 @@ function ConsultationEdit()
         {
             console.log("Consultation created successfully:", data);
             navigate(`/communities/${id}/consultations`)
-            queryClient.invalidateQueries({ queryKey: ['community', id] })
+            queryClient.invalidateQueries({ queryKey: ['issues', id] })
 
         },
         onError: (error) =>

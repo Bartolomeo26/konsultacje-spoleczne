@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UsersRound, FileUp, Calendar } from "lucide-react";
 
 function ConsultationForm({ communityId, onSubmit, children, label, consultation })
@@ -11,6 +11,15 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
         files: [],
         currentStateEndDate: consultation?.currentStateEndDate,
     });
+
+    useEffect(() =>
+    {
+        setEnteredData((prevData) => ({
+            ...prevData, title: consultation?.title,
+            description: consultation?.description,
+            currentStateEndDate: consultation?.currentStateEndDate,
+        }))
+    }, [consultation])
 
     const handleChange = (e) =>
     {

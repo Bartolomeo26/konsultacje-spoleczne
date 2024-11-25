@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import DeleteConsultationModal from "./DeleteConsultationModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteConsultation } from "../../../util/fetch";
 import { Trash2 } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 function DeleteConsultation({ consultation })
 {
-
+    const { id } = useParams();
+    const useQuery = useQueryClient();
     const [isModalOpen, setModalOpen] = useState(false);
     const [enteredTitle, setEnteredTitle] = useState("");
     const [message, setMessage] = useState("");
@@ -15,6 +17,7 @@ function DeleteConsultation({ consultation })
         onSuccess: () =>
         {
             alert("Consultation successfully deleted!");
+            useQuery.invalidateQueries({ queryKey: ['issues', id] })
 
         },
         onError: (err) =>
