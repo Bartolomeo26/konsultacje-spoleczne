@@ -82,3 +82,7 @@
 .permission {
   font-family: "Montserrat", sans-serif !important;
 }
+
+input[type='date']::-webkit-calendar-picker-indicator {
+    opacity:0%;
+}

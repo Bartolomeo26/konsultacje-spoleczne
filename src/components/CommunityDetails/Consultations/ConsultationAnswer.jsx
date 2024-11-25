@@ -1,4 +1,4 @@
-function ConsultationAnswer({ reply })
+function ConsultationAnswer({ reply, answer })
 {
     return (<>
         {[1, 2, 3].map((index) => (

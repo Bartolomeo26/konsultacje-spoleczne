@@ -9,12 +9,14 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { MessageCircle, Vote } from "lucide-react";
 import { formatDateTime } from "../util/formatDate";
+import ConsultationFiles from "../components/CommunityDetails/Consultations/ConsultationFiles";
+import ConsultationSolutions from "../components/CommunityDetails/Consultations/ConsultationSolutions";
 
 
 function ConsultationDetails()
 {
     const [answer, setAnswer] = useState('');
-    const { consultationId } = useParams();
+    const { id, consultationId } = useParams();
     console.log(consultationId)
     const inputRef = useRef(null);
     const { isPending, error, data: consultation } = useQuery({
@@ -73,7 +75,7 @@ function ConsultationDetails()
                 </div>
             </div>
             <div className="mt-5">
-                <Link to="/communities/1/consultations">
+                <Link to={`/communities/${id}/consultations`}>
                     <button className="mb-3 p-2 hover:bg-gray-100 rounded-full transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -81,6 +83,8 @@ function ConsultationDetails()
                     </button>
                 </Link>
                 <ConsultationTopic consultation={{ title: consultation.title, description: consultation.description, date: consultation.createdAt }} />
+                <ConsultationFiles files={consultation.files} />
+                <ConsultationSolutions solutions={consultation.solutions} />
                 <ConsultationInput handleInput={handleInput} value={answer} inputRef={inputRef} />
                 <div className="space-y-2">
                     <h2 className="text-2xl font-semibold text-gray-900">201 Answers</h2>

@@ -34,10 +34,8 @@ function ConsultationsList({ permissions })
         error: consultationsError,
         data: response,
     } = useQuery({
-        queryKey: ["issues", pageNumber, searchTerm, sortConfig.field, sortConfig.order],
+        queryKey: ["issues", id, pageNumber, searchTerm, sortConfig.field, sortConfig.order],
         queryFn: () => getIssues(pageNumber, pageSize, searchTerm, sortConfig.field, sortConfig.order, id),
-        staleTime: 5 * 60 * 1000,
-        cacheTime: 10 * 60 * 1000,
         retry: 0,
     });
 
@@ -123,7 +121,7 @@ function ConsultationsList({ permissions })
                                 </div>
                             ) : (
                                 consultations.map((consultation) => (
-                                    <ConsultationCard key={consultation.id} consultation={consultation} />
+                                    <ConsultationCard key={consultation.id} consultation={consultation} permissions={permissions} />
                                 ))
                             )}
 
@@ -141,7 +139,7 @@ function ConsultationsList({ permissions })
                                         </p>
                                     </div>
                                     <div>
-                                        <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                                        <nav className="isolate inline-flex rounded-md shadow-sm" aria-label="Pagination">
                                             <button
                                                 onClick={() => setPageNumber((prev) => Math.max(prev - 1, 1))}
                                                 disabled={pageNumber === 1}

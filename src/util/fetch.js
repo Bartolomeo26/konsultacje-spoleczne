@@ -298,6 +298,29 @@ export async function editCommunity(communityData)
     );
 }
 
+export async function editConsultation(consultationData)
+{
+
+    const token = localStorage.getItem('token');
+    const { consultation } = consultationData;
+
+    return await axios.patch(
+        `https://localhost:7150/api/issues/${consultation.id}`,
+        [
+            { op: "replace", path: "/title", value: consultation.name },
+            { op: "replace", path: "/description", value: consultation.description },
+            { op: "replace", path: "/files", value: consultation.files },
+            { op: "replace", path: "/currentStateEndDate", value: consultation.currentStateEndDate },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
 export async function deleteCommunity({ communityId })
 {
     const token = localStorage.getItem('token');
@@ -305,6 +328,22 @@ export async function deleteCommunity({ communityId })
     console.log("USUWANIE!", communityId)
     return await axios.delete(
         `https://localhost:7150/api/communities/${communityId}`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function deleteConsultation({ consultationId })
+{
+    const token = localStorage.getItem('token');
+
+    console.log("USUWANIE!", consultationId)
+    return await axios.delete(
+        `https://localhost:7150/api/issues/${consultationId}`,
         {
             headers: {
                 'Content-Type': 'application/json',
@@ -522,11 +561,9 @@ export async function getIssues(
 
 export async function getIssue(id)
 {
-
     return await axios.get(`https://localhost:7150/api/issues/${id}`, {
         headers: {
-            'Accept': 'application/vnd.socialconsultations.issue.full+json',
-
+            'Accept': 'application/vnd.socialconsultations.issue.full.hateoas+json',
         }
     }).then(response =>
     {

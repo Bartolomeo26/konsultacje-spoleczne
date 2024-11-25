@@ -70,7 +70,7 @@ function MainNavigation()
 
             {token ? (
                 <div className="relative">
-                    {/* Przycisk do rozwijania dropdowna */}
+                    
                     {loggedUser ?
                         <button onClick={() => setIsDropdownOpen(prev => !prev)} className={classes.button}>
                             Hello, {loggedUser.name}!
@@ -78,7 +78,7 @@ function MainNavigation()
                             Hello!
                         </button>
                     }
-                    {/* Dropdown menu */}
+                    
                     {isDropdownOpen && (
                         <div
                             className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10"

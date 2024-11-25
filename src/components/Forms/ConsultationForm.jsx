@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { UsersRound, FileUp, Calendar } from "lucide-react";
 
-function ConsultationForm({ communityId, onSubmit, children })
+function ConsultationForm({ communityId, onSubmit, children, label, consultation })
 {
     const [error, setError] = useState([]);
     const [enteredData, setEnteredData] = useState({
-        title: "",
-        description: "",
+        title: consultation?.title,
+        description: consultation?.description,
         communityId: parseInt(communityId),
         files: [],
-        currentStateEndDate: "",
+        currentStateEndDate: consultation?.currentStateEndDate,
     });
 
     const handleChange = (e) =>
@@ -53,15 +53,15 @@ function ConsultationForm({ communityId, onSubmit, children })
     const handleSubmit = async (event) =>
     {
         event.preventDefault();
-        const formData = { ...enteredData };
-
+        const formData = { ...enteredData, id: consultation.id };
+        console.log(formData);
         onSubmit(formData); // Send the form data to the parent function
     };
 
     return (
         <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-xl mx-auto space-y-6">
             <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-gray-800">Create Consultation</h2>
+                <h2 className="text-3xl font-bold text-gray-800">{label} Consultation</h2>
                 <p className="text-gray-500 mt-2">Make your voice louder</p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">

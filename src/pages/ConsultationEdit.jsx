@@ -1,18 +1,22 @@
 import ConsultationForm from "../components/Forms/ConsultationForm";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { createNewConsultation } from "../util/fetch";
+import { editConsultation, getIssue } from "../util/fetch";
 import classes from '../styles/DefaultForm.module.css'
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
-
-function ConsultationNew()
+function ConsultationEdit()
 {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
-    const { id } = useParams();
+    const { id, consultationId } = useParams();
     console.log(id)
+    const { isPending: getPending, error: getError, data: consultation } = useQuery({
+        queryKey: ['issue', consultationId],
+        queryFn: () => getIssue(consultationId)
+    });
     const { mutate, isPending, isError, error } = useMutation({
-        mutationFn: createNewConsultation,
+        mutationFn: editConsultation,
         onSuccess: (data) =>
         {
             console.log("Consultation created successfully:", data);
@@ -22,7 +26,7 @@ function ConsultationNew()
         },
         onError: (error) =>
         {
-            console.error("Failed to create consultation:", error);
+            console.error("Failed to edit consultation:", error);
 
         },
     });
@@ -35,7 +39,7 @@ function ConsultationNew()
 
     return (<div className="flex justify-center items-center w-full px-4 py-6 md:p-6">
         <div className="w-full max-w-xl">
-            <ConsultationForm onSubmit={handleSubmit} communityId={id} label={"Create"}>
+            <ConsultationForm onSubmit={handleSubmit} consultation={consultation} communityId={id} label={"Edit"}>
 
 
                 {isPending && (
@@ -48,7 +52,7 @@ function ConsultationNew()
                 {!isPending && (
                     <>
                         <button type="submit" className={classes.button}>
-                            Create Consultation
+                            Edit Consultation
                         </button>
                     </>
                 )}
@@ -60,4 +64,4 @@ function ConsultationNew()
 
 }
 
-export default ConsultationNew;
+export default ConsultationEdit;

@@ -20,6 +20,7 @@ import { AuthProvider } from './util/AuthContext'
 import NewCommunity from './pages/NewCommunity'
 import EditCommunity from './pages/EditCommunity'
 import ConsultationNew from './pages/ConsultationNew'
+import ConsultationEdit from './pages/ConsultationEdit'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
         { path: '/communities/:id/:topic', element: <CommunityDetails /> },
         { path: '/communities/:id/consultations/new', element: <ConsultationNew /> },
         { path: '/communities/:id/consultations/:consultationId', element: <ConsultationDetails /> },
+        { path: '/communities/:id/consultations/:consultationId/edit', element: <ConsultationEdit /> },
         { path: '/contact', element: <Contact /> },
         { path: '/information-clause', element: <InformationClause /> },
         { path: '/rules', element: <Rules /> },

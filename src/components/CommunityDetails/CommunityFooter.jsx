@@ -7,7 +7,7 @@ import LoadingIndicator from "../LoadingIndicator";
 function CommunityFooter({ community })
 {
     const { isPending, error, data: communities } = useQuery({
-        queryKey: ['communities'],
+        queryKey: ['communities', community.id],
         queryFn: () => getCommunitiesList()
     });
 
