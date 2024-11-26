@@ -1,24 +1,27 @@
-import { Plus, InfoIcon } from 'lucide-react';
+import { Plus, InfoIcon, Ellipsis, Edit, Trash2, Redo2 } from 'lucide-react';
 import { useState } from 'react';
 import { formatDateTime } from '../../../../util/formatDate';
 import defaultProfile from '../../../../assets/defaultProfile.jpg'
 import { useMutation } from '@tanstack/react-query';
 import { upVoteComment } from '../../../../util/fetch';
 import { useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../../../util/AuthContext';
 import IssueStatusTag from './IssueStatusTag';
 import Tooltip from '../../../Tooltip';
-
+import UpvotesModal from './UpvotesModal';
 
 function CommentCard({ reply, comment })
 {
     const { loggedUser = null } = useAuth();
+    const isAuthor = loggedUser.id === comment.author.id;
     const { consultationId } = useParams();
     const [upvotes, setUpvotes] = useState(comment.upvotes.length);
     const [hasUpvoted, setHasUpvoted] = useState(
         comment.upvotes.some(upvote => upvote.id === loggedUser?.id)
     );
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [showUpvotesModal, setShowUpvotesModal] = useState(false);
     const queryClient = useQueryClient();
     const { mutate, isLoading, isError, isSuccess } = useMutation({
         mutationFn: () => upVoteComment(comment.id),
@@ -59,10 +62,44 @@ function CommentCard({ reply, comment })
                 <Tooltip content={<IssueStatusTag status={comment.issueStatus} />}>
                     <InfoIcon className="w-4 h-4" />
                 </Tooltip>
+                {isAuthor && (
+                    <div className="relative">
+                        <button
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            className="hover:bg-gray-100 rounded-full p-1"
+                        >
+                            <Ellipsis size={16} />
+                        </button>
+                        {isDropdownOpen && (
+                            <div className="absolute right-0 top-full z-10 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
+                                <button
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+                                    onClick={() =>
+                                    {
+                                        // Edit logic here
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    <Edit className="w-4 h-4" /> Edit
+                                </button>
+                                <button
+                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 flex items-center gap-2"
+                                    onClick={() =>
+                                    {
+                                        // Delete logic here
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    <Trash2 className="w-4 h-4" /> Delete
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             <div className="space-y-4">
-                <div className="flex items-center justify-between">
+                <Link to={`/users/${comment.author.id}`} className='inline-block'>
                     <div className="flex items-center gap-2">
                         {comment.author.avatar ? (
                             <img
@@ -79,8 +116,8 @@ function CommentCard({ reply, comment })
                         )}
                         <p className="text-gray-600">{comment.author.name} {comment.author.surname}</p>
                     </div>
+                </Link>
 
-                </div>
                 <p className="text-lg mt-3 text-gray-900">{comment.content}</p>
 
                 <div className="flex justify-between items-center pt-4">
@@ -90,26 +127,26 @@ function CommentCard({ reply, comment })
                         font-medium text-gray-700 bg-gray-100 rounded-lg 
                         hover:bg-gray-200 transition-colors"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 inline-block mb-0.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3" />
-                        </svg>
+                        <Redo2 size={24} />
                         Reply
                     </button>
-
-                    <button
-                        onClick={handleUpvote}
-                        className={`inline-flex items-center justify-center px-2 py-2 
-                            rounded-lg font-medium text-sm transition-colors min-w-14
-                            ${hasUpvoted
-                                ? 'bg-blue-100 text-blue-700'
-                                : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}
-                    >
-                        <Plus size={20} className='w-1/2' />
-                        <span className='text-base w-1/2'>{upvotes}</span>
-                    </button>
+                    <div className="flex items-center">
+                        <button onClick={handleUpvote} className={`flex items-center justify-center h-10 w-14 min-w-14 px-2 py-2 rounded-l-lg transition-colors border-r border-gray-300 ${hasUpvoted ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}>
+                            <div className='w-1/2 flex justify-end'><Plus size={16} /></div>
+                        </button>
+                        <button onClick={() => setShowUpvotesModal(true)} className={`flex items-center justify-center h-10 w-14 min-w-14 px-2 py-2 rounded-r-lg transition-colors ${hasUpvoted ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-gray-100 hover:bg-gray-200 text-gray-700'}`}>
+                            <span className='text-base'>{upvotes}</span>
+                        </button>
+                    </div>
+                    {showUpvotesModal && (
+                        <UpvotesModal
+                            upvotes={comment.upvotes}
+                            onClose={() => setShowUpvotesModal(false)}
+                        />
+                    )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -664,7 +664,7 @@ export async function getComments(
     issueId
 )
 {
-    console.log('Fetching communities with advanced sorting');
+    console.log('Fetching comments with advanced sorting');
 
     // Construct the OrderBy parameter
     const orderByParam = `${sortField} ${sortOrder}`;

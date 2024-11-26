@@ -42,7 +42,7 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
     };
 
     return (
-        <div className="space-y-2 w-full md:w-1/2 mt-3 mb-3">
+        <div className="space-y-2 w-full lg:w-1/2 mt-3 mb-3">
             <label className="text-sm font-medium text-gray-700">
                 Contribute to the discussion!
             </label>
