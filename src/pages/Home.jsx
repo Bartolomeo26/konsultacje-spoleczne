@@ -6,7 +6,7 @@ import SuggestedCommunities from "../components/SuggestedCommunities";
 function HomePage()
 {
     return <>
-        <div className="flex justify-center align-top items-center flex-col">
+        <div className="flex justify-center align-top items-center flex-col w-full mt-10 lg:mt-0">
             <HomeBanner />
             <AboutProject />
             <SuggestedCommunities />

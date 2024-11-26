@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { acceptJoinToCommunity, rejectJoinToCommunity } from "../../../util/fetch";
 import JoinRequestCard from "./JoinRequestCard";
 import { useQueryClient } from "@tanstack/react-query";
-
+import { Inbox } from "lucide-react";
 function JoinRequestsList({ joinRequests, communityId })
 {
     const queryClient = useQueryClient();
@@ -60,22 +60,9 @@ function JoinRequestsList({ joinRequests, communityId })
             <div className="flex">
                 <div className="lg:w-4/5 flex flex-col justify-center p-2 lg:p-6 mt-16 lg:mt-10">
                     <div className="flex justify-between items-center gap-2 mb-4">
-                        <h1 className="text-2xl font-bold">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="size-6 inline-block mb-1"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"
-                                />
-                            </svg>{" "}
-                            Join Requests
+                        <h1 className="text-2xl font-bold flex items-center gap-1">
+                            <Inbox />
+                            <span className="text-2xl">Join Requests</span>
                         </h1>
                         <div className="flex space-x-2">
                             <button

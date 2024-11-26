@@ -2,6 +2,7 @@ import CommunityCard from "../CommunityCard";
 import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../LoadingIndicator";
 import { getClosestCommunities } from "../../util/fetch";
+import { MapPinHouse } from "lucide-react";
 function CommunityFooter({ community })
 {
     const { isPending, error, data: communities } = useQuery({
@@ -11,11 +12,9 @@ function CommunityFooter({ community })
 
     if (isPending) return (<div className="flex flex-col w-full lg:px-28 mb-20">
         <div className="px-6 mb-3">
-            <h1 className="text-2xl font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 inline-block mb-1">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
-                </svg>
-                Other communities from this region
+            <h1 className="text-2xl font-bold flex items-center gap-1">
+                <MapPinHouse />
+                <span className="text-2xl">Other communities from this region</span>
             </h1>
         </div>
         <div className="flex items-end gap-3 px-6">
@@ -33,10 +32,8 @@ function CommunityFooter({ community })
     return (
         <div className="flex flex-col w-full lg:px-28 mb-20">
             <div className="px-6 mb-3">
-                <h1 className="text-2xl font-bold">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 inline-block mb-1">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
-                    </svg> Other communities from this region
+                <h1 className="text-2xl font-bold flex items-center gap-1">
+                    <MapPinHouse /> <span className="text-2xl">Other communities from this region</span>
                 </h1>
             </div>
 
