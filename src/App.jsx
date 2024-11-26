@@ -21,6 +21,7 @@ import NewCommunity from './pages/NewCommunity'
 import EditCommunity from './pages/EditCommunity'
 import ConsultationNew from './pages/ConsultationNew'
 import ConsultationEdit from './pages/ConsultationEdit'
+import PopUpTest from './pages/PopUpTest'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
         { path: '/signup/email-confirmed', element: <ConfirmedMail /> },
         { path: '/users/:id', element: <UserProfile /> },
         { path: '/test', element: <Test1 /> },
+        { path: '/popup', element: <PopUpTest /> },
         { path: '/communities', element: <Communities /> },
         { path: '/communities/new', element: <NewCommunity /> },
         { path: '/communities/:id', element: <CommunityDetails /> },

@@ -86,3 +86,33 @@
 input[type='date']::-webkit-calendar-picker-indicator {
     opacity:0%;
 }
+
+@keyframes slideFromTop {
+  0% {
+    transform: translateY(-100%) translateX(-50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(1rem) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop {
+  0% {
+    transform: translateY(1rem) translateX(-50%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%) translateX(-50%);
+    opacity: 0;
+  }
+}
+
+.slide-from-top {
+  animation: slideFromTop 0.3s ease-out forwards;
+}
+
+.slide-out-to-top {
+  animation: slideOutToTop 0.3s ease-in forwards;
+}
