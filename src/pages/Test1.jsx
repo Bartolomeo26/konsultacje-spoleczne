@@ -12,8 +12,6 @@ function Test()
             await axios.get('https://localhost:7150/api/users', {
                 headers: {
                     'accept': 'application/json',
-                    'Cache-Control': 'no-cache',
-                    'Pragma': 'no-cache'
                 }
             })
                 .then(response =>
@@ -38,7 +36,7 @@ function Test()
                     {users.length > 0 && users.map((user) =>
                     {
                         return (
-                            <li key={user.id} className="text-black">Email: {user.email} Name: {user.name} Activated: {user.confirmed.toString()}</li>
+                            <li key={user.id} className="text-black">Id: {user.id} Email: {user.email} Name: {user.name} Activated: {user.confirmed.toString()}</li>
                         )
                     })}
                 </ul>
