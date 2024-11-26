@@ -16,7 +16,7 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
         {
             useQuery.invalidateQueries({ queryKey: ['comments', consultationId] })
             console.log("Comment successfully submitted!");
-            // Opcjonalne: wyczyszczenie pola tekstowego po wysłaniu
+
             handleInput({ target: { value: "" } });
         },
         onError: (error) =>
@@ -53,7 +53,7 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
                 onChange={handleInput}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-900 
                      placeholder:text-gray-400 focus:border-cyan-500 focus:ring-2 
-                     focus:ring-cyan-500 focus:ring-opacity-20"
+                     focus:ring-cyan-500 focus:ring-opacity-20 shadow-md"
                 placeholder="Write your thoughts here..."
             />
             <div className="flex items-center gap-2">
@@ -61,9 +61,13 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
                     type="button"
                     onClick={handleSubmit}
                     disabled={isLoading}
-                    className={`focus:outline-none text-white font-medium rounded-lg text-sm lg:text-base px-2 lg:px-3 py-0.5 lg:py-1 ${isLoading
-                        ? "bg-gray-500 cursor-not-allowed"
-                        : "bg-green-700 hover:bg-green-800"
+                    className={`
+        focus:outline-none text-white font-medium rounded-lg 
+        text-sm lg:text-base px-2 lg:px-3 py-0.5 lg:py-1 
+        transition-all duration-75 active:scale-95
+        ${isLoading
+                            ? "bg-gray-500 cursor-not-allowed"
+                            : "bg-green-700 hover:bg-green-800 active:bg-green-900"
                         }`}
                 >
                     {isLoading ? "Submitting..." : "Comment"}

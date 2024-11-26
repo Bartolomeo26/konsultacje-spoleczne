@@ -16,7 +16,7 @@ import CommentsList from "../components/CommunityDetails/Consultations/Comments/
 
 function ConsultationDetails()
 {
-    const [answer, setAnswer] = useState('');
+    const [comment, setComment] = useState('');
     const { id, consultationId } = useParams();
 
     const inputRef = useRef(null);
@@ -51,15 +51,15 @@ function ConsultationDetails()
         statusName = 'Completed'
         statusIcon = <MessageCircle size={26} />
     }
-    function reply()
+    function reply(user)
     {
-        setAnswer('@Stefan Stefanski ' + answer);
+        setComment(`@${user} ` + comment);
         inputRef.current.focus();
 
     }
     function handleInput(e)
     {
-        setAnswer(e.target.value);
+        setComment(e.target.value);
 
     }
     if (isPending) return <LoadingIndicator />
@@ -86,7 +86,7 @@ function ConsultationDetails()
                 <ConsultationTopic consultation={{ title: consultation?.title, description: consultation?.description, date: consultation?.createdAt }} />
                 <ConsultationFiles files={consultation.files} />
                 <ConsultationSolutions solutions={consultation.solutions} />
-                <CommentInput handleInput={handleInput} value={answer} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
+                <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
                 <CommentsList reply={reply} />
             </div>
         </div>

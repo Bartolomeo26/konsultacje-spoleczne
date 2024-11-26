@@ -687,3 +687,29 @@ export async function getComments(
         return response;
     });
 }
+
+export async function upVoteComment(commentId)
+{
+    const token = localStorage.getItem('token');
+    return await axios.post(`https://localhost:7150/api/comments/${commentId}/upvotes`, null, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while upvoting the comment');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
+
+}
