@@ -24,7 +24,7 @@ const PopUp = ({ message, type = 'info', duration = 3000, onClose }) =>
         setTimeout(() =>
         {
             setIsVisible(false);
-            onClose && onClose();
+            onClose && type != 'error' && onClose();
         }, 300);
     };
 
