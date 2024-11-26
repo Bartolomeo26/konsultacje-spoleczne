@@ -2,9 +2,11 @@ import { useMutation } from "@tanstack/react-query";
 import { createNewComment } from "../../../../util/fetch";
 import { useAuth } from "../../../../util/AuthContext";
 import { useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 function CommentInput({ handleInput, value, inputRef, issueStatus })
 {
+    const useQuery = useQueryClient();
     const { consultationId } = useParams();
     const { loggedUser } = useAuth();
 
@@ -12,6 +14,7 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
         mutationFn: createNewComment,
         onSuccess: () =>
         {
+            useQuery.invalidateQueries({ queryKey: ['comments', consultationId] })
             console.log("Comment successfully submitted!");
             // Opcjonalne: wyczyszczenie pola tekstowego po wysłaniu
             handleInput({ target: { value: "" } });

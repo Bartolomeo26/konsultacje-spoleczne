@@ -655,3 +655,35 @@ export async function createNewComment(commentData)
             throw err;
         });
 }
+
+export async function getComments(
+    pageNumber = 1,
+    pageSize = 10,
+    sortField = 'Id',
+    sortOrder = 'desc',
+    issueId
+)
+{
+    console.log('Fetching communities with advanced sorting');
+
+    // Construct the OrderBy parameter
+    const orderByParam = `${sortField} ${sortOrder}`;
+
+    return await axios.get(`https://localhost:7150/api/comments`, {
+        params: {
+            issueId,
+            PageNumber: pageNumber,
+            PageSize: pageSize,
+            OrderBy: orderByParam
+        },
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.comment.full.hateoas+json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+        }
+    }).then(response =>
+    {
+        console.log("GET COMMENTS: ", response.data);
+        return response;
+    });
+}

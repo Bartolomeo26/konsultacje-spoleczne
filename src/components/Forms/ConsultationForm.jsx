@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { UsersRound, FileUp, Calendar } from "lucide-react";
+import { UsersRound, FileUp, CircleAlert } from "lucide-react";
 
 function ConsultationForm({ communityId, onSubmit, children, label, consultation })
 {
@@ -126,6 +126,7 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
                     {error.length > 0 && (
                         <p className="text-sm text-red-500 mt-2">{error.join(", ")}</p>
                     )}
+                    {label === 'Edit' && <><p className="text-xs text-red-500 mt-1 flex items-center gap-1"><CircleAlert size={30} /><span> The current files will be removed and replaced with the new files you upload. If you wish to keep the existing files, you can do so by managing them on the consultation details page.</span></p></>}
                 </div>
 
                 <div className="relative">

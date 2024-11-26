@@ -11,6 +11,7 @@ import { MessageCircle, Vote } from "lucide-react";
 import { formatDateTime } from "../util/formatDate";
 import ConsultationFiles from "../components/CommunityDetails/Consultations/ConsultationFiles";
 import ConsultationSolutions from "../components/CommunityDetails/Consultations/ConsultationSolutions";
+import CommentsList from "../components/CommunityDetails/Consultations/Comments/CommentsList";
 
 
 function ConsultationDetails()
@@ -86,16 +87,7 @@ function ConsultationDetails()
                 <ConsultationFiles files={consultation.files} />
                 <ConsultationSolutions solutions={consultation.solutions} />
                 <CommentInput handleInput={handleInput} value={answer} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
-                <div className="space-y-2">
-                    <h2 className="text-2xl font-semibold text-gray-900">201 Answers</h2>
-                    <div className="space-y-4">
-                        <div className="flex flex-col gap-5 mt-2 mb-10">
-                            <CommentCard reply={reply} />
-                            <CommentCard />
-                            <CommentCard />
-                        </div>
-                    </div>
-                </div>
+                <CommentsList reply={reply} />
             </div>
         </div>
     </>)
