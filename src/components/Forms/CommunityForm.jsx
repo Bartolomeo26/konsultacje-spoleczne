@@ -202,7 +202,7 @@ function CommunityForm({ community, onSubmit, children, title })
                 <p className="text-gray-500 mt-2">Bring people together</p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Community Name Input */}
+
                 <div className="relative">
                     <label htmlFor="name" className="block mb-2 text-sm font-semibold text-gray-700">
                         Community Name
@@ -216,13 +216,14 @@ function CommunityForm({ community, onSubmit, children, title })
                             onChange={handleChange}
                             placeholder="Enter community name"
                             className="w-full p-3 rounded-lg outline-none"
+                            maxLength={20}
                             required
                         />
                         <Users className="mr-3 text-gray-400" />
                     </div>
                 </div>
 
-                {/* Description Textarea */}
+
                 <div>
                     <label htmlFor="description" className="block mb-2 text-sm font-semibold text-gray-700">
                         Description
@@ -238,7 +239,7 @@ function CommunityForm({ community, onSubmit, children, title })
                     />
                 </div>
 
-                {/* Location Inputs */}
+
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label htmlFor="city" className="block mb-2 text-sm font-semibold text-gray-700">
@@ -278,7 +279,6 @@ function CommunityForm({ community, onSubmit, children, title })
                     </div>
                 </div>
 
-                {/* File Uploads */}
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label htmlFor="avatar" className="block mb-2 text-sm font-semibold text-gray-700">
@@ -359,7 +359,7 @@ function CommunityForm({ community, onSubmit, children, title })
                         onChange={(e) => setEnteredData(prev => ({
                             ...prev,
                             isPublic: e.target.checked
-                        }))}  // This is the key change
+                        }))}
                         className="hidden peer"
                     />
                     <label

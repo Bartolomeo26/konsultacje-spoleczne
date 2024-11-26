@@ -1,39 +1,13 @@
 import CommunityCard from "../CommunityCard";
-
-import { getCommunitiesList } from "../../util/fetch";
 import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../LoadingIndicator";
-
+import { getClosestCommunities } from "../../util/fetch";
 function CommunityFooter({ community })
 {
     const { isPending, error, data: communities } = useQuery({
-        queryKey: ['communities', community.id],
-        queryFn: () => getCommunitiesList()
+        queryKey: ['closestCommunities', community.id],
+        queryFn: () => getClosestCommunities({ latitude: community.latitude, longitude: community.longitude, maxDistanceKm: '20' })
     });
-
-    function isWithinRange(lat1, lon1, lat2, lon2, range = 20)
-    {
-        const toRadians = (deg) => deg * (Math.PI / 180);
-        const R = 6371; // Earth radius in kilometers
-
-        const lat1Rad = toRadians(lat1);
-        const lon1Rad = toRadians(lon1);
-        const lat2Rad = toRadians(lat2);
-        const lon2Rad = toRadians(lon2);
-
-        const dLat = lat2Rad - lat1Rad;
-        const dLon = lon2Rad - lon1Rad;
-
-        const a =
-            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1Rad) * Math.cos(lat2Rad) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        const distance = R * c;
-
-        return distance <= range;
-    }
 
     if (isPending) return (<div className="flex flex-col w-full lg:px-28 mb-20">
         <div className="px-6 mb-3">
@@ -51,10 +25,10 @@ function CommunityFooter({ community })
     if (error) return 'An error has occurred: ' + error.message;
 
     // Filter communities within range and limit to 5 results
-    const nearbyCommunities = communities?.value
-        ?.filter(foundCommunity =>
-            isWithinRange(community.latitude, community.longitude, foundCommunity.latitude, foundCommunity.longitude) && foundCommunity.id != community.id)
-    const nearbyCommunitiesSliced = nearbyCommunities.slice(0, 5);
+
+    const nearbyCommunities = communities
+        ?.filter((item) => item.id !== community.id) // Exclude the current community
+        .slice(0, 5);
 
     return (
         <div className="flex flex-col w-full lg:px-28 mb-20">
@@ -68,11 +42,11 @@ function CommunityFooter({ community })
 
             <div className="flex flex-wrap lg:flex-nowrap justify-start items-end gap-2 lg:gap-3 px-3 lg:px-6">
                 {!nearbyCommunities.length ? <p className="text-gray-600">No communities found.</p> : <>
-                    {nearbyCommunitiesSliced?.map(foundCommunity => (
+                    {nearbyCommunities?.map(foundCommunity => (
                         <CommunityCard key={foundCommunity.id} community={foundCommunity} />
                     ))}
-                    {nearbyCommunities.length > 5 &&
-                        <div><p className="font-semibold w-36">And {nearbyCommunities.length - 5} more...</p></div>}</>}
+                    {communities?.length > 5 &&
+                        <div><p className="font-semibold w-36">And {communities?.length - 5} more...</p></div>}</>}
             </div>
         </div>
     );

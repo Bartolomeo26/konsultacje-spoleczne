@@ -713,3 +713,18 @@ export async function upVoteComment(commentId)
         });
 
 }
+
+export async function getClosestCommunities(data)
+{
+    console.log(data);
+    return await axios.post(`https://localhost:7150/closest/100`, data, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json-patch+json',
+        }
+    }).then(response =>
+    {
+        console.log("GET CLOSEST COMMUNITIES: ", response.data);
+        return response.data;
+    });
+}

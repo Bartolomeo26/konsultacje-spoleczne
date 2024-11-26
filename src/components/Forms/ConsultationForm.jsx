@@ -62,7 +62,7 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
     const handleSubmit = async (event) =>
     {
         event.preventDefault();
-        const formData = { ...enteredData, id: consultation.id };
+        const formData = { ...enteredData, id: consultation?.id };
         console.log(formData);
         onSubmit(formData); // Send the form data to the parent function
     };
