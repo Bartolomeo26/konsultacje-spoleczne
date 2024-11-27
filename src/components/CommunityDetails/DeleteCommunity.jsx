@@ -3,28 +3,34 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteCommunity } from "../../util/fetch";
 import DeleteCommunityModal from "./DeleteCommunityModal";
 import { useNavigate } from "react-router-dom";
-import PopUp from "../PopUp";
+import { usePopup } from "../../util/PopupContext";
+
 function DeleteCommunity({ community })
 {
+    const { triggerPopup } = usePopup();
     const navigate = useNavigate();
     const [isModalOpen, setModalOpen] = useState(false);
     const [enteredName, setEnteredName] = useState("");
     const [message, setMessage] = useState("");
-    const [popUpMessage, setPopUpMessage] = useState("");
-    const [popUpType, setPopUpType] = useState("info");
+
     const { mutate, isLoading, isError, error } = useMutation({
         mutationFn: deleteCommunity,
         onSuccess: () =>
         {
-            setPopUpMessage("Community successfully deleted!");
-            setPopUpType("success");
+            triggerPopup('Community successfuly deleted!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
 
-
+            navigate('/communities')
         },
         onError: (err) =>
         {
-            setPopUpMessage(`Error: ${err.message}`);
-            setPopUpType("error");
+            triggerPopup(`Error: ${err.message}`, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+
         },
     });
 
@@ -71,14 +77,7 @@ function DeleteCommunity({ community })
                     error={message}
                 />
             )}
-            {popUpMessage && (
-                <PopUp
-                    message={popUpMessage}
-                    type={popUpType}
-                    duration={3000}
-                    onClose={() => navigate('/communities')}
-                />
-            )}
+
         </div>
     );
 }

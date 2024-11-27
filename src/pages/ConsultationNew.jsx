@@ -3,10 +3,12 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { createNewConsultation } from "../util/fetch";
 import classes from '../styles/DefaultForm.module.css'
 import { useNavigate, useParams } from "react-router-dom";
+import { usePopup } from "../util/PopupContext";
 
 
 function ConsultationNew()
 {
+    const { triggerPopup } = usePopup();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { id } = useParams();
@@ -15,6 +17,10 @@ function ConsultationNew()
         mutationFn: createNewConsultation,
         onSuccess: (data) =>
         {
+            triggerPopup('Consultation successfuly created!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             console.log("Consultation created successfully:", data);
             navigate(`/communities/${id}/consultations`)
             queryClient.invalidateQueries({ queryKey: ['community', id] })
@@ -22,6 +28,10 @@ function ConsultationNew()
         },
         onError: (error) =>
         {
+            triggerPopup('Failed to create consultation:' + error, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             console.error("Failed to create consultation:", error);
 
         },

@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { deleteConsultation } from "../../../util/fetch";
 import { Trash2 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePopup } from "../../../util/PopupContext";
 function DeleteConsultation({ consultation })
 {
+    const { triggerPopup } = usePopup();
     const { id } = useParams();
     const useQuery = useQueryClient();
     const [isModalOpen, setModalOpen] = useState(false);
@@ -16,12 +18,20 @@ function DeleteConsultation({ consultation })
         mutationFn: deleteConsultation,
         onSuccess: () =>
         {
-            alert("Consultation successfully deleted!");
+            triggerPopup('Consultation successfully deleted!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+
             useQuery.invalidateQueries({ queryKey: ['issues', id] })
 
         },
         onError: (err) =>
         {
+            triggerPopup(`Error: ${err.message}`, 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             alert(`Error: ${err.message}`);
         },
     });

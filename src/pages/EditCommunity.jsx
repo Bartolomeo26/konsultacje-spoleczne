@@ -3,12 +3,12 @@ import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { editCommunity, getCommunity } from "../util/fetch";
 import classes from '../styles/DefaultForm.module.css'
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { usePopup } from "../util/PopupContext";
 
 
 function EditCommunity()
 {
+    const { triggerPopup } = usePopup();
     const { id } = useParams();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
@@ -20,6 +20,10 @@ function EditCommunity()
         mutationFn: editCommunity,
         onSuccess: (data) =>
         {
+            triggerPopup('Community edited successfully!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             console.log("Community edited successfully:", data);
             navigate(`/communities/${community.id}`)
             queryClient.invalidateQueries({ queryKey: ['communities'] })
@@ -27,6 +31,10 @@ function EditCommunity()
         },
         onError: (error) =>
         {
+            triggerPopup('Failed to edit community:' + error, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             console.error("Failed to edit community:", error);
             // Możesz dodać tutaj obsługę błędów
         },

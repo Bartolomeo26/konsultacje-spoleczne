@@ -4,9 +4,10 @@ import { editConsultation, getIssue } from "../util/fetch";
 import classes from '../styles/DefaultForm.module.css'
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-
+import { usePopup } from "../util/PopupContext";
 function ConsultationEdit()
 {
+    const { triggerPopup } = usePopup();
     const navigate = useNavigate();
     const queryClient = useQueryClient();
     const { id, consultationId } = useParams();
@@ -19,14 +20,22 @@ function ConsultationEdit()
         mutationFn: editConsultation,
         onSuccess: (data) =>
         {
-            console.log("Consultation created successfully:", data);
+            triggerPopup('Consultation edited successfully!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+            console.log("Consultation edited successfully:", data);
             navigate(`/communities/${id}/consultations`)
             queryClient.invalidateQueries({ queryKey: ['issues', id] })
 
         },
         onError: (error) =>
         {
-            console.error("Failed to edit consultation:", error);
+            triggerPopup('Failed to edit consultation: ' + error, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+
 
         },
     });

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 
-const PopUp = ({ message, type = 'info', duration = 3000, onClose }) =>
+const PopUp = ({ message, type = 'info', duration = 2000, onClose }) =>
 {
     const [isVisible, setIsVisible] = useState(true);
     const [isExiting, setIsExiting] = useState(false);

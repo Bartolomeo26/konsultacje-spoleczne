@@ -13,6 +13,7 @@ function NewCommunity()
         mutationFn: createNewCommunity,
         onSuccess: (data) =>
         {
+            
             console.log("Community created successfully:", data);
             navigate(`/communities/${data.id}`)
             queryClient.invalidateQueries({ queryKey: ['communities'] })

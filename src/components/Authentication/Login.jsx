@@ -5,9 +5,11 @@ import classes from '../../styles/DefaultForm.module.css';
 import { useNavigate, redirect } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../../util/AuthContext';
+import { usePopup } from '../../util/PopupContext';
 
 function Login({ changeAuthType })
 {
+    const { triggerPopup } = usePopup();
     const navigate = useNavigate();
     const { updateToken } = useAuth();
 
@@ -15,6 +17,10 @@ function Login({ changeAuthType })
         mutationFn: LogIn,
         onSuccess: async (token) =>
         {
+            triggerPopup('Successfuly logged in!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             updateToken(token);  // Zapis tokena w Context
             navigate("/"); // Przekierowanie na stronę główną
         }

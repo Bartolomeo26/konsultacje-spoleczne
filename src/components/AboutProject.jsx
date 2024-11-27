@@ -4,7 +4,7 @@ function AboutProject()
 {
     return (
         <>
-            <div className="w-3/4 flex flex-col justify-center items-center mt-5 mb-5">
+            <div className="w-full px-4 lg:w-3/4 lg:p-0 flex flex-col justify-center items-center mt-5 mb-5">
                 <h1 className="text-4xl mb-5">About Project</h1>
                 <p className=" text-2xl text-center">
                     This platform is here to help make your voice heard in important community decisions.

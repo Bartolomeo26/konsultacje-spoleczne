@@ -22,6 +22,7 @@ import EditCommunity from './pages/EditCommunity'
 import ConsultationNew from './pages/ConsultationNew'
 import ConsultationEdit from './pages/ConsultationEdit'
 import PopUpTest from './pages/PopUpTest'
+import { PopupProvider } from './util/PopupContext'
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -59,7 +60,9 @@ function App()
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RouterProvider router={router} />
+        <PopupProvider>
+          <RouterProvider router={router} />
+        </PopupProvider>
       </AuthProvider>
     </QueryClientProvider>);
 }

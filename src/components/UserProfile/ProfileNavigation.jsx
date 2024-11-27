@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function ProfileNavigation({ handleContentChange, isLoggedIn })
 {
-   
+
 
     return (
         <>
@@ -16,16 +16,11 @@ function ProfileNavigation({ handleContentChange, isLoggedIn })
                     <div className="border-s-4 px-3 py-1" style={{ borderColor: "#155e75" }}>
                         <button onClick={() => handleContentChange('communities')}>Communities</button>
                     </div>
-                    <div className="border-s-4 px-3 py-1" style={{ borderColor: "#155e75" }}>
-                        <button onClick={() => handleContentChange('consultations')}>Consultations</button>
-                    </div>
                     {isLoggedIn &&
                         <div className="border-s-4 px-3 py-1" style={{ borderColor: "#155e75" }}>
                             <button onClick={() => handleContentChange('settings')}>Settings</button>
                         </div>}
                 </div>
-
-
 
             </div >
         </>
