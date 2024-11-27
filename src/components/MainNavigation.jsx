@@ -39,8 +39,8 @@ function MainNavigation()
     }, []);
 
     return (
-        <header className="bg-cyan-800 p-4 px-10 flex justify-between items-center">
-            <Link to='/'><div className="flex items-center text-white"><img className={classes.logo} src={logo} alt="logo" /><h1>Dialogue Bridge</h1></div></Link>
+        <header className="bg-cyan-800 p-4 px-10 relative flex justify-between items-center">
+            <Link to='/' className="hidden lg:block"><div className="flex items-center text-white"><img className={classes.logo} src={logo} alt="logo" /><h1>Dialogue Bridge</h1></div></Link>
 
 
             <button
@@ -51,8 +51,8 @@ function MainNavigation()
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            <nav className={`${isMenuOpen ? "block" : "hidden"} md:flex`}>
-                <ul className={`md:flex space-y-4 md:space-y-0 md:space-x-8 ${classes.nav__links}`}>
+            <nav className={`${isMenuOpen ? `${classes.navMenu}` : "hidden"} bg-cyan-800 md:flex`}>
+                <ul className={`${classes.menu} md:space-x-8  ${classes.nav__links}`}>
                     <li>
                         <Link to='/' onClick={() => { setIsMenuOpen(false); setIsDropdownOpen(false) }}>Home</Link>
                     </li>
@@ -70,7 +70,7 @@ function MainNavigation()
 
             {token ? (
                 <div className="relative">
-                    
+
                     {loggedUser ?
                         <button onClick={() => setIsDropdownOpen(prev => !prev)} className={classes.button}>
                             Hello, {loggedUser.name}!
@@ -78,7 +78,7 @@ function MainNavigation()
                             Hello!
                         </button>
                     }
-                    
+
                     {isDropdownOpen && (
                         <div
                             className="absolute right-0 bg-white shadow-lg rounded mt-2 z-10"

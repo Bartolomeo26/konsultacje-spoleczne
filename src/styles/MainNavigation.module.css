@@ -65,7 +65,7 @@ header {
     a,
     button,
     span {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     header {
@@ -78,6 +78,21 @@ header {
 
     .button {
         padding: 7px 20px;
+    }
+
+    .menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .navMenu{
+       position: absolute;
+        top: 4rem; left:0;
+        display: flex;
+        justify-content: center; 
+        width: 100%;
+        padding:1.25rem;
+        z-index: 10;
     }
 }
 

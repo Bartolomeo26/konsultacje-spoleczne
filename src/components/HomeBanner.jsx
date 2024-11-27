@@ -4,7 +4,7 @@ function HomeBanner()
     return (
         <>
             <div className="flex flex-col md:flex-row justify-center w-full">
-                <div className="w-full md:w-2/4 text-center flex justify-center lg:justify-end items-center px-3 lg:p-0">
+                <div className="w-full md:w-2/4 text-center flex justify-center lg:justify-end items-center px-3 mt-3 lg:mt-0 lg:p-0">
                     <p
                         className="text-5xl md:text-6xl lg:text-7xl"
                         style={{
