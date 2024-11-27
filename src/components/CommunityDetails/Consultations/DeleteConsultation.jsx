@@ -8,8 +8,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { usePopup } from "../../../util/PopupContext";
 function DeleteConsultation({ consultation })
 {
+    const navigate = useNavigate();
     const { triggerPopup } = usePopup();
-    const { id } = useParams();
+    const { id, consultationId } = useParams();
     const useQuery = useQueryClient();
     const [isModalOpen, setModalOpen] = useState(false);
     const [enteredTitle, setEnteredTitle] = useState("");
@@ -22,7 +23,8 @@ function DeleteConsultation({ consultation })
             {
                 console.log('Popup closed');
             });
-
+            if (consultationId)
+                navigate(`/communities/${id}/consultations`)
             useQuery.invalidateQueries({ queryKey: ['issues', id] })
 
         },

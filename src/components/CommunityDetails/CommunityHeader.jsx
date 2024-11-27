@@ -7,10 +7,11 @@ import { useAuth } from "../../util/AuthContext";
 import { useState } from "react";
 import defaultCity from '../../assets/defaultCity.png'
 import DeleteCommunity from "./DeleteCommunity";
+import { usePopup } from "../../util/PopupContext";
 function CommunityHeader({ community, permissions })
 {
 
-
+    const { triggerPopup = null } = usePopup();
     const { loggedUser = null } = useAuth();
     const [hasRequested, setHasRequested] = useState(() =>
         community.joinRequests.find(request => request.userId === loggedUser?.id && request.status === 0)
@@ -24,12 +25,18 @@ function CommunityHeader({ community, permissions })
         mutationFn: joinToCommunity,
         onSuccess: () =>
         {
-            alert("Udało się!");
+            triggerPopup('Request sent successfuly!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             setHasRequested(true);
         },
         onError: (err) =>
         {
-            alert(`Błąd: ${err.message}`);
+            triggerPopup('Error: ' + err.message, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
         },
     });
 

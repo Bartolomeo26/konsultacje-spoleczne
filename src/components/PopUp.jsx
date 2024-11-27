@@ -47,7 +47,7 @@ const PopUp = ({ message, type = 'info', duration = 2000, onClose }) =>
             <span>{message}</span>
             <button
                 onClick={handleClose}
-                className="ml-4 hover:bg-gray-200 rounded-full p-1">
+                className="ml-4  rounded-full p-1">
                 <X size={20} />
             </button>
         </div>

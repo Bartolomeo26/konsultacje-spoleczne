@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import PopUp from '../components/PopUp';
 
-const PopupContext = createContext();
+const PopupContext = createContext("");
 
 export const PopupProvider = ({ children }) =>
 {
@@ -15,7 +15,7 @@ export const PopupProvider = ({ children }) =>
 
     const triggerPopup = (message, type = 'info', duration = 2000, onClose = null) =>
     {
-        
+
         setPopup({ isVisible: false });
         setTimeout(() =>
         {

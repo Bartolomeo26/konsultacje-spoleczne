@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { getSelf } from './fetch';
 
-const AuthContext = createContext();
+const AuthContext = createContext("");
 
 export function AuthProvider({ children })
 {

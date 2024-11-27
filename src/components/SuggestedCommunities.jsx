@@ -67,7 +67,7 @@ function SuggestedCommunities()
 
     return (
         <>
-            <div className="mt-5 mb-10" style={{ width: "1300px" }}>
+            <div className="mt-5 mb-10 cursor-grab active:cursor-grabbing" style={{ width: "1300px" }}>
                 <h1 className="text-4xl mb-5 text-center">Different Communities</h1>
                 <Slider {...settings}>
                     {randomCommunities?.data.value.map((community) => (

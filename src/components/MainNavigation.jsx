@@ -4,17 +4,23 @@ import classes from '../styles/MainNavigation.module.css';
 import logo from '../assets/logo.png';
 import { useAuth } from "../util/AuthContext";
 import { Menu, X, User, LogOut } from 'lucide-react';
+import { usePopup } from "../util/PopupContext";
 
 function MainNavigation()
 {
+    const { triggerPopup } = usePopup();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { token = null, removeToken, loggedUser } = useAuth();
-    const dropdownRef = useRef(null); // Ref do dropdowna
+    const dropdownRef = useRef(null); 
     const navigate = useNavigate();
 
     const handleSignOut = () =>
     {
+        triggerPopup('Logged out successfuly!', 'success', 3000, () =>
+        {
+            console.log('Popup closed');
+        });
         removeToken();
         setIsDropdownOpen(false);
         navigate('/');

@@ -25,7 +25,7 @@ function ConsultationEdit()
                 console.log('Popup closed');
             });
             console.log("Consultation edited successfully:", data);
-            navigate(`/communities/${id}/consultations`)
+            navigate(-1);
             queryClient.invalidateQueries({ queryKey: ['issues', id] })
 
         },

@@ -26,8 +26,8 @@ function CommunityDetails()
         queryFn: () => getCommunity(id)
     });
     const permissions = community && loggedUser ? {
-        isAdmin: community.administrators.some(admin => admin.id === loggedUser.id),
-        isMember: community.members.some(member => member.id === loggedUser.id)
+        isAdmin: community?.administrators.some(admin => admin.id === loggedUser.id),
+        isMember: community?.members.some(member => member.id === loggedUser.id)
     } : { isAdmin: false, isMember: false };
     console.log('permisje', permissions)
     const topics = ['consultations', 'surveys', 'members', 'join-requests']

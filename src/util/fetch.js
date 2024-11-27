@@ -564,7 +564,7 @@ export async function getIssue(id)
 {
     return await axios.get(`https://localhost:7150/api/issues/${id}`, {
         headers: {
-            'Accept': 'application/vnd.socialconsultations.issue.full.hateoas+json',
+            'Accept': 'application/vnd.socialconsultations.issue.full+json',
         }
     }).then(response =>
     {

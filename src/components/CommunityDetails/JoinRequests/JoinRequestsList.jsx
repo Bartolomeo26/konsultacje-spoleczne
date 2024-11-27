@@ -4,8 +4,11 @@ import { acceptJoinToCommunity, rejectJoinToCommunity } from "../../../util/fetc
 import JoinRequestCard from "./JoinRequestCard";
 import { useQueryClient } from "@tanstack/react-query";
 import { Inbox } from "lucide-react";
+import { usePopup } from "../../../util/PopupContext";
+
 function JoinRequestsList({ joinRequests, communityId })
 {
+    const { triggerPopup } = usePopup();
     const queryClient = useQueryClient();
     const [filter, setFilter] = useState("pending");
 
@@ -13,12 +16,19 @@ function JoinRequestsList({ joinRequests, communityId })
         mutationFn: acceptJoinToCommunity,
         onSuccess: () =>
         {
+            triggerPopup('Request accepted successfully!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             queryClient.invalidateQueries({ queryKey: ['community'] })
-            alert("Accepting success!");
+
         },
         onError: (err) =>
         {
-            alert(`Error: ${err.message}`);
+            triggerPopup(`Error: ${err.message}`, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
         },
     });
 
@@ -26,12 +36,20 @@ function JoinRequestsList({ joinRequests, communityId })
         mutationFn: rejectJoinToCommunity,
         onSuccess: () =>
         {
+            triggerPopup('Request rejected successfully!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
             queryClient.invalidateQueries({ queryKey: ['community'] })
-            alert("Rejecting success!");
+
         },
         onError: (err) =>
         {
-            alert(`Error: ${err.message}`);
+            triggerPopup(`Error: ${err.message}`, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+
         },
     });
 
