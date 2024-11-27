@@ -164,7 +164,7 @@ function ConsultationsList({ permissions })
                                                     key={index}
                                                     onClick={() => typeof item === "number" && setPageNumber(item)}
                                                     className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${item === pageNumber
-                                                        ? "bg-indigo-600 text-white"
+                                                        ? "bg-cyan-800 text-white"
                                                         : typeof item === "number"
                                                             ? "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                                             : "text-gray-700"

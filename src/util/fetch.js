@@ -728,3 +728,24 @@ export async function getClosestCommunities(data)
         return response.data;
     });
 }
+
+export async function changeStatus(consultationData)
+{
+
+    const token = localStorage.getItem('token');
+    console.log('changuje', consultationData)
+    const { currentStateEndDate, issueStatus, consultationId } = consultationData;
+    return await axios.patch(
+        `https://localhost:7150/api/issues/${consultationId}`,
+        [
+            { op: "replace", path: "/issueStatus", value: issueStatus },
+            { op: "replace", path: "/currentStateEndDate", value: currentStateEndDate },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
