@@ -1,7 +1,7 @@
 function FilterInput({ label, onChange, placeholder })
 {
     return (
-        <div className="w-full min-w-[200px]">
+        <div className="w-full min-w-[250px]">
 
             <div className="relative">
                 <input

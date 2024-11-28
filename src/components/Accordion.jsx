@@ -10,7 +10,7 @@ const Accordion = ({ title, answer }) =>
                 onClick={() => setAccordionOpen(!accordionOpen)}
                 className="flex justify-between w-full"
             >
-                <span className="font-semibold text-2xl">{title}</span>
+                <span className="font-semibold text-xl lg:text-2xl text-left">{title}</span>
 
                 <svg
                     className="fill-indigo-500 shrink-0 ml-8"
@@ -42,7 +42,7 @@ const Accordion = ({ title, answer }) =>
                     : "grid-rows-[0fr] opacity-0"
                     }`}
             >
-                <div className="overflow-hidden text-2xl mt-1">{answer}</div>
+                <div className="overflow-hidden text-xl lg:text-2xl mt-1 text-left">{answer}</div>
             </div>
         </div>
     );

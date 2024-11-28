@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Settings, X } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { usePopup } from '../../../util/PopupContext';
 
 function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus })
 {
+    const { triggerPopup } = usePopup();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(currentEndDate);
     const { consultationId } = useParams();
@@ -17,6 +19,15 @@ function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus 
 
     const handleSubmit = () =>
     {
+        if (issueStatus >= 4)
+        {
+            triggerPopup('You cannot update the status any further!', 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+            closeModal();
+            return null;
+        }
         onUpdateEndDate({ currentStateEndDate: selectedDate, issueStatus: issueStatus + 1, consultationId });
         closeModal();
     };
@@ -24,12 +35,13 @@ function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus 
 
 
     return (<>
-        <button
-            onClick={openModal}
-            className="absolute right-80 top-0 bg-cyan-700 text-white rounded-full p-1 hover:bg-cyan-600"
-        >
-            <Settings size={20} />
-        </button>
+        {issueStatus < 4 &&
+            <button
+                onClick={openModal}
+                className="absolute right-80 top-0 bg-cyan-700 text-white rounded-full p-1 hover:bg-cyan-600"
+            >
+                <Settings size={20} />
+            </button>}
         {isModalOpen &&
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="bg-white rounded-xl shadow-lg w-96 p-6 relative">

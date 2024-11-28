@@ -10,7 +10,7 @@ function MembersList({ members })
     const [currentMembers, setCurrentMembers] = useState(members);
     const { id: communityId } = useParams();
     const mutation = useMutation({
-        mutationFn: (userId) => removeMember(communityId, members.findIndex(member => member.id === userId)),
+        mutationFn: (userId) => removeMember(communityId, members.filter(member => member.id !== userId)),
         onSuccess: (data) =>
         {
             // On success, update the local state

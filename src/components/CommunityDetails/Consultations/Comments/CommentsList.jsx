@@ -6,7 +6,7 @@ import { useState } from "react";
 import Filters from "../../../Filters";
 import LoadingIndicator from "../../../LoadingIndicator";
 
-const pageSize = 20;
+const pageSize = 10;
 
 const SORTING_OPTIONS = [
     { value: "id_desc", label: "Most Recent", field: "Id", order: "desc" },
@@ -87,7 +87,9 @@ function CommentsList({ reply })
         <div className="space-y-4">
             <div className="flex flex-col gap-5 mt-2">
                 {isLoadingComments ? (
-                    <LoadingIndicator />
+                    <div className="flex justify-center">
+                        <LoadingIndicator />
+                    </div>
                 ) : commentsError ? (
                     <div className="flex flex-col px-3 mb-10">
                         <div className="text-center">

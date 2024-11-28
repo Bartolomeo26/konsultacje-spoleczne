@@ -116,7 +116,7 @@ function ConsultationsList({ permissions })
                             ) : consultationsError ? (
                                 <div className="flex flex-col px-3 mb-10">
                                     <div className="text-center">
-                                        <div>No community found.</div>
+                                        <div>No consultation found.</div>
                                     </div>
                                 </div>
                             ) : (

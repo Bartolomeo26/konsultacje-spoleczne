@@ -75,7 +75,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     return (
         <div className="flex flex-col w-full bg-slate-200 relative">
-            <div className="absolute top-10 left-6">
+            <div className="absolute z-10 top-10 left-6">
                 <AvatarUpload
                     onFileSelect={handleFileSelect}
                     avatarData={user.avatar}
@@ -83,7 +83,7 @@ function ProfileHeader({ user, isLoggedIn })
                 />
                 <UpdateAvatarButton
                     file={selectedFile}
-                    user={user}  // upewniamy się, że user.id jest przekazywane tutaj
+                    user={user}
                     onSuccess={handleAvatarUpdateSuccess}
                 />
             </div>

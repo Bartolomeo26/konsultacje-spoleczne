@@ -98,7 +98,7 @@ function CommunitiesList({ searchTerm, sortField, sortOrder })
                     There are <span className="font-bold">...</span> Communities created so far.
                 </h1>
             )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 mt-2 mb-10 place-items-center">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-2 mb-10 place-items-center">
                 {communities.map((community, index) => (
                     <div key={index}>
                         <CommunityCard community={community} />
@@ -107,7 +107,7 @@ function CommunitiesList({ searchTerm, sortField, sortOrder })
             </div>
             {totalCount > 0 && (
                 <div className="flex items-center justify-between px-4 sm:px-6">
-                    <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                    <div className=" flex flex-1 items-center justify-between">
                         <div>
                             <p className="text-sm text-gray-700">
                                 Showing <span className="font-medium">{(pageNumber - 1) * pageSize + 1}</span> to{" "}
