@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FileText, FileImage, ChevronDown, ChevronUp, Files } from "lucide-react";
 import ImageCard from "./Files/ImageCard";
 import DocumentCard from "./Files/DocumentCard";

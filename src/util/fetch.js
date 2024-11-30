@@ -739,6 +739,32 @@ export async function getSolutions(issueId)
     }).then(response =>
     {
         console.log("GET SOLUTIONS: ", response.data);
-        return response;
+        return response.data;
+    });
+}
+
+export async function createNewSolution(solutionData)
+{
+    const token = localStorage.getItem('token');
+
+    console.log(solutionData);
+
+    return await axios.post('https://localhost:7150/api/solutions', solutionData, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+        return response.data;
+    }).catch(error =>
+    {
+        const err = new Error('An error occurred while creating the solution');
+        err.code = error.response?.status;
+        err.info = error.response?.data;
+        err.message = error.message;
+        console.log(error);
+        throw err;
     });
 }

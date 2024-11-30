@@ -100,7 +100,7 @@ function CommentsList({ reply })
                     </div>
                 ) : (
                     comments.map((comment) => (
-                        <CommentCard key={comment.id} reply={reply} comment={comment} />
+                        <CommentCard key={comment?.id} reply={reply} comment={comment} />
                     ))
                 )}
             </div>

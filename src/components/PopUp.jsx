@@ -41,7 +41,7 @@ const PopUp = ({ message, type = 'info', duration = 2000, onClose }) =>
         <div
             className={`
                 fixed top-4 left-1/2 transform -translate-x-1/2 z-50 ${typeStyles[type]} border rounded-lg px-4 py-3 shadow-lg 
-                flex items-center justify-between min-w-[250px] max-w-[500px] w-full transition-all duration-300 
+                flex items-center justify-between min-w-[350px]  transition-all duration-300 
                 ${isExiting ? 'slide-out-to-top' : 'slide-from-top'}
             `}>
             <span>{message}</span>

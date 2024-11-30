@@ -3,12 +3,15 @@ import { createNewComment } from "../../../../util/fetch";
 import { useAuth } from "../../../../util/AuthContext";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 function CommentInput({ handleInput, value, inputRef, issueStatus })
 {
     const useQuery = useQueryClient();
     const { consultationId } = useParams();
     const { loggedUser } = useAuth();
+    const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const { mutate, isLoading, isError, isSuccess } = useMutation({
         mutationFn: createNewComment,
@@ -18,9 +21,12 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
             console.log("Comment successfully submitted!");
 
             handleInput({ target: { value: "" } });
+            setError(null);
+            setMessage("Comment submitted!");
         },
         onError: (error) =>
         {
+            setError(error);
             console.error("Error submitting comment:", error);
         },
     });
@@ -37,7 +43,9 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
             });
         } else
         {
-            alert("Comment cannot be empty");
+            setError("Comment cannot be empty");
+            setMessage(null);
+
         }
     };
 
@@ -72,12 +80,13 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
                 >
                     {isLoading ? "Submitting..." : "Comment"}
                 </button>
-                {isError && (
+
+                {error && (
                     <span className="text-sm text-red-500">
-                        Error submitting comment
+                        {error}
                     </span>
                 )}
-                {isSuccess && (
+                {message && (
                     <span className="text-sm text-green-500">
                         Comment submitted!
                     </span>
