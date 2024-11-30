@@ -23,8 +23,6 @@ function CommunitiesList({ searchTerm, sortField, sortOrder })
     } = useQuery({
         queryKey: ["communities", pageNumber, searchTerm, sortField, sortOrder],
         queryFn: () => getCommunities(pageNumber, pageSize, searchTerm, sortField, sortOrder),
-        staleTime: 5 * 60 * 1000,
-        cacheTime: 10 * 60 * 1000,
         retry: 0,
     });
 

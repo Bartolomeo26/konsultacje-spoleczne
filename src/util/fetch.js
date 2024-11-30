@@ -574,21 +574,14 @@ export async function getIssue(id)
     );
 }
 
-export async function removeMember(communityId, members)
+export async function removeMember(communityId, memberId)
 {
     const token = localStorage.getItem("token");
-    console.log(members)
+
     try
     {
-        const response = await axios.patch(
-            `https://localhost:7150/api/communities/${communityId}`,
-            [
-                {
-                    op: "replace",
-                    path: `/members`,
-                    value: members
-                }
-            ],
+        const response = await axios.delete(
+            `https://localhost:7150/${communityId}/members/${memberId}`,
             {
                 headers: {
                     "Content-Type": "application/json-patch+json",

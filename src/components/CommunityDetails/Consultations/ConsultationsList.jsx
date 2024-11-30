@@ -114,7 +114,7 @@ function ConsultationsList({ permissions })
                             {isLoadingConsultations ? (
                                 <LoadingIndicator />
                             ) : consultationsError ? (
-                                <div className="flex flex-col px-3 mb-10">
+                                <div className="flex flex-col px-3 mb-10 mt-3">
                                     <div className="text-center">
                                         <div>No consultation found.</div>
                                     </div>

@@ -4,9 +4,11 @@ import { deleteCommunity } from "../../util/fetch";
 import DeleteCommunityModal from "./DeleteCommunityModal";
 import { useNavigate } from "react-router-dom";
 import { usePopup } from "../../util/PopupContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 function DeleteCommunity({ community })
 {
+    const queryClient = useQueryClient();
     const { triggerPopup } = usePopup();
     const navigate = useNavigate();
     const [isModalOpen, setModalOpen] = useState(false);
@@ -17,6 +19,7 @@ function DeleteCommunity({ community })
         mutationFn: deleteCommunity,
         onSuccess: () =>
         {
+            queryClient.invalidateQueries({ queryKey: ["communities"] })
             triggerPopup('Community successfuly deleted!', 'success', 3000, () =>
             {
                 console.log('Popup closed');
