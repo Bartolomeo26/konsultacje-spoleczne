@@ -20,7 +20,7 @@ function DeleteCommunity({ community })
         onSuccess: () =>
         {
             queryClient.invalidateQueries({ queryKey: ["communities"] })
-            triggerPopup('Community successfuly deleted!', 'success', 3000, () =>
+            triggerPopup('Community successfully deleted!', 'success', 3000, () =>
             {
                 console.log('Popup closed');
             });

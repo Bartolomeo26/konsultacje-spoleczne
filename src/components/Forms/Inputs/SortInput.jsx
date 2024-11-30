@@ -3,7 +3,7 @@ import { ArrowUpDown } from "lucide-react";
 function SortInput({ SORTING_OPTIONS, sortOption, handleSortChange })
 {
     return (
-        <div className="w-80 relative ">
+        <div className="w-96 relative ">
 
             <div className="flex items-center border-2 border-gray-200 rounded-lg hover:bg-slate-200 focus-within:border-blue-500 transition-all">
                 <select

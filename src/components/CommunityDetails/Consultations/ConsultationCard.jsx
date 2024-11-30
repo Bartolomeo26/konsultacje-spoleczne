@@ -34,7 +34,7 @@ function ConsultationCard({ consultation, permissions })
         statusColor = "text-green-700";
     }
     return (
-        <div className="relative">
+        <div className="relative w-full">
             <Link to={`${consultation.id}`}>
                 <div className="border-2 bg-white rounded-lg shadow-md p-4 mt-2 w-full">
                     <div className="flex ">

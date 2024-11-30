@@ -30,7 +30,7 @@ function Filters({ searchPlaceholder, onSearch, onSort, SORTING_OPTIONS })
     }
 
     return (
-        <div className="flex justify-center items-center max-w-[425px] max-w-xl gap-2 lg:gap-0 mb-3 lg:mb-0 md:space-y-0 md:space-x-4">
+        <div className="flex justify-center items-center max-w-[400px] gap-2 lg:gap-0  md:space-y-0 md:space-x-4">
 
             {searchPlaceholder && <FilterInput label="Search" onChange={handleSearchChange} placeholder={searchPlaceholder} />}
 

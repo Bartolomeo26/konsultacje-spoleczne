@@ -432,6 +432,9 @@ export async function getCommunity(id)
 {
     console.log('probuje', id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
+        params: {
+            Fields: 'id, administrators, members, avatar, background, name, description, isPublic, joinRequests, latitude, longitude'
+        },
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
             'Cache-Control': 'no-cache'
@@ -535,7 +538,7 @@ export async function getIssues(
     communityId
 )
 {
-    console.log('Fetching communities with advanced sorting');
+    console.log('Fetching issues with advanced sorting');
 
     // Construct the OrderBy parameter
     const orderByParam = `${sortField} ${sortOrder}`;
@@ -563,6 +566,9 @@ export async function getIssues(
 export async function getIssue(id)
 {
     return await axios.get(`https://localhost:7150/api/issues/${id}`, {
+        params: {
+            Fields: 'id,communityId, issueStatus, createdAt, currentStateEndDate, title, description, files',
+        },
         headers: {
             'Accept': 'application/vnd.socialconsultations.issue.full+json',
         }
@@ -582,32 +588,6 @@ export async function removeMember(communityId, memberId)
     {
         const response = await axios.delete(
             `https://localhost:7150/${communityId}/members/${memberId}`,
-            {
-                headers: {
-                    "Content-Type": "application/json-patch+json",
-                    'Authorization': `Bearer ${token}`
-                },
-            }
-        );
-        return response.data; // Return the updated member info, or just the ID for simplicity
-    } catch (error)
-    {
-        console.error("Error while removing member:", error);
-        throw error;
-    }
-}
-
-export async function grantAdmin(communityId, members, administrators)
-{
-    const token = localStorage.getItem("token");
-    console.log(members);
-    try
-    {
-        const response = await axios.patch(
-            `https://localhost:7150/api/communities/${communityId}`,
-            [
-                { op: "replace", path: "/members", value: members },
-            ],
             {
                 headers: {
                     "Content-Type": "application/json-patch+json",
@@ -742,4 +722,23 @@ export async function changeStatus(consultationData)
             }
         }
     );
+}
+
+export async function getSolutions(issueId)
+{
+    console.log('Fetching solutions');
+
+    return await axios.get(`https://localhost:7150/api/solutions`, {
+        params: {
+            issueId,
+        },
+        headers: {
+            'Accept': 'application/vnd.socialconsultations.solution.full.hateoas+json',
+            'Cache-Control': 'no-cache'
+        }
+    }).then(response =>
+    {
+        console.log("GET SOLUTIONS: ", response.data);
+        return response;
+    });
 }

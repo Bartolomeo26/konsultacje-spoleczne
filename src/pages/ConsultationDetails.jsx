@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../components/LoadingIndicator";
 import { formatDateTime } from "../util/formatDate";
 import ConsultationFiles from "../components/CommunityDetails/Consultations/ConsultationFiles";
-import ConsultationSolutions from "../components/CommunityDetails/Consultations/ConsultationSolutions";
+import ConsultationSolutions from "../components/CommunityDetails/Consultations/Solutions/ConsultationSolutions";
 import CommentsList from "../components/CommunityDetails/Consultations/Comments/CommentsList";
 import { useAuth } from "../util/AuthContext";
 import ConsultationStatus from "../components/CommunityDetails/Consultations/ConsultationStatus";
@@ -67,7 +67,7 @@ function ConsultationDetails()
                 </Link>
                 <ConsultationTopic consultation={consultation} permissions={permissions} />
                 <ConsultationFiles files={consultation?.files} />
-                <ConsultationSolutions solutions={consultation?.solutions} />
+                <ConsultationSolutions />
                 <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
                 <CommentsList reply={reply} />
             </div>
