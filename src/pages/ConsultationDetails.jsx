@@ -53,7 +53,7 @@ function ConsultationDetails()
     if (error) return 'An error has occurred: ' + error.message;
 
     return (<>
-        <div className="flex flex-col w-3/4 relative">
+        <div className="flex flex-col w-11/12 lg:w-3/4 relative">
 
             <ConsultationStatus issueStatus={consultation?.issueStatus} currentStateEndDate={consultation?.currentStateEndDate} />
 
