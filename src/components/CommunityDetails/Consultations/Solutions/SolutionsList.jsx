@@ -5,7 +5,7 @@ import { getSolutions } from "../../../../util/fetch";
 import { useParams } from "react-router-dom";
 import NewSolution from './NewSolution';
 
-function SolutionsList({ issueStatus })
+function SolutionsList({ issueStatus, permissions })
 {
     const [isExpanded, setIsExpanded] = useState(false);
     const { consultationId } = useParams();
@@ -23,13 +23,13 @@ function SolutionsList({ issueStatus })
         <>
             <div
                 onClick={() => !isExpanded && setIsExpanded(true)}
-                className={`bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 relative 
+                className={`bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 mb-3 relative 
                     transition-all duration-300 ease-in-out
                     ${!isExpanded ? 'cursor-pointer' : ''}
                     ${isExpanded ? 'max-h-[1000px] overflow-visible' : 'max-h-16 overflow-hidden'}
                 `}
             >
-                {issueStatus < 4 && <NewSolution consultationId={consultationId} />}
+                {issueStatus === 0 && permissions.isAdmin && <NewSolution consultationId={consultationId} />}
                 <button
                     onClick={() => setIsExpanded(!isExpanded)}
                     className="absolute top-2 right-2 z-10 

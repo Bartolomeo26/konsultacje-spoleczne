@@ -47,7 +47,13 @@ function CommunityDetails()
             communityContent = (
                 <div className="flex flex-col w-full">
                     <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
-                        <Alert message={{ title: "No permission", text: "You have no permission to view consultations in this community." }} />
+                        <Alert
+                            type="danger"
+                            message={{
+                                title: 'No permission',
+                                text: 'You have no permission to view consultations in this community.'
+                            }}
+                        />
                     </div>
                 </div>
             );
@@ -62,8 +68,14 @@ function CommunityDetails()
         {
             communityContent = (
                 <div className="flex flex-col w-full">
-                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
-                        <Alert message={{ title: "No permission", text: "You have no permission to view surveys in this community." }} />
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 ">
+                        <Alert
+                            type="danger"
+                            message={{
+                                title: 'No permission',
+                                text: 'You have no permission to view surveys in this community.'
+                            }}
+                        />
                     </div>
                 </div>
             );
@@ -78,8 +90,15 @@ function CommunityDetails()
         {
             communityContent = (
                 <div className="flex flex-col w-full">
-                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
-                        <Alert message={{ title: "No permission", text: "Only admins can view the members of this community." }} />
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 ">
+                        <Alert
+                            type="danger"
+                            message={{
+                                title: 'No permission',
+                                text: 'Only admins can view the members of this community.'
+                            }}
+                        />
+
                     </div>
                 </div>
             );
@@ -94,8 +113,14 @@ function CommunityDetails()
         {
             communityContent = (
                 <div className="flex flex-col w-full">
-                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 text-red-800">
-                        <Alert message={{ title: "No permission", text: "Only admins can view join requests for this community." }} />
+                    <div className="w-4/5 flex flex-col justify-center p-6 mt-10 ">
+                        <Alert
+                            type="danger"
+                            message={{
+                                title: 'No permission',
+                                text: 'Only admins can view join requests for this community.'
+                            }}
+                        />
                     </div>
                 </div>
             );
@@ -106,7 +131,14 @@ function CommunityDetails()
         communityContent = (
             <div className="flex flex-col w-full">
                 <div className="w-full lg:w-4/5 flex flex-col justify-center p-6 mt-10">
-                    <Alert message={{ title: "Not found", text: "What are you looking for? Such a content does not exist." }} />
+                    <Alert
+                        type="danger"
+                        message={{
+                            title: 'Not found',
+                            text: 'What are you looking for? Such a content does not exist.'
+                        }}
+                    />
+
                 </div>
             </div>
         );

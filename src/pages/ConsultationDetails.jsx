@@ -13,6 +13,7 @@ import CommentsList from "../components/CommunityDetails/Consultations/Comments/
 import { useAuth } from "../util/AuthContext";
 import ConsultationStatus from "../components/CommunityDetails/Consultations/ConsultationStatus";
 import ConsultationStatusUpdate from "../components/CommunityDetails/Consultations/ConsultationStatusUpdate";
+import Alert from "../components/Alert";
 
 
 
@@ -67,8 +68,15 @@ function ConsultationDetails()
                 </Link>
                 <ConsultationTopic consultation={consultation} permissions={permissions} />
                 <ConsultationFiles files={consultation?.files} />
-                <SolutionsList issueStatus={consultation?.issueStatus} />
-                <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} />
+                <SolutionsList issueStatus={consultation?.issueStatus} permissions={permissions} />
+                {consultation?.issueStatus === 0 ? <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} /> :
+                    <div className="w-3/5"> <Alert
+                        type="info"
+                        message={{
+
+                            text: 'You can only comment during Gathering Information phase.'
+                        }}
+                    /></div>}
                 <CommentsList reply={reply} />
             </div>
             <ConsultationStatusUpdate currentStateEndDate={consultation?.currentStateEndDate} issueStatus={consultation?.issueStatus} />

@@ -78,7 +78,7 @@ function CommentsList({ reply })
 
     const paginationButtons = generatePagination(totalPages, pageNumber);
 
-    return (<div className="space-y-2 max-w-3xl mb-10">
+    return (<div className="space-y-2 max-w-3xl mb-10 mt-3">
         <div className="flex justify-between items-center mb-3">
             <h2 className="text-xl lg:text-2xl font-semibold text-gray-900 flex items-center gap-1"><span className="text-xl lg:text-2xl">{totalCount}</span> Answers</h2>
             <div className="w-2/5 lg:w-1/5">
