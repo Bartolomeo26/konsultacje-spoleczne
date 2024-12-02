@@ -14,7 +14,7 @@ function ForgottenPasswordForm({ inputData, onSubmit, children })
     }
 
     return (
-        <form
+        <form autoComplete="off"
             id="event-form"
             onSubmit={handleSubmit}
             className="mb-2 flex flex-col items-center justify-center w-full"

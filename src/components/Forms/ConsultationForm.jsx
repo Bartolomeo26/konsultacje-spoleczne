@@ -73,7 +73,7 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
                 <h2 className="text-3xl font-bold text-gray-800">{label} Consultation</h2>
                 <p className="text-gray-500 mt-2">Make your voice louder</p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
                 <div className="relative">
                     <label htmlFor="title" className="block mb-2 text-sm font-semibold text-gray-700">
                         Consultation Title:

@@ -8,6 +8,8 @@ import { useState } from "react";
 import defaultCity from '../../assets/defaultCity.png'
 import DeleteCommunity from "./DeleteCommunity";
 import { usePopup } from "../../util/PopupContext";
+import { useNavigate } from "react-router-dom";
+
 function CommunityHeader({ community, permissions })
 {
 
@@ -147,7 +149,7 @@ function CommunityHeader({ community, permissions })
                         <img
                             src={community.background ? `data:image/jpeg;base64,${community.background.data}` : defaultCity}
                             alt=""
-                            className="object-fill w-full h-full"
+                            className="object-cover w-full h-full"
                         />
                     </div>
                 </div>

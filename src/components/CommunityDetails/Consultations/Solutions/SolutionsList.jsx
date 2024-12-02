@@ -4,10 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getSolutions } from "../../../../util/fetch";
 import { useParams } from "react-router-dom";
 import NewSolution from './NewSolution';
+import SolutionCard from "./SolutionCard";
 
 function SolutionsList({ issueStatus, permissions })
 {
     const [isExpanded, setIsExpanded] = useState(false);
+
     const { consultationId } = useParams();
     const {
         isPending,
@@ -24,7 +26,7 @@ function SolutionsList({ issueStatus, permissions })
             <div
                 onClick={() => !isExpanded && setIsExpanded(true)}
                 className={`bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 mb-3 relative 
-                    transition-all duration-300 ease-in-out
+                    transition-all duration-1000 ease-in-out
                     ${!isExpanded ? 'cursor-pointer' : ''}
                     ${isExpanded ? 'max-h-[1000px] overflow-visible' : 'max-h-16 overflow-hidden'}
                 `}
@@ -48,39 +50,18 @@ function SolutionsList({ issueStatus, permissions })
 
                 {isExpanded && (
                     <div className="flex flex-col space-y-4 mt-8">
-                        {error && <div><h1>No solutions found.</h1></div>}
-                        {console.log(solutions)}
-                        {!error && solutions?.value?.map((solution) => (
-                            <div
-                                key={solution.id}
-                                className="border border-gray-200 rounded-lg p-4 shadow-sm"
-                            >
-                                <h2 className="text-xl font-semibold text-gray-900">{solution.title}</h2>
-                                <p className="text-gray-700 mt-2">{solution.description}</p>
-
-                                {solution.files?.length > 0 && (
-                                    <div className="mt-4">
-                                        <h3 className="font-semibold text-gray-800">Files:</h3>
-                                        <ul className="list-disc list-inside">
-                                            {solution.files.map((file) => (
-                                                <li key={file.id}>
-                                                    <a
-                                                        href={`data:image/jpeg;base64,${file.data}`}
-                                                        download={file.description}
-                                                        className="text-blue-500 hover:underline"
-                                                    >
-                                                        {file.description}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
+                        {error && (
+                            <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center text-red-700">
+                                No solutions found.
                             </div>
-                        ))}
+                        )}
+                        {!error && solutions?.value?.map((solution) =>
+
+                            <SolutionCard key={solution.id} solution={solution} />
+                        )}
                     </div>
                 )}
-            </div>
+            </div >
         </>
     );
 }

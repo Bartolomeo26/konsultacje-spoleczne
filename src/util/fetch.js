@@ -571,6 +571,8 @@ export async function getIssue(id)
         },
         headers: {
             'Accept': 'application/vnd.socialconsultations.issue.full+json',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
         }
     }).then(response =>
     {

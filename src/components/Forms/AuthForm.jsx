@@ -79,7 +79,7 @@ function AuthForm({ inputData, onSubmit, children })
     const surnameError = touched.surname && formData.surname.trim().length === 0;
 
     return (
-        <form
+        <form autoComplete="off"
             id="signup-form"
             onSubmit={handleSubmit}
             className="mb-2 flex flex-col items-center justify-center w-full"

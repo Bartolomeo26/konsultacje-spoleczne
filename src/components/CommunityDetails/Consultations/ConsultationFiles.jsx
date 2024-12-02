@@ -9,6 +9,7 @@ function ConsultationFiles({ files })
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeImage, setActiveImage] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
+    
 
     const imageFiles = files?.filter(file => file.type === 0);
     const documentFiles = files?.filter(file => file.type === 1);

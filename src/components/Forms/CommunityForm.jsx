@@ -201,7 +201,7 @@ function CommunityForm({ community, onSubmit, children, title })
                 <h2 className="text-3xl font-bold text-gray-800">{title} Community</h2>
                 <p className="text-gray-500 mt-2">Bring people together</p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
 
                 <div className="relative">
                     <label htmlFor="name" className="block mb-2 text-sm font-semibold text-gray-700">

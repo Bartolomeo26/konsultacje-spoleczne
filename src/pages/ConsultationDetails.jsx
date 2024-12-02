@@ -69,12 +69,12 @@ function ConsultationDetails()
                 <ConsultationTopic consultation={consultation} permissions={permissions} />
                 <ConsultationFiles files={consultation?.files} />
                 <SolutionsList issueStatus={consultation?.issueStatus} permissions={permissions} />
-                {consultation?.issueStatus === 0 ? <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} /> :
+                {consultation?.issueStatus < 4 ? <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} /> :
                     <div className="w-3/5"> <Alert
                         type="info"
                         message={{
 
-                            text: 'You can only comment during Gathering Information phase.'
+                            text: 'You cannot comment when the consultation status reached completed phase.'
                         }}
                     /></div>}
                 <CommentsList reply={reply} />
