@@ -5,22 +5,23 @@ import { getSolutions } from "../../../../util/fetch";
 import { useParams } from "react-router-dom";
 import NewSolution from './NewSolution';
 import SolutionCard from "./SolutionCard";
-
+import { useAuth } from "../../../../util/AuthContext";
 function SolutionsList({ issueStatus, permissions })
 {
     const [isExpanded, setIsExpanded] = useState(false);
-
+    const { loggedUser = null } = useAuth();
     const { consultationId } = useParams();
     const {
         isPending,
         error,
         data: solutions,
     } = useQuery({
-        queryKey: ["solutions"],
+        queryKey: ["solutions", consultationId],
         queryFn: () => getSolutions(consultationId),
         retry: 0,
     });
-
+    const hasVoted = solutions?.value?.some((solution) => solution.userVotes?.some((vote) => vote.id === loggedUser?.id));
+    console.log(hasVoted);
     return (
         <>
             <div
@@ -57,7 +58,7 @@ function SolutionsList({ issueStatus, permissions })
                         )}
                         {!error && solutions?.value?.map((solution) =>
 
-                            <SolutionCard key={solution.id} solution={solution} />
+                            <SolutionCard key={solution.id} solution={solution} hasVoted={hasVoted} issueStatus={issueStatus} />
                         )}
                     </div>
                 )}

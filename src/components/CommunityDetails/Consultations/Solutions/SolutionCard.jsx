@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Eye, Download, FileImage, FileText } from "lucide-react";
 import ImageModal from "../Files/ImageModal";
+import SolutionVote from "./SolutionVote";
 
-function SolutionCard({ solution })
+function SolutionCard({ solution, hasVoted, issueStatus })
 {
     const [filesExpanded, setFilesExpanded] = useState(false);
     const [activeImage, setActiveImage] = useState(null);
@@ -62,9 +63,19 @@ function SolutionCard({ solution })
     return (
         <>
             <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-1000 ease-in-out">
-                <h2 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h2>
-                <p className="text-gray-600 mb-4">{solution.description}</p>
+                <div className="flex justify-between items-center">
 
+
+                    <div className="flex flex-col">
+                        <h2 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h2>
+                        <p className="text-gray-600 mb-4">{solution.description}</p>
+                    </div>
+                    {issueStatus === 1 && (
+                        <SolutionVote
+                            solution={solution}
+                            hasVoted={hasVoted}
+                        />)}
+                </div>
                 {solution.files?.length > 0 && (
                     <div className="bg-gray-50 rounded-lg">
                         <button
