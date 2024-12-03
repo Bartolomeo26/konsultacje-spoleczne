@@ -107,28 +107,28 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
                         required
                     />
                 </div>
+                {label === 'Create' &&
+                    <div className="relative">
+                        <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
+                            Upload Files (PDF, Image, etc.):
+                        </label>
+                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                            <input
+                                type="file"
+                                id="files"
+                                accept="image/*,application/pdf"
+                                onChange={handleFileChange}
+                                className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+                                multiple
+                            />
+                            <FileUp className="mr-3 text-gray-400" />
+                        </div>
+                        {error.length > 0 && (
+                            <p className="text-sm text-red-500 mt-2">{error.join(", ")}</p>
+                        )}
 
-                <div className="relative">
-                    <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
-                        Upload Files (PDF, Image, etc.):
-                    </label>
-                    <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
-                        <input
-                            type="file"
-                            id="files"
-                            accept="image/*,application/pdf"
-                            onChange={handleFileChange}
-                            className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
-                            multiple
-                        />
-                        <FileUp className="mr-3 text-gray-400" />
                     </div>
-                    {error.length > 0 && (
-                        <p className="text-sm text-red-500 mt-2">{error.join(", ")}</p>
-                    )}
-                    {label === 'Edit' && <><p className="text-xs text-red-500 mt-1 flex items-center gap-1"><CircleAlert size={30} /><span> The current files will be removed and replaced with the new files you upload. If you wish to keep the existing files, you can do so by managing them on the consultation details page.</span></p></>}
-                </div>
-
+                }
                 <div className="relative">
                     <label htmlFor="currentStateEndDate" className="block mb-2 text-sm font-semibold text-gray-700">
                         Current State End Date:

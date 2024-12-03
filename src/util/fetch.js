@@ -309,7 +309,7 @@ export async function editConsultation(consultationData)
         [
             { op: "replace", path: "/title", value: consultation.title },
             { op: "replace", path: "/description", value: consultation.description },
-            { op: "replace", path: "/files", value: consultation.files },
+
             { op: "replace", path: "/currentStateEndDate", value: consultation.currentStateEndDate },
         ],
         {
@@ -769,4 +769,50 @@ export async function createNewSolution(solutionData)
         console.log(error);
         throw err;
     });
+}
+
+export async function editFiles(files, consultationId)
+{
+
+    const token = localStorage.getItem('token');
+    console.log(files);
+
+    return await axios.patch(
+        `https://localhost:7150/api/issues/${consultationId}`,
+        [
+            { op: "replace", path: "/files", value: files },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function upVoteSolution(solutionId)
+{
+    const token = localStorage.getItem('token');
+    return await axios.post(`https://localhost:7150/api/solutions/${solutionId}/upvotes`, null, {
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }).then(response =>
+    {
+
+        return response.data;
+    })
+        .catch(error =>
+        {
+            const err = new Error('An error occurred while upvoting the solution');
+            err.code = error.response?.status;
+            err.info = error.response?.data;
+            err.message = error.message;
+            console.log(error);
+            throw err;
+        });
+
 }

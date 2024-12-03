@@ -61,7 +61,7 @@ function SolutionCard({ solution })
 
     return (
         <>
-            <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-1000 ease-in-out">
                 <h2 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h2>
                 <p className="text-gray-600 mb-4">{solution.description}</p>
 

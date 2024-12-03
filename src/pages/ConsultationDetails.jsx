@@ -67,7 +67,7 @@ function ConsultationDetails()
                     </button>
                 </Link>
                 <ConsultationTopic consultation={consultation} permissions={permissions} />
-                <ConsultationFiles files={consultation?.files} />
+                <ConsultationFiles initialFiles={consultation?.files} />
                 <SolutionsList issueStatus={consultation?.issueStatus} permissions={permissions} />
                 {consultation?.issueStatus < 4 ? <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} /> :
                     <div className="w-3/5"> <Alert

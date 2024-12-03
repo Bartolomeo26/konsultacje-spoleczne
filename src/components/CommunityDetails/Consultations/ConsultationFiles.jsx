@@ -3,17 +3,19 @@ import { FileText, FileImage, ChevronDown, ChevronUp, Files } from "lucide-react
 import ImageCard from "./Files/ImageCard";
 import DocumentCard from "./Files/DocumentCard";
 import ImageModal from "./Files/ImageModal";
+import NewFiles from "./Files/NewFiles";
 
-function ConsultationFiles({ files })
+function ConsultationFiles({ initialFiles })
 {
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeImage, setActiveImage] = useState(null);
-    const [isExpanded, setIsExpanded] = useState(false);
     
+    const [isExpanded, setIsExpanded] = useState(false);
 
-    const imageFiles = files?.filter(file => file.type === 0);
-    const documentFiles = files?.filter(file => file.type === 1);
+    const imageFiles = initialFiles?.filter(file => file.type === 0);
+    const documentFiles = initialFiles?.filter(file => file.type === 1);
 
+    
     const base64ToBlob = (base64, type) =>
     {
         const byteCharacters = atob(base64);
@@ -70,14 +72,15 @@ function ConsultationFiles({ files })
 
     return (
         <div
-            onClick={() => !isExpanded && setIsExpanded(true)}
+
             className={`
                 bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 relative 
                 transition-all duration-300 ease-in-out
-                ${!isExpanded ? 'cursor-pointer' : ''}
+               
                 ${isExpanded ? 'max-h-[1000px] overflow-visible' : 'max-h-16 overflow-hidden'}
             `}
         >
+            <NewFiles files={initialFiles} />
             {/* Expand/Collapse Button in Top Right Corner */}
             <button
                 onClick={() => setIsExpanded(!isExpanded)}

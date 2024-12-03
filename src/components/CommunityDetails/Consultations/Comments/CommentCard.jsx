@@ -1,4 +1,4 @@
-import { Plus, InfoIcon, Ellipsis, Edit, Trash2, Redo2 } from 'lucide-react';
+import { Plus, InfoIcon, Redo2 } from 'lucide-react';
 import { useState } from 'react';
 import { formatDateTime } from '../../../../util/formatDate';
 import defaultProfile from '../../../../assets/defaultProfile.jpg'
@@ -20,7 +20,7 @@ function CommentCard({ reply, comment })
     const [hasUpvoted, setHasUpvoted] = useState(
         comment?.upvotes.some(upvote => upvote.id === loggedUser?.id)
     );
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
     const [showUpvotesModal, setShowUpvotesModal] = useState(false);
     const queryClient = useQueryClient();
     const { mutate, isLoading, isError, isSuccess } = useMutation({
@@ -62,40 +62,7 @@ function CommentCard({ reply, comment })
                 <Tooltip content={<IssueStatusTag status={comment?.issueStatus} />}>
                     <InfoIcon className="w-4 h-4" />
                 </Tooltip>
-                {isAuthor && (
-                    <div className="relative">
-                        <button
-                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                            className="hover:bg-gray-100 rounded-full p-1"
-                        >
-                            <Ellipsis size={16} />
-                        </button>
-                        {isDropdownOpen && (
-                            <div className="absolute right-0 top-full z-10 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg">
-                                <button
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
-                                    onClick={() =>
-                                    {
-                                        // Edit logic here
-                                        setIsDropdownOpen(false);
-                                    }}
-                                >
-                                    <Edit className="w-4 h-4" /> Edit
-                                </button>
-                                <button
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 flex items-center gap-2"
-                                    onClick={() =>
-                                    {
-                                        // Delete logic here
-                                        setIsDropdownOpen(false);
-                                    }}
-                                >
-                                    <Trash2 className="w-4 h-4" /> Delete
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
+
             </div>
 
             <div className="space-y-4">
