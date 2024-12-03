@@ -36,7 +36,7 @@ function EditCommunity()
                 console.log('Popup closed');
             });
             console.error("Failed to edit community:", error);
-            // Możesz dodać tutaj obsługę błędów
+            
         },
     });
 

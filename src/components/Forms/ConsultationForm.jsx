@@ -48,14 +48,14 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
                     type: fileType,
                 });
 
-                // Update the state with the new file data once all files are processed
+              
                 setEnteredData((prev) => ({
                     ...prev,
                     files: [...fileData],
                 }));
             };
 
-            reader.readAsDataURL(file); // Read the file as a Data URL
+            reader.readAsDataURL(file); 
         });
     };
 
@@ -64,7 +64,7 @@ function ConsultationForm({ communityId, onSubmit, children, label, consultation
         event.preventDefault();
         const formData = { ...enteredData, id: consultation?.id };
         console.log(formData);
-        onSubmit(formData); // Send the form data to the parent function
+        onSubmit(formData); 
     };
 
     return (

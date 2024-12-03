@@ -43,8 +43,8 @@ function Signup({ changeAuthType })
             {isError && (
                 <h1 className='text-red-500 font-semibold mb-3'>
                     {error.info ? (typeof error.info === 'string'
-                        ? error.info  // jeśli to string, po prostu wyświetl
-                        : error.info?.title  // jeśli to obiekt, wyświetl np. pole `title`
+                        ? error.info 
+                        : error.info?.title 
                     ) : error.message}
                 </h1>
             )}

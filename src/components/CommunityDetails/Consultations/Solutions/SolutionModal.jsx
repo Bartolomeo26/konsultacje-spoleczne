@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function SolutionModal({ isOpen, onClose, onSubmit }) {
+function SolutionModal({ isOpen, onClose, onSubmit })
+{
     const [fileData, setFileData] = useState([]);
 
-    const handleFileChange = (e) => {
+    const handleFileChange = (e) =>
+    {
         const files = Array.from(e.target.files);
         const newFileData = [];
 
-        files.forEach((file) => {
+        files.forEach((file) =>
+        {
             const reader = new FileReader();
 
-            reader.onloadend = () => {
+            reader.onloadend = () =>
+            {
                 const fileType = file.type.startsWith("image") ? 0 : 1;
                 newFileData.push({
-                    data: reader.result.split(",")[1], // Extract base64 data
+                    data: reader.result.split(",")[1],
                     description: file.name,
                     type: fileType,
                 });
 
-                // Update the state with the new file data once all files are processed
+
                 setFileData((prev) => [...prev, ...newFileData]);
             };
 
@@ -26,7 +30,8 @@ function SolutionModal({ isOpen, onClose, onSubmit }) {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event) =>
+    {
         event.preventDefault();
         const formData = new FormData(event.target);
         const newSolution = {

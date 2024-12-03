@@ -34,11 +34,11 @@ function CommunityDetails()
     let communityContent;
     if (topic === undefined)
     {
-        // "About" is visible to everyone
+      
         communityContent = <CommunityMain community={community} />;
     } else if (topic === topics[0])
     {
-        // ConsultationsList: visible if the group is public or user is an admin/member
+        
         if (community?.isPublic || permissions.isAdmin || permissions.isMember)
         {
             communityContent = <ConsultationsList consultations={community?.issues} permissions={permissions} />;
@@ -60,7 +60,7 @@ function CommunityDetails()
         }
     } else if (topic === topics[1])
     {
-        // SurveysList: visible if the group is public or user is an admin/member
+        
         if (community?.isPublic || permissions.isAdmin || permissions.isMember)
         {
             communityContent = <SurveysList />;
@@ -82,7 +82,7 @@ function CommunityDetails()
         }
     } else if (topic === topics[2])
     {
-        // MembersList: visible only to admins
+        
         if (permissions.isAdmin)
         {
             communityContent = <MembersList members={community?.members} />;
@@ -105,7 +105,7 @@ function CommunityDetails()
         }
     } else if (topic === topics[3])
     {
-        // JoinRequests: visible only to admins
+        
         if (permissions.isAdmin)
         {
             communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />;
@@ -127,7 +127,7 @@ function CommunityDetails()
         }
     } else
     {
-        // Fallback: Topic not found
+        
         communityContent = (
             <div className="flex flex-col w-full">
                 <div className="w-full lg:w-4/5 flex flex-col justify-center p-6 mt-10">

@@ -13,11 +13,11 @@ function Map()
         queryKey: ['communities', 'map'],
         queryFn: getCommunitiesToMap,
         retry: 1,
-        staleTime: 5 * 60 * 1000, // Cache results for 5 minutes
+        staleTime: 5 * 60 * 1000, 
         cacheTime: 10 * 60 * 1000
     });
 
-    // Przekształcanie danych do formatu GeoJSON
+   
     const communityData = communities?.value?.map((community) => ({
         type: 'Feature',
         geometry: {
@@ -31,20 +31,19 @@ function Map()
 
     useEffect(() =>
     {
-        if (!communities?.value) return; // Jeśli nie ma danych, nie inicjalizuj mapy
+        if (!communities?.value) return; 
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiYmFydG9sb21lbzI2IiwiYSI6ImNscGlodWV3NjBpMjIycW1hOG12bHQzc2kifQ.aI5LhzT-TGLNgcUkuqW-Bg';
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [19.5, 52], // Początkowe położenie
-            zoom: 5.5, // Początkowy zoom
+            center: [19.5, 52], 
+            zoom: 5.5, 
         });
 
         mapRef.current.addControl(new mapboxgl.NavigationControl());
 
-        // Dodanie warstwy z klastrami
         mapRef.current.on('load', () =>
         {
             mapRef.current.addSource('communities', {
@@ -54,11 +53,10 @@ function Map()
                     features: communityData,
                 },
                 cluster: true,
-                clusterMaxZoom: 14, // Zmiana na markery przy tym zoomie
+                clusterMaxZoom: 14,
                 clusterRadius: 20,
             });
 
-            // Warstwa z klastrami
             mapRef.current.addLayer({
                 id: 'clusters',
                 type: 'circle',
@@ -71,7 +69,6 @@ function Map()
                 },
             });
 
-            // Warstwa z etykietami dla klastrów
             mapRef.current.addLayer({
                 id: 'cluster-count',
                 type: 'symbol',
@@ -90,18 +87,17 @@ function Map()
                 },
             });
 
-            // Warstwa z pojedynczymi markerami
             mapRef.current.addLayer({
                 id: 'markers',
                 type: 'symbol',
                 source: 'communities',
                 filter: ['!', ['has', 'point_count']],
                 layout: {
-                    'icon-image': 'marker-15', // Możesz wybrać odpowiedni ikonę
-                    'text-field': '{title}', // Pokazuje nazwę wspólnoty w danym punkcie
+                    'icon-image': 'marker-15', 
+                    'text-field': '{title}', 
                     'text-size': 13,
                     'text-anchor': 'top',
-                    'text-offset': [0, 0.6], // Odstęp od markera
+                    'text-offset': [0, 0.6], 
                 },
                 paint: {
                     'text-color': '#3388ff',
@@ -111,7 +107,6 @@ function Map()
                 },
             });
 
-            // Nasłuchiwanie na kliknięcie na marker
             mapRef.current.on('click', 'markers', (e) =>
             {
                 const features = mapRef.current.queryRenderedFeatures(e.point, {
@@ -123,26 +118,21 @@ function Map()
                     const feature = features[0];
                     const clickedCoordinates = feature.geometry.coordinates;
 
-                    // Filtruj społeczności z tymi samymi współrzędnymi
                     const communitiesAtLocation = communityData.filter((data) =>
                     {
                         const [lng, lat] = data.geometry.coordinates;
                         const [clickedLng, clickedLat] = clickedCoordinates;
 
-                        // Sprawdzamy, czy współrzędne są w bliskiej odległości
                         const lngDifference = Math.abs(lng - clickedLng);
                         const latDifference = Math.abs(lat - clickedLat);
 
-                        // Ustalmy margines błędu na przykład na 0.001
                         return lngDifference < 0.001 && latDifference < 0.001;
                     });
 
-                    // Stwórz listę nazw społeczności
                     const communityList = communitiesAtLocation.map(
                         (data, index) => `<li class="text-black"><span class="inline-block text-sm" style="width:15px;">${index + 1}.</span> ${data.properties.title}</li>`
                     ).join('');
 
-                    // Wyświetl popup z listą społeczności
                     new mapboxgl.Popup({ offset: 25 })
                         .setHTML(`<h3>Communities located here:</h3><ul>${communityList}</ul>`)
                         .setLngLat(clickedCoordinates)
@@ -150,7 +140,6 @@ function Map()
                 }
             });
 
-            // Nasłuchiwanie na kliknięcie na klaster
             mapRef.current.on('click', 'clusters', (e) =>
             {
                 const features = mapRef.current.queryRenderedFeatures(e.point, {
@@ -164,17 +153,15 @@ function Map()
                     {
                         if (err) return;
 
-                        // Przybliżenie do klastra
                         mapRef.current.flyTo({
                             center: features[0].geometry.coordinates,
                             zoom: zoom,
-                            essential: true, // Gwarantuje, że animacja będzie wykonana
+                            essential: true,
                         });
                     });
                 }
             });
 
-            // Nasłuchiwanie na zmiany zoomu, żeby przełączyć z klastrów na markery
             mapRef.current.on('zoom', () =>
             {
                 const zoomLevel = mapRef.current.getZoom();

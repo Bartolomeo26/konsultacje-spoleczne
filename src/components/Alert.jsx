@@ -1,7 +1,6 @@
-import React from 'react';
 import { Info, AlertTriangle, XCircle } from 'lucide-react';
 
-// Define alert types with their corresponding styles and icons
+
 const ALERT_TYPES = {
     info: {
         bgColor: 'bg-blue-100',
@@ -32,7 +31,7 @@ function Alert({
     className = ''
 })
 {
-    // Get alert type configuration, default to 'info' if not found
+    
     const alertConfig = ALERT_TYPES[type] || ALERT_TYPES.info;
 
     return (

@@ -29,7 +29,7 @@ function CommunityForm({ community, onSubmit, children, title })
     useEffect(() =>
     {
 
-        // Funkcja asynchroniczna do pobierania miasta i kraju z Mapbox
+       
         const fetchCityFromCoordinates = async (latitude, longitude) =>
         {
             const accessToken = 'pk.eyJ1IjoiYmFydG9sb21lbzI2IiwiYSI6ImNscGlodWV3NjBpMjIycW1hOG12bHQzc2kifQ.aI5LhzT-TGLNgcUkuqW-Bg'; // Zastąp tym swoim tokenem dostępu
@@ -44,7 +44,7 @@ function CommunityForm({ community, onSubmit, children, title })
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`
                 );
 
-                // Sprawdzamy, czy odpowiedź zawiera dane
+                
                 const city = response.data.features[0]?.context?.find(ctx => ctx.id.includes('place'))?.text;
                 const country = response.data.features[0]?.context?.find(ctx => ctx.id.includes('country'))?.text;
 
@@ -66,7 +66,7 @@ function CommunityForm({ community, onSubmit, children, title })
             }
         };
 
-        // Poczekaj na dane z Mapbox i zaktualizuj stan
+        
         const getLocation = async () =>
         {
             const { city, country } = await fetchCityFromCoordinates(community?.latitude, community?.longitude);
@@ -76,7 +76,7 @@ function CommunityForm({ community, onSubmit, children, title })
 
         getLocation();
 
-    }, [community?.latitude, community?.longitude]); // Zależność od zmiany latitude i longitude w community
+    }, [community?.latitude, community?.longitude]); 
 
 
     const handleChange = (e) =>
@@ -94,10 +94,10 @@ function CommunityForm({ community, onSubmit, children, title })
         if (file)
         {
             if (file.size > 2 * 1024 * 1024)
-            { // 2 MB = 2 * 1024 * 1024 bytes
+            {
                 setError((prevError) => ({ ...prevError, avatar: "Avatar file size must not exceed 2MB." }));
-                e.target.value = null; // Clear the file input to prevent uploading
-                return; // Prevent further execution
+                e.target.value = null; 
+                return; 
             }
             setError((prevError) => ({ ...prevError, avatar: "" }));
             const reader = new FileReader();
@@ -123,10 +123,10 @@ function CommunityForm({ community, onSubmit, children, title })
         if (file)
         {
             if (file.size > 2 * 1024 * 1024)
-            { // 2 MB = 2 * 1024 * 1024 bytes
+            { 
                 setError((prevError) => ({ ...prevError, background: "Background file size must not exceed 2MB." }));
-                e.target.value = null; // Clear the file input to prevent uploading
-                return; // Prevent further execution
+                e.target.value = null; 
+                return; 
             }
             setError((prevError) => ({ ...prevError, background: "" }));
             const reader = new FileReader();
@@ -171,7 +171,7 @@ function CommunityForm({ community, onSubmit, children, title })
         }
     };
 
-    // Użyj useEffect do reakcji na zmianę w enteredData
+   
 
 
     const handleSubmit = async (event) =>

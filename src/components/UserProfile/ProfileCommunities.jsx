@@ -6,7 +6,7 @@ import LoadingIndicator from "../LoadingIndicator";
 
 function ProfileCommunities({ user, isLoggedIn })
 {
-    const [filter, setFilter] = useState({ admin: true, member: true }); // Domyślnie oba zaznaczone
+    const [filter, setFilter] = useState({ admin: true, member: true }); 
 
     const { isPending, error, data: communities } = useQuery({
         queryKey: ["communities", "profileCommunities"],
@@ -24,7 +24,7 @@ function ProfileCommunities({ user, isLoggedIn })
         const isAdmin = community.administrators?.some((admin) => admin.id === user.id);
         const isMember = community.members?.some((member) => member.id === user.id);
 
-        // Filtrowanie na podstawie checkboxów
+       
         return (filter.admin && isAdmin) || (filter.member && isMember);
     });
 

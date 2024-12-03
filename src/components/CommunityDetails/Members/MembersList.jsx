@@ -23,7 +23,7 @@ function MembersList({ members })
             });
             console.log(data)
             useQuery.invalidateQueries({ queryKey: ['community', communityId] })
-            // On success, update the local state
+            
             setCurrentMembers((prevMembers) => prevMembers.filter((member) => member.id !== data.id));
 
         },
@@ -39,7 +39,7 @@ function MembersList({ members })
 
     function handleRemoveMember(userId)
     {
-        // Trigger mutation on member removal
+      
         mutation.mutate(userId);
     }
     return (<div className="flex flex-col w-full">

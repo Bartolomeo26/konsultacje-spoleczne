@@ -7,7 +7,7 @@ function AvatarUpload({ onFileSelect, avatarData, isLoggedIn })
 {
     const [preview, setPreview] = useState(null);
 
-    // Ustawienie początkowego podglądu z avatarData, jeśli dostępne
+
     useEffect(() =>
     {
         if (avatarData && avatarData.data)
@@ -15,18 +15,18 @@ function AvatarUpload({ onFileSelect, avatarData, isLoggedIn })
             setPreview(`data:image/jpeg;base64,${avatarData.data}`);
         } else
         {
-            setPreview(defaultAvatar); // Użyj domyślnego avatara, jeśli avatarData jest puste
+            setPreview(defaultAvatar);
         }
     }, [avatarData]);
 
-    // Obsługa wyboru nowego pliku i podglądu
+
     function handleFileChange(event)
     {
         const file = event.target.files[0];
         if (file)
         {
-            setPreview(URL.createObjectURL(file)); // Ustaw nowy podgląd z wybranego pliku
-            onFileSelect(file); // Przekaż wybrany plik do nadrzędnego komponentu
+            setPreview(URL.createObjectURL(file));
+            onFileSelect(file);
         }
     }
 

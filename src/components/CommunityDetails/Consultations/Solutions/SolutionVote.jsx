@@ -21,20 +21,20 @@ const SolutionVote = ({ solution, hasVoted }) =>
         onSuccess: () =>
         {
             queryClient.invalidateQueries({ queryKey: ['solutions', consultationId] });
-            // Update vote state after successful upvote
+            
             setIsVoted(!isVoted);
         },
         onError: (error) =>
         {
             console.error("Failed to upvote solution:", error);
-            // Optionally, revert `isVoted` in case of an error
+            
         },
     });
 
     const handleVote = () =>
     {
-        if (isPending) return; // Prevent multiple clicks while processing
-        mutate(solution?.id); // Trigger the API call
+        if (isPending) return; 
+        mutate(solution?.id); 
     };
 
     return (

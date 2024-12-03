@@ -8,7 +8,7 @@ function CommunityCard({ community, permission })
 
     useEffect(() =>
     {
-        // Funkcja asynchroniczna do pobierania miasta i kraju z Mapbox
+        
         const fetchCityFromCoordinates = async (latitude, longitude) =>
         {
             const accessToken = 'pk.eyJ1IjoiYmFydG9sb21lbzI2IiwiYSI6ImNscGlodWV3NjBpMjIycW1hOG12bHQzc2kifQ.aI5LhzT-TGLNgcUkuqW-Bg'; // Zastąp tym swoim tokenem dostępu
@@ -19,7 +19,7 @@ function CommunityCard({ community, permission })
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`
                 );
 
-                // Sprawdzamy, czy odpowiedź zawiera dane
+               
                 const city = response.data.features[0]?.context?.find(ctx => ctx.id.includes('place'))?.text;
                 const country = response.data.features[0]?.context?.find(ctx => ctx.id.includes('country'))?.short_code;
 
@@ -39,7 +39,7 @@ function CommunityCard({ community, permission })
             }
         };
 
-        // Poczekaj na dane z Mapbox i zaktualizuj stan
+       
         const getLocation = async () =>
         {
             const { city, country } = await fetchCityFromCoordinates(community.latitude, community.longitude);
@@ -47,7 +47,7 @@ function CommunityCard({ community, permission })
         };
 
         getLocation();
-    }, [community.latitude, community.longitude]); // Zależność od zmiany latitude i longitude w community
+    }, [community.latitude, community.longitude]); 
 
     return (
         <>

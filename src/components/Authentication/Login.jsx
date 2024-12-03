@@ -21,8 +21,8 @@ function Login({ changeAuthType })
             {
                 console.log('Popup closed');
             });
-            updateToken(token);  // Zapis tokena w Context
-            navigate("/"); // Przekierowanie na stronę główną
+            updateToken(token); 
+            navigate("/"); 
         }
     });
 

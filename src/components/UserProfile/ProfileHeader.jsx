@@ -10,7 +10,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [originalData, setOriginalData] = useState(null); // Store initial data
+    const [originalData, setOriginalData] = useState(null); 
     const [formData, setFormData] = useState({
         name: user.name,
         surname: user.surname,
@@ -29,7 +29,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     function handleEditClick()
     {
-        setOriginalData(formData); // Save current data as the original
+        setOriginalData(formData);
         setIsEditing(true);
     }
 
@@ -39,7 +39,7 @@ function ProfileHeader({ user, isLoggedIn })
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
 
-    // useMutation configuration
+   
     const { mutate, isLoading, isError, error } = useMutation({
         mutationFn: updateUserProfile,
         onSuccess: () =>
@@ -63,7 +63,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     function handleCancelClick()
     {
-        setFormData(originalData); // Reset form data to original values
+        setFormData(originalData); 
         setIsEditing(false);
     }
 

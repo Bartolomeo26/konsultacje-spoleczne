@@ -6,7 +6,7 @@ const UpvotesModal = ({ upvotes, onClose }) =>
     return (
         <div onClick={(e) =>
         {
-            // Zamykanie modala tylko gdy kliknie się poza nim
+
             if (e.target === e.currentTarget)
             {
                 onClose();

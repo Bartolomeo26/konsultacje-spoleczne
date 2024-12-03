@@ -23,10 +23,10 @@ function CommunityFooter({ community })
     </div>);
     if (error) return 'An error has occurred: ' + error.message;
 
-    // Filter communities within range and limit to 5 results
+   
 
     const nearbyCommunities = communities
-        ?.filter((item) => item.id !== community.id) // Exclude the current community
+        ?.filter((item) => item.id !== community.id)
         .slice(0, 5);
 
     return (

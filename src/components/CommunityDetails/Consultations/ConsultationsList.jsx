@@ -26,7 +26,7 @@ function ConsultationsList({ permissions })
     const [pageNumber, setPageNumber] = useState(() =>
     {
         const params = new URLSearchParams(window.location.search);
-        return Number(params.get("page")) || 1; // Pobierz stronę z query string lub domyślnie 1
+        return Number(params.get("page")) || 1; 
     });
 
     const {
@@ -51,17 +51,17 @@ function ConsultationsList({ permissions })
 
     const generatePagination = (totalPages, currentPage) =>
     {
-        const visiblePages = 1; // Liczba stron przed i po aktualnej stronie
+        const visiblePages = 1; 
         const pagination = [];
 
-        pagination.push(1); // Pierwsza strona zawsze widoczna
+        pagination.push(1); 
 
         if (currentPage > visiblePages + 2)
         {
-            pagination.push("..."); // Wielokropki po pierwszej stronie
+            pagination.push("..."); 
         }
 
-        // Strony wokół aktualnej
+        
         for (let i = Math.max(2, currentPage - visiblePages); i <= Math.min(totalPages - 1, currentPage + visiblePages); i++)
         {
             pagination.push(i);
@@ -69,12 +69,12 @@ function ConsultationsList({ permissions })
 
         if (currentPage < totalPages - visiblePages - 1)
         {
-            pagination.push("..."); // Wielokropki przed ostatnią stroną
+            pagination.push("..."); 
         }
 
         if (totalPages > 1)
         {
-            pagination.push(totalPages); // Ostatnia strona
+            pagination.push(totalPages); 
         }
 
         return pagination;

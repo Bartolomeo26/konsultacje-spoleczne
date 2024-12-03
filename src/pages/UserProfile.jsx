@@ -16,7 +16,7 @@ function UserProfile()
     const { loggedUser = null } = useAuth();
 
     const { isPending, error, data: user } = useQuery({
-        queryKey: ['user', id], // include id in the query key to refetch for different ids
+        queryKey: ['user', id],
         queryFn: () => getUser(id)
     });
     const isLoggedIn = loggedUser?.id === user?.id;

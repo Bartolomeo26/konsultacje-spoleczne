@@ -81,7 +81,7 @@ function ConsultationFiles({ initialFiles })
             `}
         >
             <NewFiles files={initialFiles} />
-            {/* Expand/Collapse Button in Top Right Corner */}
+            
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="
@@ -95,7 +95,7 @@ function ConsultationFiles({ initialFiles })
                 {isExpanded ? <ChevronUp /> : <ChevronDown />}
             </button>
 
-            {/* Subtle Side Label - Only when collapsed */}
+            
             {!isExpanded && (
                 <div className="absolute top-2 left-3 text-gray-500 flex items-center">
                     <Files className="mr-1 text-gray-600" size={18} />
@@ -103,7 +103,7 @@ function ConsultationFiles({ initialFiles })
                 </div>
             )}
 
-            {/* Dropdown Content */}
+            
             <div
                 className={`
                     transition-all duration-300 ease-in-out
@@ -112,7 +112,7 @@ function ConsultationFiles({ initialFiles })
             >
                 {isExpanded && (
                     <div>
-                        {/* Rest of the existing content remains the same */}
+                        
                         <div className="flex space-x-4 mb-6 border-b pb-3">
                             <button
                                 onClick={() => setActiveCategory('all')}
@@ -163,7 +163,7 @@ function ConsultationFiles({ initialFiles })
                                     </div>
                                 )}
 
-                                {/* Documents Section */}
+                                
                                 {documentFiles.length > 0 && (
                                     <div className="mt-6">
                                         <h3 className="text-gray-600 font-medium mb-3">Documents</h3>

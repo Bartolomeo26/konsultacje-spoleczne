@@ -43,12 +43,12 @@ function CommentCard({ reply, comment })
         mutate();
         if (hasUpvoted)
         {
-            // Undo upvote
+            
             setUpvotes(prevUpvotes => prevUpvotes - 1);
             setHasUpvoted(false);
         } else
         {
-            // Add upvote
+            
             setUpvotes(prevUpvotes => prevUpvotes + 1);
             setHasUpvoted(true);
         }

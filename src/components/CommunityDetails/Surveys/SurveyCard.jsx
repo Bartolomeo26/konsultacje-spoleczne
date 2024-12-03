@@ -8,8 +8,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 function SurveyCard()
 {
     const [selectedOption, setSelectedOption] = useState('');
-    const [voted, setVoted] = useState(false); // Zarządzanie stanem głosowania
-    const [showResults, setShowResults] = useState(false); // Zarządzanie stanem modala z wynikami
+    const [voted, setVoted] = useState(false);
+    const [showResults, setShowResults] = useState(false); 
 
     const handleOptionChange = (e) =>
     {
@@ -23,31 +23,31 @@ function SurveyCard()
         const finalAnswer = selectedOption;
         console.log('Final answer:', finalAnswer);
         alert('Ankieta wysłana: ' + finalAnswer);
-        setVoted(true); // Po zagłosowaniu pokaż nowe przyciski
+        setVoted(true); 
     };
 
     const handleUndoVote = () =>
     {
-        setVoted(false); // Cofnij głos
+        setVoted(false); 
         setSelectedOption('');
     };
 
     const handleShowResults = () =>
     {
-        setShowResults(true); // Pokaż modal z wynikami
+        setShowResults(true);
     };
 
     const handleCloseModal = () =>
     {
-        setShowResults(false); // Zamknij modal
+        setShowResults(false); 
     };
 
-    // Dane statyczne do wykresu kołowego
+   
     const data = {
         labels: ['Clean transport', 'More seats', 'Introduce electric vehicles', 'More routes'],
         datasets: [
             {
-                data: [40, 30, 20, 5], // Przykładowe statyczne dane
+                data: [40, 30, 20, 5], 
                 backgroundColor: ['#4caf50', '#ffeb3b', '#ff9800', '#f44336'],
                 hoverBackgroundColor: ['#66bb6a', '#fff176', '#ffb74d', '#e57373'],
             },
@@ -59,7 +59,7 @@ function SurveyCard()
             <h1 className="text-2xl font-semibold text-center mb-4">How can we improve transportation?</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 items-center gap-4">
-                    {/* Odpowiedzi w układzie dwóch wierszy, z równą szerokością dla każdego */}
+                    
                     <label className="flex items-center">
                         <input
                             type="radio"

@@ -28,7 +28,6 @@ function MainNavigation()
 
     const handleClickOutside = (event) =>
     {
-        // Sprawdzamy, czy kliknięcie nie było w dropdownie
         if (dropdownRef.current && !dropdownRef.current.contains(event.target))
         {
             setIsDropdownOpen(false);

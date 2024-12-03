@@ -17,7 +17,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
     useEffect(() =>
     {
         setSelectedFiles(existingFiles.map(file => ({ ...file, selected: true })));
-        setNewFiles([]); // Ensure new files are reset when modal opens
+        setNewFiles([]); 
     }, [existingFiles]);
 
     const handleFileChange = (index) =>
@@ -37,22 +37,22 @@ function FilesModal({ isOpen, onClose, existingFiles })
             const reader = new FileReader();
             reader.onloadend = () =>
             {
-                // Remove the data URI prefix and keep only the Base64 code
+                
                 const base64Data = reader.result.split(',')[1];
 
                 fileData.push({
-                    description: file.name, // File name
-                    data: base64Data, // Pure Base64 string
-                    type: file.type.startsWith('image/') ? 0 : 1, // 0 for images, 1 for others
+                    description: file.name, 
+                    data: base64Data, 
+                    type: file.type.startsWith('image/') ? 0 : 1, 
                 });
 
-                // Update state once all files are processed
+               
                 if (fileData.length === files.length)
                 {
                     setNewFiles((prevFiles) => [...prevFiles, ...fileData]);
                 }
             };
-            reader.readAsDataURL(file); // Read file as Base64
+            reader.readAsDataURL(file); 
         });
     };
 
@@ -80,7 +80,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
 
     const handleSave = () =>
     {
-        // Save selected existing files + new files
+        
         const filesToSave = [
             ...selectedFiles.filter(file => file.selected),
             ...newFiles,
@@ -93,7 +93,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
             <div className="relative w-[500px] bg-white rounded-xl shadow-2xl border border-gray-200">
-                {/* Close Button */}
+                
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
@@ -101,14 +101,14 @@ function FilesModal({ isOpen, onClose, existingFiles })
                     <X size={24} />
                 </button>
 
-                {/* Modal Header */}
+               
                 <div className="px-6 py-4 border-b border-gray-100">
                     <h2 className="text-xl font-semibold text-gray-800">Update Files</h2>
                 </div>
 
-                {/* Modal Content */}
+                
                 <div className="p-6 space-y-6">
-                    {/* Existing Files Section */}
+                    
                     <div>
                         <h3 className="text-lg font-medium text-gray-700 mb-4">Existing Files</h3>
                         {selectedFiles.length === 0 ? (
@@ -133,7 +133,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
                         )}
                     </div>
 
-                    {/* Add New Files Section */}
+                    
                     <div className="relative">
                         <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
                             Upload Files (PDF, Image, etc.):
@@ -152,7 +152,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
                     </div>
                 </div>
 
-                {/* Modal Actions */}
+                
                 <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end space-x-3">
                     <button
                         onClick={onClose}
