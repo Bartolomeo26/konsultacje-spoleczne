@@ -31,9 +31,9 @@ function DeleteAccount({ user })
     {
         if (enteredName === user.name)
         {
-           
+
             mutate({ userId: user.id });
-            setModalOpen(false); 
+            setModalOpen(false);
         } else
         {
             setMessage("Entered name does not match.");
@@ -44,7 +44,7 @@ function DeleteAccount({ user })
     {
         setModalOpen(false);
         setMessage("");
-        setEnteredName(""); 
+        setEnteredName("");
     }
 
     return (

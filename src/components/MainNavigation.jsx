@@ -12,7 +12,7 @@ function MainNavigation()
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { token = null, removeToken, loggedUser } = useAuth();
-    const dropdownRef = useRef(null); 
+    const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
     const handleSignOut = () =>
@@ -122,7 +122,7 @@ function MainNavigation()
                     )}
                 </div>
             ) : (
-                <div className="hidden md:block">
+                <div className="block">
                     <Link to="/signup">
                         <button type="button" className={classes.button}>Sign In</button>
                     </Link>

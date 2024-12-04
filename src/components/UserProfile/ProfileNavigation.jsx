@@ -8,7 +8,7 @@ function ProfileNavigation({ handleContentChange, isLoggedIn })
 
     return (
         <>
-            <div className="flex absolute top-0 left-72">
+            <div className="flex w-full lg:w-auto justify-center lg:absolute top-0 left-72">
                 <div className="flex text-lg  border-s-4 border-b-4 border-e-4 rounded-b-lg z-10 bg-slate-200" style={{ borderColor: "#155e75" }}>
                     <div className="px-3 py-1">
                         <button onClick={() => handleContentChange('about')}>About</button>

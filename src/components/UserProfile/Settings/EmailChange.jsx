@@ -57,7 +57,7 @@ function EmailChange({ userId })
     return (
         <form id="email-change-form" onSubmit={handleSubmit} className="mb-2 flex flex-col w-full px-7 py-2">
 
-            <div className="mb-3 w-1/2">
+            <div className="mb-3 lg:w-1/2">
                 <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-900">Email</label>
                 <div className="relative">
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -77,7 +77,7 @@ function EmailChange({ userId })
                 </div>
                 {emailIsInvalid && <p className="text-sm text-red-600">Please type a correct email</p>}
             </div>
-            <div className="mb-3 w-1/2">
+            <div className="mb-3 lg:w-1/2">
                 <label htmlFor="confirmEmail" className="block mb-1 text-sm font-medium text-gray-900">Confirm email</label>
                 <div className="relative">
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -97,7 +97,7 @@ function EmailChange({ userId })
                 {confirmEmailIsInvalid && <p className="text-sm text-red-600">Your emails are different</p>}
             </div>
 
-            <p className="form-actions">{isPending && (
+            <p className="form-actions flex md:inline-block justify-center">{isPending && (
                 <>
                     <button type="submit" disabled className={classes.button}>
                         Submitting...

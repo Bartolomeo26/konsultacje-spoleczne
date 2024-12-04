@@ -29,9 +29,9 @@ function UserProfile()
     if (contentType === 'about')
     {
         content = <div className="flex flex-col w-full">
-            <div className="w-4/5 flex flex-col justify-center p-2 py-4">
+            <div className="lg:w-4/5 flex flex-col justify-center p-2 py-4">
                 <h1 className='text-2xl mb-3 font-bold flex items-center gap-1'><UserRound size={26} /> <span className="capitalize">About {isLoggedIn ? 'me' : user?.name}</span></h1>
-                <div className="flex flex-col gap-y-1 px-7">
+                <div className="flex flex-col gap-y-1 lg:px-7">
                     <p className="text-lg">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae perspiciatis nemo numquam ipsa architecto dolores, rerum molestiae illo. Enim quasi ullam ratione, autem velit eius temporibus incidunt at architecto?
                         Tempore beatae explicabo, minima doloribus, quisquam dolorem vero cupiditate nostrum molestias sed iusto commodi, laudantium perferendis sequi culpa possimus aliquam aliquid maiores rem id dolor nobis facilis asperiores. Cupiditate, adipisci.
@@ -60,9 +60,9 @@ function UserProfile()
     return (
         <div className="w-full">
             <ProfileHeader user={user} isLoggedIn={isLoggedIn} />
-            <div className="flex flex-col px-28 mb-10 relative">
+            <div className="flex flex-col px-3.5 lg:px-28 mb-10 relative">
                 <ProfileNavigation handleContentChange={handleContentChange} isLoggedIn={isLoggedIn} />
-                <div className="ps-44 pe-28 mt-12">
+                <div className="lg:ps-44 lg:pe-28 mt-2 lg:mt-12">
                     {content}
                 </div>
             </div>

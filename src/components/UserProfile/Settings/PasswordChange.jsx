@@ -62,7 +62,7 @@ function PasswordChange({ userId })
     return (
         <form id="password-change-form" onSubmit={handleSubmit} className="mb-2 flex flex-col w-full px-7 py-2">
 
-            <div className="mb-3 w-1/2">
+            <div className="mb-3 lg:w-1/2">
                 <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-900">Password</label>
                 <div className="relative">
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -85,7 +85,7 @@ function PasswordChange({ userId })
                 </div>
                 {passwordIsInvalid && <p className="text-sm text-red-600">Password has to have at least 7 characters</p>}
             </div>
-            <div className="mb-3 w-1/2">
+            <div className="mb-3 lg:w-1/2">
                 <label htmlFor="confirmPassword" className="block mb-1 text-sm font-medium text-gray-900">Confirm Password</label>
                 <div className="relative">
                     <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -108,7 +108,7 @@ function PasswordChange({ userId })
                 {confirmPasswordIsInvalid && <p className="text-sm text-red-600">Your passwords are different</p>}
             </div>
 
-            <p className="form-actions">{isPending && (
+            <p className="form-actions flex md:inline-block justify-center">{isPending && (
                 <>
                     <button type="submit" disabled className={classes.button}>
                         Submitting...

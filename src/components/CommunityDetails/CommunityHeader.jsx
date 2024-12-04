@@ -70,7 +70,7 @@ function CommunityHeader({ community, permissions })
                         </div>
 
 
-                        <h1 className="text-4xl md:text-6xl lg:text-8xl text-center mb-20 lg:mb-0">
+                        <h1 className="text-6xl md:text-6xl lg:text-8xl text-center mb-14 lg:mb-0">
                             {community.name}
                         </h1>
 
@@ -127,11 +127,11 @@ function CommunityHeader({ community, permissions })
 
                         {permissions.isAdmin && (
                             <div className="absolute bottom-5 w-full">
-                                <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-2 px-4 lg:px-8">
+                                <div className="flex items-top sm:flex-row justify-between gap-2 px-4 lg:px-8">
                                     <Link to={`/communities/${community.id}/edit`}>
-                                        <button type="button" className="w-full sm:w-auto focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-base px-3 py-2.5">
+                                        <button type="button" className="min-w-[200px] sm:w-auto focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base  px-3 py-2.5">
                                             <div className="flex items-center justify-center gap-1">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4 lg:size-5 inline-block">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 inline-block">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                 </svg>
                                                 <span>Edit Community</span>
@@ -145,7 +145,7 @@ function CommunityHeader({ community, permissions })
                     </div>
 
 
-                    <div className="w-full lg:w-1/2 h-[200px] sm:h-[300px] lg:h-[430px]">
+                    <div className="w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[430px]">
                         <img
                             src={community.background ? `data:image/jpeg;base64,${community.background.data}` : defaultCity}
                             alt=""

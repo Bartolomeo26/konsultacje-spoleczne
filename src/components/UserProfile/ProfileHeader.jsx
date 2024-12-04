@@ -10,7 +10,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [originalData, setOriginalData] = useState(null); 
+    const [originalData, setOriginalData] = useState(null);
     const [formData, setFormData] = useState({
         name: user.name,
         surname: user.surname,
@@ -39,7 +39,7 @@ function ProfileHeader({ user, isLoggedIn })
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
 
-   
+
     const { mutate, isLoading, isError, error } = useMutation({
         mutationFn: updateUserProfile,
         onSuccess: () =>
@@ -63,7 +63,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     function handleCancelClick()
     {
-        setFormData(originalData); 
+        setFormData(originalData);
         setIsEditing(false);
     }
 
@@ -75,7 +75,7 @@ function ProfileHeader({ user, isLoggedIn })
 
     return (
         <div className="flex flex-col w-full bg-slate-200 relative">
-            <div className="absolute z-10 top-10 left-6">
+            <div className="flex flex-col items-center justify-center mt-10 lg:mt-0 lg:absolute z-10 top-10 left-6">
                 <AvatarUpload
                     onFileSelect={handleFileSelect}
                     avatarData={user.avatar}
@@ -87,9 +87,9 @@ function ProfileHeader({ user, isLoggedIn })
                     onSuccess={handleAvatarUpdateSuccess}
                 />
             </div>
-            <div className="p-4 ms-56" style={{ height: "135px" }}>
+            <div className="p-4 lg:ms-56" style={{ height: "135px" }}>
                 {isEditing ? (
-                    <div className='w-1/3 flex flex-col gap-y-2 mt-1'>
+                    <div className='lg:w-1/3 flex flex-col gap-y-2 mt-1'>
                         <div className='flex gap-2'>
                             <div className="relative w-1/2">
                                 <input
@@ -147,7 +147,7 @@ function ProfileHeader({ user, isLoggedIn })
                         {isLoggedIn &&
                             <><button
                                 onClick={handleEditClick}
-                                className="absolute top-1 left-0 p-2 text-white rounded-full"
+                                className="absolute top-1 left-16 sm:left-36 md:left-56 lg:left-0 p-2 text-white rounded-full"
                                 style={{ backgroundColor: "rgba(0, 136, 169, 1)" }}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
@@ -155,7 +155,7 @@ function ProfileHeader({ user, isLoggedIn })
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 </svg>
                             </button></>}
-                        <div className=" ml-12">
+                        <div className="text-center lg:text-left lg:ml-12">
                             <h1 className="text-3xl font-bold mb-3">{user.name} {user.surname}</h1>
                             <h1 className="text-xl"><span className='font-semibold'>Birth date:</span> {formatToEuropeanDate(user.birthDate)}</h1>
                             <h1 className="text-xl"><span className='font-semibold'>Email:</span> {user.email}</h1>

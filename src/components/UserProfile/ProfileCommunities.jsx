@@ -6,7 +6,7 @@ import LoadingIndicator from "../LoadingIndicator";
 
 function ProfileCommunities({ user, isLoggedIn })
 {
-    const [filter, setFilter] = useState({ admin: true, member: true }); 
+    const [filter, setFilter] = useState({ admin: true, member: true });
 
     const { isPending, error, data: communities } = useQuery({
         queryKey: ["communities", "profileCommunities"],
@@ -24,13 +24,13 @@ function ProfileCommunities({ user, isLoggedIn })
         const isAdmin = community.administrators?.some((admin) => admin.id === user.id);
         const isMember = community.members?.some((member) => member.id === user.id);
 
-       
+
         return (filter.admin && isAdmin) || (filter.member && isMember);
     });
 
     return (
         <div className="flex flex-col w-full">
-            <div className="w-full flex flex-col justify-center p-2 py-4">
+            <div className="w-full flex flex-col justify-center lg:p-2 py-4">
                 <h1 className="text-2xl mb-3 font-bold capitalize">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +69,7 @@ function ProfileCommunities({ user, isLoggedIn })
                         </label>
                     </div>
 
-                    <div className="grid grid-cols-4 gap-y-3 ">
+                    <div className="grid grid-cols-2 place-items-center sm-grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-3 ">
                         {filteredCommunities?.length > 0 ? (
                             filteredCommunities.map((community) =>
                             {
