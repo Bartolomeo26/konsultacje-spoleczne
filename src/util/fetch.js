@@ -832,3 +832,26 @@ export async function deleteSolution({ solutionId })
         }
     );
 }
+
+export async function editSolution(consultationData)
+{
+
+    const token = localStorage.getItem('token');
+    const { consultation } = consultationData;
+
+    return await axios.patch(
+        `https://localhost:7150/api/issues/${consultation.id}`,
+        [
+            { op: "replace", path: "/title", value: consultation.title },
+            { op: "replace", path: "/description", value: consultation.description },
+
+            { op: "replace", path: "/currentStateEndDate", value: consultation.currentStateEndDate },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}

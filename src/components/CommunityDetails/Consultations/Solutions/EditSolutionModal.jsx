@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { editFiles } from '../../../../util/fetch';
+import { editSolution } from '../../../../util/fetch';
 import { usePopup } from '../../../../util/PopupContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { X, FileUp } from 'lucide-react'
 
-function FilesModal({ isOpen, onClose, existingFiles })
+function EditSolutionModal({ isOpen, onClose, existingFiles })
 {
     const useQuery = useQueryClient();
     const { triggerPopup } = usePopup();
@@ -55,27 +55,26 @@ function FilesModal({ isOpen, onClose, existingFiles })
             reader.readAsDataURL(file);
         });
     };
-
-
     const { mutate, isLoading, isError, error } = useMutation({
-        mutationFn: (filesToSave) => editFiles(filesToSave, consultationId),
-        onSuccess: (data) =>
+        mutationFn: (filesToSave) => editSolution(filesToSave, consultationId),
+        onSuccess: () =>
         {
-            useQuery.invalidateQueries(['consultation', consultationId]);
-            triggerPopup('Files successfully edited!', 'success', 3000, () =>
+            triggerPopup('Solution successfully edited!', 'success', 3000, () =>
             {
                 console.log('Popup closed');
             });
 
-            onClose();
+            useQuery.invalidateQueries({ queryKey: ['solutions', consultationId] })
+
         },
-        onError: (error) =>
+        onError: (err) =>
         {
-            triggerPopup('Error: ' + error, 'error', 3000, () =>
+            triggerPopup(`Error: ${err.message}`, 'success', 3000, () =>
             {
                 console.log('Popup closed');
             });
-        }
+            alert(`Error: ${err.message}`);
+        },
     });
 
     const handleSave = () =>
@@ -103,7 +102,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
 
 
                 <div className="px-6 py-4 border-b border-gray-100">
-                    <h2 className="text-xl font-semibold text-gray-800">Update Files</h2>
+                    <h2 className="text-xl font-semibold text-gray-800">Edit solution</h2>
                 </div>
 
 
@@ -172,4 +171,4 @@ function FilesModal({ isOpen, onClose, existingFiles })
     );
 }
 
-export default FilesModal;
+export default EditSolutionModal;

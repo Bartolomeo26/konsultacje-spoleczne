@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp, Eye, Download, FileImage, FileText } from "luci
 import ImageModal from "../Files/ImageModal";
 import SolutionVote from "./SolutionVote";
 import DeleteSolution from "./DeleteSolution";
+import EditSolution from "./EditSolution";
 
 function SolutionCard({ solution, hasVoted, issueStatus })
 {
@@ -77,7 +78,12 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                                 solution={solution}
                                 hasVoted={hasVoted}
                             />)}
-                        <DeleteSolution solution={solution} />
+                        {issueStatus === 0 && (
+                            <>
+                                <DeleteSolution solution={solution} />
+                                <EditSolution files={solution.files} />
+                            </>)}
+
                     </div>
                 </div>
                 {solution.files?.length > 0 && (
