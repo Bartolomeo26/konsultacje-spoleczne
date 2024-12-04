@@ -8,7 +8,7 @@ function DeleteCommunityModal({
 })
 {
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded p-6 w-96">
                 <h2 className="text-lg font-bold mb-2">Delete Community</h2>
                 <p className="text-sm mb-4">

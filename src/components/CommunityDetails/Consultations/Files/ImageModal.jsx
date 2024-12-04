@@ -17,14 +17,14 @@ const ImageModal = ({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
             >
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={`relative rounded-xl shadow-2xl max-w-4xl w-full bg-${backgroundColor}`}
+                    className={`relative rounded-xl  shadow-2xl max-w-4xl w-full bg-${backgroundColor}`}
                     style={{ backgroundColor: backgroundColor !== 'white' ? backgroundColor : undefined }}
                 >
                     {closeButtonPosition === 'outside' ? (

@@ -26,8 +26,8 @@ function ConsultationTopic({ consultation, permissions })
                 <div className="absolute top-3 right-2">
                     <div className="flex gap-1">
                         <Link to={`/communities/${consultation?.communityId}/consultations/${consultation?.id}/edit`}>
-                            <button type="button" className="w-full sm:w-auto focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm lg:text-base p-2.5">
-                                <PenLine size={16} />
+                            <button type="button" className=" bg-blue-800 hover:bg-blue-700 text-white p-1 rounded-lg shadow-lg transition-colors transform hover:scale-105">
+                                <PenLine />
                             </button></Link>
                         <DeleteConsultation consultation={consultation} />
                     </div>

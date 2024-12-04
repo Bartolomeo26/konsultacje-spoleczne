@@ -25,7 +25,7 @@ function SolutionsList({ issueStatus, permissions })
     return (
         <>
             <div
-                onClick={() => !isExpanded && setIsExpanded(true)}
+
                 className={`bg-white rounded-xl shadow-md border border-gray-100 p-6 mt-3 mb-3 relative 
                     transition-all duration-1000 ease-in-out
                     ${!isExpanded ? 'cursor-pointer' : ''}

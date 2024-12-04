@@ -1,25 +1,25 @@
-function DeleteConsultationModal({
+function DeleteSolutionModal({
     enteredTitle,
     setEnteredTitle,
     confirmDelete,
     closeModal,
-    consultationTitle,
+    solutionTitle,
     error
 })
 {
     return (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded p-6 w-96">
-                <h2 className="text-lg font-bold mb-2">Delete Consultation</h2>
+                <h2 className="text-lg font-bold mb-2">Delete Solution</h2>
                 <p className="text-sm mb-4">
-                    Are you sure you want to delete the consultation <strong>{consultationTitle}</strong>? This action
-                    is irreversible. Please type the consultation title to confirm.
+                    Are you sure you want to delete the solution <strong>{solutionTitle}</strong>? This action
+                    is irreversible. Please type the solution title to confirm.
                 </p>
                 <input
                     type="text"
                     value={enteredTitle}
                     onChange={(e) => setEnteredTitle(e.target.value)}
-                    placeholder="Enter consultation title"
+                    placeholder="Enter solution title"
                     className="border rounded p-2 w-full mb-2"
                 />
                 {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
@@ -42,4 +42,4 @@ function DeleteConsultationModal({
     );
 }
 
-export default DeleteConsultationModal;
+export default DeleteSolutionModal;

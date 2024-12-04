@@ -11,7 +11,7 @@ const UpvotesModal = ({ upvotes, onClose }) =>
             {
                 onClose();
             }
-        }} className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+        }} className="fixed inset-0 bg-black/40 backdrop-blur-sm bg-opacity-50 z-50 flex justify-center items-center">
             <div className="bg-white rounded-xl shadow-lg w-96 max-h-96 overflow-y-auto">
                 <div className="flex justify-between items-center p-4 border-b">
                     <h2 className="text-lg font-semibold flex items-center gap-2">

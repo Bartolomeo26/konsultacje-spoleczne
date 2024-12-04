@@ -47,7 +47,7 @@ function NewSolution({ consultationId })
                 onClick={() => setIsModalOpen(true)}
                 className="
                 absolute top-2 right-12 z-10
-                    bg-green-700 hover:bg-green-800 
+                    bg-green-700 hover:bg-green-600 
                     text-white p-1 rounded-lg 
                     shadow-lg transition-colors
                     transform hover:scale-105

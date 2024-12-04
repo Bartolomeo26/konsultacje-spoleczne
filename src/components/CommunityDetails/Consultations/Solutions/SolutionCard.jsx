@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Eye, Download, FileImage, FileText } from "lucide-react";
 import ImageModal from "../Files/ImageModal";
 import SolutionVote from "./SolutionVote";
+import DeleteSolution from "./DeleteSolution";
 
 function SolutionCard({ solution, hasVoted, issueStatus })
 {
@@ -70,11 +71,14 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                         <h2 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h2>
                         <p className="text-gray-600 mb-4">{solution.description}</p>
                     </div>
-                    {issueStatus === 1 && (
-                        <SolutionVote
-                            solution={solution}
-                            hasVoted={hasVoted}
-                        />)}
+                    <div className="flex self-start items-center gap-2">
+                        {issueStatus === 1 && (
+                            <SolutionVote
+                                solution={solution}
+                                hasVoted={hasVoted}
+                            />)}
+                        <DeleteSolution solution={solution} />
+                    </div>
                 </div>
                 {solution.files?.length > 0 && (
                     <div className="bg-gray-50 rounded-lg">

@@ -816,3 +816,19 @@ export async function upVoteSolution(solutionId)
         });
 
 }
+
+export async function deleteSolution({ solutionId })
+{
+    const token = localStorage.getItem('token');
+
+    console.log("USUWANIE!", solutionId)
+    return await axios.delete(
+        `https://localhost:7150/api/solutions/${solutionId}`,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}

@@ -17,7 +17,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
     useEffect(() =>
     {
         setSelectedFiles(existingFiles.map(file => ({ ...file, selected: true })));
-        setNewFiles([]); 
+        setNewFiles([]);
     }, [existingFiles]);
 
     const handleFileChange = (index) =>
@@ -37,22 +37,22 @@ function FilesModal({ isOpen, onClose, existingFiles })
             const reader = new FileReader();
             reader.onloadend = () =>
             {
-                
+
                 const base64Data = reader.result.split(',')[1];
 
                 fileData.push({
-                    description: file.name, 
-                    data: base64Data, 
-                    type: file.type.startsWith('image/') ? 0 : 1, 
+                    description: file.name,
+                    data: base64Data,
+                    type: file.type.startsWith('image/') ? 0 : 1,
                 });
 
-               
+
                 if (fileData.length === files.length)
                 {
                     setNewFiles((prevFiles) => [...prevFiles, ...fileData]);
                 }
             };
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
         });
     };
 
@@ -80,7 +80,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
 
     const handleSave = () =>
     {
-        
+
         const filesToSave = [
             ...selectedFiles.filter(file => file.selected),
             ...newFiles,
@@ -92,8 +92,8 @@ function FilesModal({ isOpen, onClose, existingFiles })
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="relative w-[500px] bg-white rounded-xl shadow-2xl border border-gray-200">
-                
+            <div className="relative w-[500px] bg-white rounded-xl shadow-2xl">
+
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
@@ -101,14 +101,14 @@ function FilesModal({ isOpen, onClose, existingFiles })
                     <X size={24} />
                 </button>
 
-               
+
                 <div className="px-6 py-4 border-b border-gray-100">
                     <h2 className="text-xl font-semibold text-gray-800">Update Files</h2>
                 </div>
 
-                
+
                 <div className="p-6 space-y-6">
-                    
+
                     <div>
                         <h3 className="text-lg font-medium text-gray-700 mb-4">Existing Files</h3>
                         {selectedFiles.length === 0 ? (
@@ -133,18 +133,18 @@ function FilesModal({ isOpen, onClose, existingFiles })
                         )}
                     </div>
 
-                    
+
                     <div className="relative">
                         <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
                             Upload Files (PDF, Image, etc.):
                         </label>
-                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-500 transition-all">
+                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-800 transition-all">
                             <input
                                 type="file"
                                 id="files"
                                 accept="image/*,application/pdf"
                                 onChange={handleAddFiles}
-                                className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+                                className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-800 hover:file:bg-blue-100"
                                 multiple
                             />
                             <FileUp className="mr-3 text-gray-400" />
@@ -152,8 +152,8 @@ function FilesModal({ isOpen, onClose, existingFiles })
                     </div>
                 </div>
 
-                
-                <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end space-x-3">
+
+                <div className="px-6 py-4 rounded-b-xl bg-gray-50 border-t border-gray-100 flex justify-end space-x-3">
                     <button
                         onClick={onClose}
                         className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition"
@@ -162,7 +162,7 @@ function FilesModal({ isOpen, onClose, existingFiles })
                     </button>
                     <button
                         onClick={handleSave}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                        className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-700 transition"
                     >
                         Save Changes
                     </button>

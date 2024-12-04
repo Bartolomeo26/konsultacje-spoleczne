@@ -75,7 +75,7 @@ function CommentInput({ handleInput, value, inputRef, issueStatus })
         transition-all duration-75 active:scale-95
         ${isLoading
                             ? "bg-gray-500 cursor-not-allowed"
-                            : "bg-green-700 hover:bg-green-800 active:bg-green-900"
+                            : "bg-green-700 hover:bg-green-600 active:bg-green-500"
                         }`}
                 >
                     {isLoading ? "Submitting..." : "Comment"}

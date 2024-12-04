@@ -1,7 +1,7 @@
 function DeleteAccountModal({ enteredName, setEnteredName, confirmDelete, closeModal, userName, error })
 {
     return (
-        <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-10 bg-black/40 backdrop-blur-sm bg-opacity-50 flex items-center justify-center">
             <div className="bg-white p-5 rounded shadow-md w-80">
                 <h2 className="text-lg font-semibold">Confirm Account Deletion</h2>
                 <p className="my-2">Are you sure you want to delete your account? Please type your name to confirm:</p>
