@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PenLine } from "lucide-react";
 import EditSolutionModal from './EditSolutionModal';
 
-function EditSolution({ files })
+function EditSolution({ solution })
 {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,7 +31,7 @@ function EditSolution({ files })
                 <EditSolutionModal
                     isOpen={isModalOpen}
                     onClose={handleCloseModal}
-                    existingFiles={files}
+                    solution={solution}
 
                 />
             )}

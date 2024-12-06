@@ -81,7 +81,7 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                         {issueStatus === 0 && (
                             <>
                                 <DeleteSolution solution={solution} />
-                                <EditSolution files={solution.files} />
+                                <EditSolution solution={solution} />
                             </>)}
 
                     </div>

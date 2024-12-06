@@ -20,7 +20,7 @@ function NewSolution({ consultationId })
             });
             console.log("Consultation created successfully:", data);
 
-            queryClient.invalidateQueries({ queryKey: ['solutions'] })
+            queryClient.invalidateQueries({ queryKey: ['solutions', consultationId] })
 
         },
         onError: (error) =>

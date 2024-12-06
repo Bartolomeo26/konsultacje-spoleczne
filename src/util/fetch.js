@@ -833,19 +833,36 @@ export async function deleteSolution({ solutionId })
     );
 }
 
-export async function editSolution(consultationData)
+export async function editSolution(solutionData)
 {
 
     const token = localStorage.getItem('token');
-    const { consultation } = consultationData;
+    console.log('halko', solutionData)
+
+    return await axios.put(
+        `https://localhost:7150/api/solutions/${solutionData.id}`,
+        solutionData,
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
+export async function editSolutionPatch(solutionData)
+{
+
+    const token = localStorage.getItem('token');
+    console.log('halko', solutionData)
 
     return await axios.patch(
-        `https://localhost:7150/api/issues/${consultation.id}`,
+        `https://localhost:7150/api/solutions/${solutionData.id}`,
         [
-            { op: "replace", path: "/title", value: consultation.title },
-            { op: "replace", path: "/description", value: consultation.description },
-
-            { op: "replace", path: "/currentStateEndDate", value: consultation.currentStateEndDate },
+            { op: "replace", path: "/title", value: solutionData.title },
+            { op: "replace", path: "/description", value: solutionData.description },
+            { op: "replace", path: "/files", value: solutionData.files },
         ],
         {
             headers: {
