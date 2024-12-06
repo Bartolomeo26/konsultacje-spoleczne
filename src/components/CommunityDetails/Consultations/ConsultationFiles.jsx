@@ -5,17 +5,17 @@ import DocumentCard from "./Files/DocumentCard";
 import ImageModal from "./Files/ImageModal";
 import NewFiles from "./Files/NewFiles";
 
-function ConsultationFiles({ initialFiles })
+function ConsultationFiles({ initialFiles, issueStatus, permissions })
 {
     const [activeCategory, setActiveCategory] = useState('all');
     const [activeImage, setActiveImage] = useState(null);
-    
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const imageFiles = initialFiles?.filter(file => file.type === 0);
     const documentFiles = initialFiles?.filter(file => file.type === 1);
 
-    
+
     const base64ToBlob = (base64, type) =>
     {
         const byteCharacters = atob(base64);
@@ -80,8 +80,8 @@ function ConsultationFiles({ initialFiles })
                 ${isExpanded ? 'max-h-[1000px] overflow-visible' : 'max-h-16 overflow-hidden'}
             `}
         >
-            <NewFiles files={initialFiles} />
-            
+            {issueStatus < 4 && permissions.isAdmin && <NewFiles files={initialFiles} />}
+
             <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="
@@ -95,7 +95,7 @@ function ConsultationFiles({ initialFiles })
                 {isExpanded ? <ChevronUp /> : <ChevronDown />}
             </button>
 
-            
+
             {!isExpanded && (
                 <div className="absolute top-2 left-3 text-gray-500 flex items-center">
                     <Files className="mr-1 text-gray-600" size={18} />
@@ -103,7 +103,7 @@ function ConsultationFiles({ initialFiles })
                 </div>
             )}
 
-            
+
             <div
                 className={`
                     transition-all duration-300 ease-in-out
@@ -112,7 +112,7 @@ function ConsultationFiles({ initialFiles })
             >
                 {isExpanded && (
                     <div>
-                        
+
                         <div className="flex space-x-4 mb-6 border-b pb-3">
                             <button
                                 onClick={() => setActiveCategory('all')}
@@ -163,7 +163,7 @@ function ConsultationFiles({ initialFiles })
                                     </div>
                                 )}
 
-                                
+
                                 {documentFiles.length > 0 && (
                                     <div className="mt-6">
                                         <h3 className="text-gray-600 font-medium mb-3">Documents</h3>

@@ -15,7 +15,7 @@ const SORTING_OPTIONS = [
     { value: "id_asc", label: "Oldest", field: "Id", order: "asc" }
 ];
 
-function CommentsList({ reply })
+function CommentsList({ reply, admin })
 {
 
     const [sortConfig, setSortConfig] = useState({
@@ -73,7 +73,7 @@ function CommentsList({ reply })
                     </div>
                 ) : (
                     comments.map((comment) => (
-                        <CommentCard key={comment?.id} reply={reply} comment={comment} />
+                        <CommentCard key={comment?.id} reply={reply} comment={comment} admin={admin} />
                     ))
                 )}
             </div>

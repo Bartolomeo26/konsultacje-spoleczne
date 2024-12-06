@@ -3,7 +3,7 @@ import { Settings, X } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { usePopup } from '../../../util/PopupContext';
 
-function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus })
+function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus, permissions })
 {
     const { triggerPopup } = usePopup();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,7 +35,7 @@ function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus 
 
 
     return (<>
-        {issueStatus < 4 &&
+        {issueStatus < 4 && permissions.isAdmin &&
             <button
                 onClick={openModal}
                 className="absolute right-80 top-0 bg-cyan-700 text-white rounded-full p-1 hover:bg-cyan-600"

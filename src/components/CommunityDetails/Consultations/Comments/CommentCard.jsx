@@ -1,4 +1,4 @@
-import { Plus, InfoIcon, Redo2 } from 'lucide-react';
+import { Plus, InfoIcon, Redo2, Star } from 'lucide-react';
 import { useState } from 'react';
 import { formatDateTime } from '../../../../util/formatDate';
 import defaultProfile from '../../../../assets/defaultProfile.jpg'
@@ -11,7 +11,7 @@ import IssueStatusTag from './IssueStatusTag';
 import Tooltip from '../../../Tooltip';
 import UpvotesModal from './UpvotesModal';
 
-function CommentCard({ reply, comment })
+function CommentCard({ reply, comment, admin })
 {
     const { loggedUser = null } = useAuth();
     const isAuthor = loggedUser.id === comment?.author.id;
@@ -28,8 +28,6 @@ function CommentCard({ reply, comment })
         onSuccess: () =>
         {
             queryClient.invalidateQueries({ queryKey: ['comments', consultationId] })
-
-
         },
         onError: (error) =>
         {
@@ -37,32 +35,32 @@ function CommentCard({ reply, comment })
         },
     });
 
-
     const handleUpvote = () =>
     {
         mutate();
         if (hasUpvoted)
         {
-            
             setUpvotes(prevUpvotes => prevUpvotes - 1);
             setHasUpvoted(false);
         } else
         {
-            
             setUpvotes(prevUpvotes => prevUpvotes + 1);
             setHasUpvoted(true);
         }
     };
 
+    // Check if the comment author is an admin
+    const isCommentAuthorAdmin = comment?.authorId === admin.id;
+
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 
-                        p-6 hover:border-gray-300 transition-colors relative">
+        <div className={`bg-white rounded-xl shadow-sm border border-gray-200 
+                        p-6  transition-colors relative
+                        ${isCommentAuthorAdmin ? 'border-blue-400 hover:border-blue-500' : 'hover:border-gray-300'}`}>
             <div className="absolute top-4 right-4 flex items-center gap-2 text-sm text-gray-500">
                 <span>{formatDateTime(comment?.createdAt)}</span>
                 <Tooltip content={<IssueStatusTag status={comment?.issueStatus} />}>
                     <InfoIcon className="w-4 h-4" />
                 </Tooltip>
-
             </div>
 
             <div className="space-y-4">
@@ -81,11 +79,21 @@ function CommentCard({ reply, comment })
                                 className="w-8 h-8 rounded-full object-cover"
                             />
                         )}
-                        <p className="text-gray-600">{comment?.author.name} {comment?.author.surname}</p>
+                        <div className="flex items-center gap-2">
+                            <p className="text-gray-600">{comment?.author.name} {comment?.author.surname}</p>
+                            {isCommentAuthorAdmin && (
+                                <div className="flex items-center gap-1">
+                                    <Star className="w-4 h-4 text-blue-500 fill-current" />
+                                    <span className="text-xs text-blue-600 font-medium">Admin</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </Link>
 
-                <p className="text-lg mt-3 text-gray-900">{comment?.content}</p>
+                <p className={`text-lg mt-3 ${isCommentAuthorAdmin ? 'font-semibold text-gray-900' : 'text-gray-900'}`}>
+                    {comment?.content}
+                </p>
 
                 <div className="flex justify-between items-center pt-4">
                     <button
@@ -113,7 +121,7 @@ function CommentCard({ reply, comment })
                     )}
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 

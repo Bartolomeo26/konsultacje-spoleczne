@@ -794,6 +794,7 @@ export async function editFiles(files, consultationId)
 export async function upVoteSolution(solutionId)
 {
     const token = localStorage.getItem('token');
+    
     return await axios.post(`https://localhost:7150/api/solutions/${solutionId}/upvotes`, null, {
         headers: {
             'accept': 'application/json',

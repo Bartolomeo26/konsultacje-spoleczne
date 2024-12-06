@@ -4,7 +4,7 @@ import { usePopup } from "../../../util/PopupContext";
 import { useParams } from "react-router-dom";
 import { changeStatus } from "../../../util/fetch";
 
-function ConsultationStatusUpdate({ currentStateEndDate, issueStatus })
+function ConsultationStatusUpdate({ currentStateEndDate, issueStatus, permissions })
 {
     const queryClient = useQueryClient();
     const { triggerPopup } = usePopup();
@@ -17,7 +17,7 @@ function ConsultationStatusUpdate({ currentStateEndDate, issueStatus })
             {
                 console.log('Popup closed');
             });
-            console.log("Consultation edited successfully:", data);
+            console.log("Consultation status updated successfully:", data);
             queryClient.invalidateQueries({ queryKey: ['issue', consultationId] })
 
         },
@@ -33,7 +33,7 @@ function ConsultationStatusUpdate({ currentStateEndDate, issueStatus })
     });
     return (
         <div className="absolute top-3 left-36 w-1/2">
-            <ConsultationStatusModal currentEndDate={currentStateEndDate} onUpdateEndDate={mutate} issueStatus={issueStatus} />
+            <ConsultationStatusModal permissions={permissions} currentEndDate={currentStateEndDate} onUpdateEndDate={mutate} issueStatus={issueStatus} />
         </div>
     )
 }

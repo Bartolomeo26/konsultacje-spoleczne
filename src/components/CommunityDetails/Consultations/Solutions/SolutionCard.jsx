@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Eye, Download, FileImage, FileText } from "lucide-react";
+import { ChevronDown, ChevronUp, Eye, Download, FileImage, FileText, Award, ThumbsUp } from "lucide-react";
 import ImageModal from "../Files/ImageModal";
 import SolutionVote from "./SolutionVote";
 import DeleteSolution from "./DeleteSolution";
 import EditSolution from "./EditSolution";
 
-function SolutionCard({ solution, hasVoted, issueStatus })
+function SolutionCard({ solution, permissions, hasVoted, issueStatus, won = false })
 {
     const [filesExpanded, setFilesExpanded] = useState(false);
     const [activeImage, setActiveImage] = useState(null);
@@ -14,6 +14,7 @@ function SolutionCard({ solution, hasVoted, issueStatus })
     {
         setActiveImage(image);
     };
+
     const base64ToBlob = (base64, type) =>
     {
         const byteCharacters = atob(base64);
@@ -34,6 +35,7 @@ function SolutionCard({ solution, hasVoted, issueStatus })
             console.error("Error opening PDF:", error);
         }
     };
+
     const handleDownload = (file) =>
     {
         try
@@ -64,13 +66,41 @@ function SolutionCard({ solution, hasVoted, issueStatus })
 
     return (
         <>
-            <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-1000 ease-in-out">
+            <div className={`
+                ${won
+                    ? 'border-l-4 border-l-emerald-500 bg-emerald-50/30'
+                    : 'bg-white border border-gray-100'}
+                rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out relative
+            `}>
+                {won && (
+                    <div className="absolute top-2 right-2 flex items-center space-x-2">
+                        <div className="flex items-center text-emerald-600">
+                            <Award size={20} className="mr-1 stroke-[2.5px]" />
+                            <span className="text-xs font-medium uppercase tracking-wider">Chosen By Community as Best Solution</span>
+                        </div>
+                        <div className="flex items-center bg-emerald-100 px-2 py-1 rounded-full text-emerald-800">
+                            <ThumbsUp size={14} className="mr-1 stroke-[2.5px]" />
+                            <span className="text-xs font-semibold">
+                                {solution.userVotes.length} Votes
+                            </span>
+                        </div>
+                    </div>
+                )}
+
                 <div className="flex justify-between items-center">
-
-
                     <div className="flex flex-col">
-                        <h2 className="text-xl font-bold text-gray-900 mb-2">{solution.title}</h2>
-                        <p className="text-gray-600 mb-4">{solution.description}</p>
+                        <h2 className={`
+                            text-xl font-bold mb-2 
+                            ${won ? 'text-emerald-800' : 'text-gray-900'}
+                        `}>
+                            {solution.title}
+                        </h2>
+                        <p className={`
+                            mb-4 
+                            ${won ? 'text-emerald-900/80' : 'text-gray-600'}
+                        `}>
+                            {solution.description}
+                        </p>
                     </div>
                     <div className="flex self-start items-center gap-2">
                         {issueStatus === 1 && (
@@ -78,35 +108,46 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                                 solution={solution}
                                 hasVoted={hasVoted}
                             />)}
-                        {issueStatus === 0 && (
+                        {issueStatus === 0 && permissions.isAdmin && (
                             <>
                                 <DeleteSolution solution={solution} />
                                 <EditSolution solution={solution} />
                             </>)}
-
                     </div>
                 </div>
                 {solution.files?.length > 0 && (
-                    <div className="bg-gray-50 rounded-lg">
+                    <div className={`
+                        ${won ? 'bg-emerald-50/30' : 'bg-gray-50'} 
+                        rounded-lg mt-2
+                    `}>
                         <button
                             onClick={() => setFilesExpanded(!filesExpanded)}
-                            className="w-full flex justify-between items-center p-3 hover:bg-gray-100 rounded-t-lg transition-colors"
+                            className={`
+                                w-full flex justify-between items-center p-3 
+                                ${won
+                                    ? 'hover:bg-emerald-100/50'
+                                    : 'hover:bg-gray-100'} 
+                                rounded-t-lg transition-colors
+                            `}
                         >
                             <div className="flex items-center">
                                 {solution.files[0].type === 0 ? (
-                                    <FileImage className="mr-2 text-gray-500" size={16} />
+                                    <FileImage className={`mr-2 ${won ? 'text-emerald-600' : 'text-gray-500'}`} size={16} />
                                 ) : (
-                                    <FileText className="mr-2 text-gray-500" size={16} />
+                                    <FileText className={`mr-2 ${won ? 'text-emerald-600' : 'text-gray-500'}`} size={16} />
                                 )}
-                                <h3 className="font-semibold text-gray-800">
+                                <h3 className={`
+                                    font-semibold 
+                                    ${won ? 'text-emerald-900/80' : 'text-gray-800'}
+                                `}>
                                     Attached Files ({solution.files.length})
                                 </h3>
                             </div>
                             <div>
                                 {filesExpanded ? (
-                                    <ChevronUp className="text-gray-600" size={20} />
+                                    <ChevronUp className={`${won ? 'text-emerald-700' : 'text-gray-600'}`} size={20} />
                                 ) : (
-                                    <ChevronDown className="text-gray-600" size={20} />
+                                    <ChevronDown className={`${won ? 'text-emerald-700' : 'text-gray-600'}`} size={20} />
                                 )}
                             </div>
                         </button>
@@ -116,27 +157,43 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                                 {solution.files.map((file) => (
                                     <li
                                         key={file.id}
-                                        className="flex justify-between items-center hover:bg-gray-100 rounded px-2 py-1 transition-colors"
+                                        className={`
+                                            flex justify-between items-center 
+                                            ${won ? 'hover:bg-emerald-100/50' : 'hover:bg-gray-100'} 
+                                            rounded px-2 py-1 transition-colors
+                                        `}
                                     >
                                         <div className="flex items-center">
                                             {file.type === 0 ? (
-                                                <FileImage className="mr-2 text-blue-500" size={16} />
+                                                <FileImage className={`mr-2 ${won ? 'text-emerald-600' : 'text-blue-500'}`} size={16} />
                                             ) : (
-                                                <FileText className="mr-2 text-green-500" size={16} />
+                                                <FileText className={`mr-2 ${won ? 'text-emerald-600' : 'text-green-500'}`} size={16} />
                                             )}
-                                            <span className="text-gray-700">{file.description}</span>
+                                            <span className={`${won ? 'text-emerald-900/80' : 'text-gray-700'}`}>
+                                                {file.description}
+                                            </span>
                                         </div>
                                         <div className="flex items-center space-x-2">
                                             <button
                                                 onClick={() => file.type === 0 ? handlePreview(file) : handleFileClick(file)}
-                                                className="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50 transition-colors"
+                                                className={`
+                                                    ${won
+                                                        ? 'text-emerald-600 hover:text-emerald-800 hover:bg-emerald-100/50'
+                                                        : 'text-blue-600 hover:text-blue-800 hover:bg-blue-50'} 
+                                                    p-1 rounded transition-colors
+                                                `}
                                                 title="Preview"
                                             >
                                                 <Eye size={16} />
                                             </button>
                                             <button
                                                 onClick={() => handleDownload(file)}
-                                                className="text-green-600 hover:text-green-800 p-1 rounded hover:bg-green-50 transition-colors"
+                                                className={`
+                                                    ${won
+                                                        ? 'text-emerald-600 hover:text-emerald-800 hover:bg-emerald-100/50'
+                                                        : 'text-green-600 hover:text-green-800 hover:bg-green-50'} 
+                                                    p-1 rounded transition-colors
+                                                `}
                                                 title="Download"
                                             >
                                                 <Download size={16} />
@@ -152,9 +209,7 @@ function SolutionCard({ solution, hasVoted, issueStatus })
                     activeImage={activeImage}
                     onClose={() => setActiveImage(null)}
                 />
-            </div >
-
-
+            </div>
         </>
     );
 }

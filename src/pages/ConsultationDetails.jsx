@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { getCommunity, getIssue } from "../util/fetch";
 import { useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { formatDateTime } from "../util/formatDate";
 import ConsultationFiles from "../components/CommunityDetails/Consultations/ConsultationFiles";
 import SolutionsList from "../components/CommunityDetails/Consultations/Solutions/SolutionsList";
 import CommentsList from "../components/CommunityDetails/Consultations/Comments/CommentsList";
@@ -14,8 +13,6 @@ import { useAuth } from "../util/AuthContext";
 import ConsultationStatus from "../components/CommunityDetails/Consultations/ConsultationStatus";
 import ConsultationStatusUpdate from "../components/CommunityDetails/Consultations/ConsultationStatusUpdate";
 import Alert from "../components/Alert";
-
-
 
 function ConsultationDetails()
 {
@@ -37,8 +34,20 @@ function ConsultationDetails()
     const permissions = community && loggedUser ? {
         isAdmin: community?.administrators.some(admin => admin.id === loggedUser.id),
         isMember: community?.members.some(member => member.id === loggedUser.id)
-    } : { isAdmin: false, isMember: false };
+    } : { isAdmin: 'unknown', isMember: 'unknown' };
 
+    if (!permissions.isAdmin && !permissions.isMember)
+    {
+
+
+        return <div className="mt-10 w-1/2 flex justify-center"> <Alert
+            type="danger"
+            message={{
+                title: 'No permission',
+                text: 'You have no permission to view consultations in this community.'
+            }}
+        /></div>
+    }
     function reply(user)
     {
         setComment(`@${user} ` + comment);
@@ -66,8 +75,8 @@ function ConsultationDetails()
                         </svg>
                     </button>
                 </Link>
-                <ConsultationTopic consultation={consultation} permissions={permissions} />
-                <ConsultationFiles initialFiles={consultation?.files} />
+                <ConsultationTopic consultation={consultation} permissions={permissions} issueStatus={consultation?.issueStatus} admin={community?.administrators[0]} />
+                <ConsultationFiles initialFiles={consultation?.files} permissions={permissions} issueStatus={consultation?.issueStatus} />
                 <SolutionsList issueStatus={consultation?.issueStatus} permissions={permissions} />
                 {consultation?.issueStatus < 4 ? <CommentInput handleInput={handleInput} value={comment} inputRef={inputRef} issueStatus={consultation?.issueStatus} /> :
                     <div className="w-3/5"> <Alert
@@ -77,9 +86,9 @@ function ConsultationDetails()
                             text: 'You cannot comment when the consultation status reached completed phase.'
                         }}
                     /></div>}
-                <CommentsList reply={reply} />
+                <CommentsList reply={reply} admin={community?.administrators[0]} />
             </div>
-            <ConsultationStatusUpdate currentStateEndDate={consultation?.currentStateEndDate} issueStatus={consultation?.issueStatus} />
+            <ConsultationStatusUpdate permissions={permissions} currentStateEndDate={consultation?.currentStateEndDate} issueStatus={consultation?.issueStatus} />
         </div>
     </>)
 }
