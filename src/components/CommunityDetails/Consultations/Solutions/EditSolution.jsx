@@ -1,10 +1,39 @@
 import { useState } from 'react';
 import { PenLine } from "lucide-react";
 import EditSolutionModal from './EditSolutionModal';
-
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import { editSolution } from '../../../../util/fetch';
+import { usePopup } from '../../../../util/PopupContext';
+import { useQueryClient } from '@tanstack/react-query';
 function EditSolution({ solution })
 {
+
+    const queryClient = useQueryClient();
+    const { triggerPopup } = usePopup();
+    const { consultationId } = useParams();
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const { mutate, isLoading, isError, error } = useMutation({
+        mutationFn: editSolution,
+        onSuccess: () =>
+        {
+            triggerPopup('Solution successfully edited!', 'success', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+            queryClient.invalidateQueries({ queryKey: ['solutions', consultationId] });
+            setIsModalOpen(false);
+        },
+        onError: (err) =>
+        {
+            triggerPopup(`Error: ${err.message}`, 'error', 3000, () =>
+            {
+                console.log('Popup closed');
+            });
+
+        },
+    });
 
     const handleOpenModal = () =>
     {
@@ -14,6 +43,12 @@ function EditSolution({ solution })
     const handleCloseModal = () =>
     {
         setIsModalOpen(false);
+    };
+
+    const handleModalSubmit = (updatedSolution) =>
+    {
+        mutate(updatedSolution);
+
     };
 
     return (
@@ -32,7 +67,7 @@ function EditSolution({ solution })
                     isOpen={isModalOpen}
                     onClose={handleCloseModal}
                     solution={solution}
-
+                    onSubmit={handleModalSubmit}
                 />
             )}
         </>

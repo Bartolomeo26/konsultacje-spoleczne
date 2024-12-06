@@ -92,80 +92,81 @@ function FilesModal({ isOpen, onClose, existingFiles })
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-            <div className="relative w-[500px] bg-white rounded-xl shadow-2xl">
-
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
-                >
-                    <X size={24} />
-                </button>
-
-
-                <div className="px-6 py-4 border-b border-gray-100">
-                    <h2 className="text-xl font-semibold text-gray-800">Update Files</h2>
-                </div>
-
-
-                <div className="p-6 space-y-6">
-
-                    <div>
-                        <h3 className="text-lg font-medium text-gray-700 mb-4">Existing Files</h3>
-                        {selectedFiles.length === 0 ? (
-                            <p className="text-gray-500 italic">No files found</p>
-                        ) : (
-                            <div className="space-y-2">
-                                {selectedFiles.map((file, index) => (
-                                    <label
-                                        key={index}
-                                        className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={file.selected}
-                                            onChange={() => handleFileChange(index)}
-                                            className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
-                                        />
-                                        <span className="text-gray-700">{file.description}</span>
-                                    </label>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-
-                    <div className="relative">
-                        <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
-                            Upload Files (PDF, Image, etc.):
-                        </label>
-                        <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-800 transition-all">
-                            <input
-                                type="file"
-                                id="files"
-                                accept="image/*,application/pdf"
-                                onChange={handleAddFiles}
-                                className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-800 hover:file:bg-blue-100"
-                                multiple
-                            />
-                            <FileUp className="mr-3 text-gray-400" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div className="px-6 py-4 rounded-b-xl bg-gray-50 border-t border-gray-100 flex justify-end space-x-3">
+            <div className="relative w-[500px] max-h-[95vh] bg-white rounded-xl shadow-2xl">
+                <div className="overflow-y-auto flex-grow">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition"
+                        className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors"
                     >
-                        Cancel
+                        <X size={24} />
                     </button>
-                    <button
-                        onClick={handleSave}
-                        className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-700 transition"
-                    >
-                        Save Changes
-                    </button>
+
+
+                    <div className="px-6 py-4 border-b border-gray-100">
+                        <h2 className="text-xl font-semibold text-gray-800">Update Files</h2>
+                    </div>
+
+
+                    <div className="p-6 space-y-6">
+
+                        <div>
+                            <h3 className="text-lg font-medium text-gray-700 mb-4">Existing Files</h3>
+                            {selectedFiles.length === 0 ? (
+                                <p className="text-gray-500 italic">No files found</p>
+                            ) : (
+                                <div className="grid grid-cols-1">
+                                    {selectedFiles.map((file, index) => (
+                                        <label
+                                            key={index}
+                                            className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded transition"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={file.selected}
+                                                onChange={() => handleFileChange(index)}
+                                                className="form-checkbox h-5 w-5 text-blue-600 rounded focus:ring-blue-500"
+                                            />
+                                            <span className="text-gray-700">{file.description}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+
+                        <div className="relative">
+                            <label htmlFor="files" className="block mb-2 text-sm font-semibold text-gray-700">
+                                Upload Files (PDF, Image, etc.):
+                            </label>
+                            <div className="flex items-center border-2 border-gray-200 rounded-lg focus-within:border-blue-800 transition-all">
+                                <input
+                                    type="file"
+                                    id="files"
+                                    accept="image/*,application/pdf"
+                                    onChange={handleAddFiles}
+                                    className="w-full p-3 rounded-lg outline-none file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-800 hover:file:bg-blue-100"
+                                    multiple
+                                />
+                                <FileUp className="mr-3 text-gray-400" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className="px-6 py-4 rounded-b-xl bg-gray-50 border-t border-gray-100 flex justify-end space-x-3">
+                        <button
+                            onClick={onClose}
+                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md transition"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleSave}
+                            className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-700 transition"
+                        >
+                            Save Changes
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
