@@ -16,11 +16,11 @@ function CommunityHeader({ community, permissions })
     const { triggerPopup = null } = usePopup();
     const { loggedUser = null } = useAuth();
     const [hasRequested, setHasRequested] = useState(() =>
-        community.joinRequests.find(request => request.userId === loggedUser?.id && request.status === 0)
+        community.joinRequests?.find(request => request.userId === loggedUser?.id && request.status === 0)
     );
 
     const [hasRejected, setHasRejected] = useState(() =>
-        community.joinRequests.find(request => request.userId === loggedUser?.id && request.status === 2)
+        community.joinRequests?.find(request => request.userId === loggedUser?.id && request.status === 2)
     );
 
     const { mutate, isLoading, isError, error } = useMutation({
@@ -51,14 +51,6 @@ function CommunityHeader({ community, permissions })
 
                     <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-4 lg:p-6 relative min-h-[300px] lg:min-h-[430px]">
 
-                        <div className="absolute top-0 border-b-4 border-s-4 border-e-4 p-3 lg:p-4 rounded-b-lg bg-slate-200 border-[#155e75]">
-                            <h1 className="text-lg lg:text-xl text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 lg:size-8 inline-block mb-1">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                                </svg>
-                                {community.isPublic ? "Public Community" : "Private Community"}
-                            </h1>
-                        </div>
                         <div className="absolute left-5 top-5">
                             <Link to={`/communities`}>
                                 <button className="mb-3 p-2 hover:bg-gray-100 rounded-full transition-colors">
@@ -70,7 +62,7 @@ function CommunityHeader({ community, permissions })
                         </div>
 
 
-                        <h1 className="text-6xl md:text-6xl lg:text-8xl text-center mb-14 lg:mb-0">
+                        <h1 className="text-6xl md:text-6xl lg:text-9xl text-center mb-14 lg:mb-10">
                             {community.name}
                         </h1>
 

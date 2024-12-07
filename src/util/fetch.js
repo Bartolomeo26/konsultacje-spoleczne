@@ -157,6 +157,25 @@ export async function updateUserProfile(data)
     );
 }
 
+export async function updateUserDescription(data)
+{
+    const token = localStorage.getItem('token');
+    const { formData: userData } = data;
+
+    return await axios.patch(
+        `https://localhost:7150/api/users/${userData.id}`,
+        [
+            { op: "replace", path: "/description", value: userData.description },
+        ],
+        {
+            headers: {
+                'Content-Type': 'application/json-patch+json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    );
+}
+
 export async function updateEmail(data)
 {
     const token = localStorage.getItem('token');
@@ -217,8 +236,7 @@ export async function createNewCommunity(communityData)
 
     communityData.community.avatar = JSON.parse(communityData.community.avatar);
     communityData.community.background = JSON.parse(communityData.community.background);
-    if (communityData.community.isPublic === 'on') communityData.community.isPublic = true;
-    else communityData.community.isPublic = false;
+
     return await axios.post(`https://localhost:7150/api/communities`, communityData.community, {
         headers: {
             'accept': 'application/json',
@@ -275,8 +293,7 @@ export async function editCommunity(communityData)
     const { community } = communityData;
     community.avatar = JSON.parse(community.avatar);
     community.background = JSON.parse(community.background);
-    if (community.isPublic === 'on') community.isPublic = true;
-    else community.isPublic = false;
+
     console.log(community);
     return await axios.patch(
         `https://localhost:7150/api/communities/${community.id}`,
@@ -287,7 +304,7 @@ export async function editCommunity(communityData)
             { op: "replace", path: "/longitude", value: community.longitude },
             { op: "replace", path: "/avatar", value: community.avatar },
             { op: "replace", path: "/background", value: community.background },
-            { op: "replace", path: "/isPublic", value: community.isPublic }
+
         ],
         {
             headers: {
@@ -428,12 +445,12 @@ export async function getCommunitiesToMap()
     );
 }
 
-export async function getCommunity(id)
+export async function getCommunity(id, fields = 'id, administrators, members, avatar, background, name, description, joinRequests, latitude, longitude')
 {
     console.log('probuje', id)
     return await axios.get(`https://localhost:7150/api/communities/${id}`, {
         params: {
-            Fields: 'id, administrators, members, avatar, background, name, description, isPublic, joinRequests, latitude, longitude'
+            Fields: fields
         },
         headers: {
             'Accept': 'application/vnd.socialconsultations.community.full+json',
@@ -794,7 +811,7 @@ export async function editFiles(files, consultationId)
 export async function upVoteSolution(solutionId)
 {
     const token = localStorage.getItem('token');
-    
+
     return await axios.post(`https://localhost:7150/api/solutions/${solutionId}/upvotes`, null, {
         headers: {
             'accept': 'application/json',
@@ -834,7 +851,7 @@ export async function deleteSolution({ solutionId })
     );
 }
 
-export async function editSolution(solutionData)
+export async function editSolutionPut(solutionData)
 {
 
     const token = localStorage.getItem('token');
@@ -852,7 +869,7 @@ export async function editSolution(solutionData)
     );
 }
 
-export async function editSolutionPatch(solutionData)
+export async function editSolution(solutionData)
 {
 
     const token = localStorage.getItem('token');

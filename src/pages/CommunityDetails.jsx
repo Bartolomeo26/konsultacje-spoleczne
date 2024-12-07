@@ -34,12 +34,12 @@ function CommunityDetails()
     let communityContent;
     if (topic === undefined)
     {
-      
+
         communityContent = <CommunityMain community={community} />;
     } else if (topic === topics[0])
     {
-        
-        if (community?.isPublic || permissions.isAdmin || permissions.isMember)
+
+        if (permissions.isAdmin || permissions.isMember)
         {
             communityContent = <ConsultationsList consultations={community?.issues} permissions={permissions} />;
         } else
@@ -60,8 +60,8 @@ function CommunityDetails()
         }
     } else if (topic === topics[1])
     {
-        
-        if (community?.isPublic || permissions.isAdmin || permissions.isMember)
+
+        if (permissions.isAdmin || permissions.isMember)
         {
             communityContent = <SurveysList />;
         } else
@@ -82,7 +82,7 @@ function CommunityDetails()
         }
     } else if (topic === topics[2])
     {
-        
+
         if (permissions.isAdmin)
         {
             communityContent = <MembersList members={community?.members} />;
@@ -105,7 +105,7 @@ function CommunityDetails()
         }
     } else if (topic === topics[3])
     {
-        
+
         if (permissions.isAdmin)
         {
             communityContent = <JoinRequests joinRequests={community?.joinRequests} communityId={community?.id} />;
@@ -127,7 +127,7 @@ function CommunityDetails()
         }
     } else
     {
-        
+
         communityContent = (
             <div className="flex flex-col w-full">
                 <div className="w-full lg:w-4/5 flex flex-col justify-center p-6 mt-10">

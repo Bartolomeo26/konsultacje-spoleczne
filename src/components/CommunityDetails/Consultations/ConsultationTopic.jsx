@@ -9,7 +9,7 @@ function ConsultationTopic({ consultation, permissions, issueStatus, admin })
     return (<>
         <div className="bg-white rounded-xl relative shadow-md border border-gray-200 p-6 pb-3 hover:border-gray-300 transition-colors">
             <div className="flex flex-col space-y-4">
-                <p className="text-gray-600">{admin.name} {admin.surname}</p>
+                <p className="text-gray-600">{admin?.name} {admin?.surname}</p>
                 <h1 className="text-3xl font-bold text-gray-900">
                     {consultation?.title}
                 </h1>

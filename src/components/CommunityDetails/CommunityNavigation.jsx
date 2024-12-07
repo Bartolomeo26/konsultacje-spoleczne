@@ -5,7 +5,7 @@ function CommunityNavigation({ permissions, joinRequests })
 {
     const { id } = useParams();
     let link = '/communities/' + id;
-    const pendingCount = joinRequests.filter(request => request.status === 0).length;
+    const pendingCount = joinRequests?.filter(request => request.status === 0).length;
 
     return (
         <>

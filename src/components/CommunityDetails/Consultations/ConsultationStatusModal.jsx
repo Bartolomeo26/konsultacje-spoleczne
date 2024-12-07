@@ -28,7 +28,7 @@ function ConsultationStatusModal({ currentEndDate, onUpdateEndDate, issueStatus,
             closeModal();
             return null;
         }
-        onUpdateEndDate({ currentStateEndDate: selectedDate, issueStatus: issueStatus + 1, consultationId });
+        onUpdateEndDate({ currentStateEndDate: selectedDate, issueStatus: issueStatus - 1, consultationId });
         closeModal();
     };
 

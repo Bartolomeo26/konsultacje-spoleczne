@@ -28,7 +28,7 @@ function ConsultationDetails()
 
     const { data: community } = useQuery({
         queryKey: ['community', id],
-        queryFn: () => getCommunity(id)
+        queryFn: () => getCommunity(id, 'administrators,members')
     });
 
     const permissions = community && loggedUser ? {
@@ -38,8 +38,6 @@ function ConsultationDetails()
 
     if (!permissions.isAdmin && !permissions.isMember)
     {
-
-
         return <div className="mt-10 w-1/2 flex justify-center"> <Alert
             type="danger"
             message={{
