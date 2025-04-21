@@ -88,7 +88,7 @@ We plan to continue improving the frontend with features such as:
 * Adding options for authenticating using external providers like Google.  
 * Enhancing user profiles to display metrics like the total number of likes received on their comments.
 ## Team
-This project was developed as a team. Every member for fully responsible for a specific layer: 
+This project was developed as a team. Every member was fully responsible for the specific layer: 
 * Piotr Mazur: [[Link to Repo](https://github.com/sirmazur/SocialConsultations)] (Backend and Azure deployment)
 * Bartosz Spiżarny: [[Link to Repo](https://github.com/Bartolomeo26/konsultacje-spoleczne)] (Frontend)
 * Paweł Rudnik: [[Link to Repo](https://github.com/pabl014/SocialConsultations-SwiftUI)] (Mobile Application)  
