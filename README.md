@@ -27,23 +27,24 @@ The frontend is a Single Page Application (SPA) developed with React. It communi
 
 **(Note: These are general steps based on the technologies used. Specific setup might require additional configuration depending on the full project structure and backend availability.)**
 
-1.  **Clone the repository:**  
+1.  **Clone the repository:**    
     ```bash
     git clone https://github.com/Bartolomeo26/konsultacje-spoleczne.git
     ```
-2.  **Navigate to the project directory:**  
+2.  **Navigate to the project directory:**    
     ```bash
     cd konsultacje-spoleczne
     ```
-3.  **Install dependencies:**
+3.  **Install dependencies:**  
     ```bash
     npm install # or yarn install or pnpm install
     ```
-4.  **Configure environment variables:** You might need a `.env` file with the backend API URL. Check for a `.env.example` file or documentation within the repository.
+4.  **Configure environment variables:** You might need a `.env` file with the backend API URL. Check for a `.env.example` file or documentation within the repository.  
     ```dotenv
     VITE_API_URL=your_backend_api_url
     ```
-5.  **Run the development server:**
+5.  **Run the development server:**  
+
     ```bash
     npm run dev # or yarn dev or pnpm dev
     ```
